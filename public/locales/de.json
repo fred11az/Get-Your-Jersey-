@@ -25,7 +25,8 @@
     "feature2Body": "Bis zu drei Fotos. Sie werden senkrecht in die Nummer eingesetzt.",
     "feature3Title": "Vorschau bestätigen",
     "feature3Body": "Du siehst das exakte Ergebnis vor der Bestellung. Die 300-dpi-Druckdatei geht direkt in die Werkstatt.",
-    "shipping": "Versand Europa + USA"
+    "shipping": "Versand Europa + USA",
+    "priceFrom": "ab {price}"
   },
   "builder": {
     "title": "Gestalte dein Trikot",
@@ -83,7 +84,12 @@
       "generating": "Vorschau wird erstellt…",
       "failed": "Die Vorschau konnte nicht erstellt werden.",
       "regenerate": "Neu erstellen",
-      "looksGood": "Perfekt, ich bestelle"
+      "looksGood": "Perfekt, ich bestelle",
+      "viewFlat": "Flach",
+      "viewWorn": {
+        "man": "Getragen — Mann",
+        "woman": "Getragen — Frau"
+      }
     },
     "step6": {
       "title": "Versand und Zahlung",

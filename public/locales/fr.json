@@ -25,7 +25,8 @@
     "feature2Body": "Jusqu’à trois photos. Elles se placent verticalement à l’intérieur du numéro.",
     "feature3Title": "Valide ton aperçu",
     "feature3Body": "Tu vois le rendu exact avant de commander. Fichier d'impression 300 dpi envoyé à l'atelier.",
-    "shipping": "Livraison Europe + USA"
+    "shipping": "Livraison Europe + USA",
+    "priceFrom": "dès {price}"
   },
   "builder": {
     "title": "Crée ton maillot",
@@ -83,7 +84,12 @@
       "generating": "Génération de l'aperçu…",
       "failed": "L'aperçu n'a pas pu être généré.",
       "regenerate": "Régénérer",
-      "looksGood": "C'est parfait, je commande"
+      "looksGood": "C'est parfait, je commande",
+      "viewFlat": "À plat",
+      "viewWorn": {
+        "man": "Porté — homme",
+        "woman": "Portée — femme"
+      }
     },
     "step6": {
       "title": "Livraison et paiement",

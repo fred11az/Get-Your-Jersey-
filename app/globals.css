@@ -1,0 +1,114 @@
+@import 'tailwindcss';
+
+/* Charte de la section 9 de docs/SPEC.md. */
+@theme {
+  --color-brand: #1e40af;
+  --color-brand-dark: #1a368f;
+  --color-brand-soft: #eef2ff;
+  --color-accent: #ff9500;
+  --color-accent-dark: #e8850a;
+  --color-ink: #333333;
+  --color-ink-soft: #6b7280;
+  --color-hairline: #e5e7eb;
+
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --radius-control: 8px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 2rem;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  /* Cible de toucher confortable sur mobile pour tout élément interactif. */
+  button,
+  a[role='button'] {
+    touch-action: manipulation;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .gyj-card {
+    background: #fff;
+    border: 1px solid var(--color-hairline);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+  }
+
+  .gyj-field {
+    width: 100%;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-control);
+    padding: 0.65rem 0.85rem;
+    font-size: 0.975rem;
+    background: #fff;
+    color: var(--color-ink);
+  }
+
+  .gyj-field:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px rgb(30 64 175 / 0.15);
+  }
+
+  .gyj-field[aria-invalid='true'] {
+    border-color: #dc2626;
+  }
+
+  .gyj-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0.35rem;
+  }
+}
+
+/* Fond neutre derrière les mockups : les PNG sont opaques sur fond blanc, un
+   damier de transparence n'aurait rien à révéler. */
+.gyj-mockup-bg {
+  background-color: #f7f8fa;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

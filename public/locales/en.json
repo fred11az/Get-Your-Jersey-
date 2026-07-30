@@ -25,7 +25,8 @@
     "feature2Body": "Up to three photos. They stack vertically inside the number.",
     "feature3Title": "Approve your preview",
     "feature3Body": "You see the exact result before ordering. A 300 dpi print file goes straight to the workshop.",
-    "shipping": "Shipping to Europe + USA"
+    "shipping": "Shipping to Europe + USA",
+    "priceFrom": "from {price}"
   },
   "builder": {
     "title": "Build your jersey",
@@ -83,7 +84,12 @@
       "generating": "Generating preview…",
       "failed": "The preview could not be generated.",
       "regenerate": "Regenerate",
-      "looksGood": "Looks great, order it"
+      "looksGood": "Looks great, order it",
+      "viewFlat": "Flat",
+      "viewWorn": {
+        "man": "Worn — man",
+        "woman": "Worn — woman"
+      }
     },
     "step6": {
       "title": "Shipping and payment",

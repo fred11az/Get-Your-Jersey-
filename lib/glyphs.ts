@@ -1,6 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import opentype from 'opentype.js';
+// Le build ESM d'opentype.js n'expose pas d'export par défaut, uniquement des
+// exports nommés : un `import opentype from` casse le bundle de production.
+import { parse, type Font } from 'opentype.js';
 
 /**
  * Vectorisation du texte (nom et numéro) en chemins SVG.
@@ -15,12 +17,12 @@ import opentype from 'opentype.js';
  */
 const FONT_FILE = 'jersey-display.woff';
 
-let fontPromise: Promise<opentype.Font> | null = null;
+let fontPromise: Promise<Font> | null = null;
 
-export function loadFont(): Promise<opentype.Font> {
+export function loadFont(): Promise<Font> {
   if (!fontPromise) {
     fontPromise = readFile(path.join(process.cwd(), 'public', 'fonts', FONT_FILE)).then((buf) =>
-      opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)),
+      parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength)),
     );
   }
   return fontPromise;

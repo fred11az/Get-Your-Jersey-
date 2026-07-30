@@ -2,6 +2,7 @@ import sharp, { type OverlayOptions } from 'sharp';
 import path from 'node:path';
 import { fitTransform, textToPath, type BoundedPath } from './glyphs';
 import { kitDir, loadKit } from './kits';
+import { getScene, quadPlacement, sceneDir } from './scenes';
 import type { KitSlug, PrintZone, Tier } from './types';
 
 /**
@@ -65,10 +66,18 @@ export interface RenderInput {
   tier: Tier;
   side?: 'front' | 'back';
   style?: Partial<RenderStyle>;
+  /**
+   * Identifiant d'une mise en situation (`public/scenes/<id>`) : le visuel est
+   * alors composé sur le dos d'un mannequin humain au lieu du maillot à plat.
+   * Ignoré si la scène n'existe pas — l'aperçu retombe sur le mockup.
+   */
+  sceneId?: string;
 }
 
 export interface RenderOutput {
   previewWebP: Buffer;
+  /** Scène effectivement utilisée, `null` si rendu sur le maillot à plat. */
+  sceneId: string | null;
   /** Visuel imprimable seul, fond transparent, à la résolution de la zone. */
   artworkPng: Buffer;
   zone: PrintZone;
@@ -294,27 +303,62 @@ export async function renderJersey(input: RenderInput): Promise<RenderOutput> {
     style,
   );
 
-  const mockupPath = path.join(kitDir(input.kitSlug), `${side}.png`);
-  const layers: OverlayOptions[] = [{ input: numberArtwork, left: zone.x, top: zone.y }];
+  // Mise en situation si demandée et disponible.
+  const scene = input.sceneId ? await getScene(input.sceneId) : undefined;
+  const placement = scene ? quadPlacement(scene.quad) : null;
+
+  const background = scene
+    ? path.join(sceneDir(scene.id), 'photo.jpg')
+    : path.join(kitDir(input.kitSlug), `${side}.png`);
+
+  // Sur une scène, le visuel est redimensionné et incliné pour suivre le dos du
+  // mannequin ; sur un mockup à plat il est posé tel quel dans la zone.
+  const numberLayer: OverlayOptions = placement
+    ? {
+        input: await sharp(numberArtwork)
+          .resize(placement.width, placement.height, { fit: 'fill' })
+          .rotate(placement.rotationDeg, {
+            background: { r: 0, g: 0, b: 0, alpha: 0 },
+          })
+          .png()
+          .toBuffer(),
+        left: placement.left,
+        top: placement.top,
+      }
+    : { input: numberArtwork, left: zone.x, top: zone.y };
+
+  const layers: OverlayOptions[] = [numberLayer];
 
   if (nameArtwork) {
     // Le nom se place au-dessus de la zone, avec un interligne d'un tiers de sa
     // hauteur. Il est remonté vers le col sans jamais sortir de l'image.
     const gap = Math.round(nameHeight * 0.35);
+    const anchor = placement ?? { left: zone.x, top: zone.y, width: zone.width };
+    const scale = placement ? placement.width / zone.width : 1;
+    const scaledNameWidth = Math.round(nameWidth * scale);
+    const scaledNameHeight = Math.round(nameHeight * scale);
+
     layers.unshift({
-      input: nameArtwork,
-      left: Math.max(0, zone.x + Math.round((zone.width - nameWidth) / 2)),
-      top: Math.max(0, zone.y - nameHeight - gap),
+      input: placement
+        ? await sharp(nameArtwork)
+            .resize(scaledNameWidth, scaledNameHeight, { fit: 'fill' })
+            .rotate(placement.rotationDeg, { background: { r: 0, g: 0, b: 0, alpha: 0 } })
+            .png()
+            .toBuffer()
+        : nameArtwork,
+      left: Math.max(0, anchor.left + Math.round((anchor.width - scaledNameWidth) / 2)),
+      top: Math.max(0, anchor.top - scaledNameHeight - Math.round(gap * scale)),
     });
   }
 
-  const previewWebP = await sharp(mockupPath)
+  const previewWebP = await sharp(background)
     .composite(layers)
     .webp({ quality: 85 })
     .toBuffer();
 
   return {
     previewWebP,
+    sceneId: scene?.id ?? null,
     artworkPng: numberArtwork,
     zone,
     generationTimeMs: Date.now() - startedAt,

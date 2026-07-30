@@ -35,11 +35,3 @@ export async function priceFor(
   const meta = kit.tiers[tier];
   return currency === 'USD' ? meta.price_usd : meta.price_eur;
 }
-
-export function formatPrice(amount: number, currency: string, locale: string): string {
-  return new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,
-  }).format(amount);
-}

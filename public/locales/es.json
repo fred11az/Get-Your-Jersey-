@@ -25,7 +25,8 @@
     "feature2Body": "Hasta tres fotos. Se colocan verticalmente dentro del número.",
     "feature3Title": "Valida tu vista previa",
     "feature3Body": "Ves el resultado exacto antes de pedir. El archivo de impresión a 300 ppp va directo al taller.",
-    "shipping": "Envíos a Europa + EE. UU."
+    "shipping": "Envíos a Europa + EE. UU.",
+    "priceFrom": "desde {price}"
   },
   "builder": {
     "title": "Crea tu camiseta",
@@ -83,7 +84,12 @@
       "generating": "Generando la vista previa…",
       "failed": "No se ha podido generar la vista previa.",
       "regenerate": "Regenerar",
-      "looksGood": "Perfecto, lo pido"
+      "looksGood": "Perfecto, lo pido",
+      "viewFlat": "Plano",
+      "viewWorn": {
+        "man": "Puesta — hombre",
+        "woman": "Puesta — mujer"
+      }
     },
     "step6": {
       "title": "Envío y pago",

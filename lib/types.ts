@@ -146,3 +146,43 @@ export type EventType = (typeof EVENT_TYPES)[number];
 export function orderReference(id: string): string {
   return `GYJ-${id.replace(/-/g, '').slice(0, 6).toUpperCase()}`;
 }
+
+/**
+ * Vues sérialisables passées du serveur aux composants client du builder.
+ * On n'expose que ce qui est nécessaire : ni chemins de fichiers, ni secrets.
+ */
+export interface KitOption {
+  slug: KitSlug;
+  name: string;
+  color_hex: string;
+  flocking: Flocking;
+  tiers: Record<Tier, { price_eur: number; price_usd: number }>;
+}
+
+/** Sous-ensemble public de `settings` : aucune donnée sensible. */
+export interface PublicSettings {
+  iban: string;
+  iban_bic: string | null;
+  iban_holder: string | null;
+  whatsapp_number: string;
+  whatsapp_template: string;
+}
+
+/**
+ * Paramètres de style figés dans `design_json` à la commande. Ils tracent ce qui
+ * a été montré au client : si le pipeline évolue, on sait avec quels réglages la
+ * commande a été validée.
+ */
+export const DEFAULT_DESIGN_STYLE = {
+  halftone: { angle: 45, size: 0 },
+  borderWidthPx: 13,
+} as const;
+
+/** Vue client d'une mise en situation portée (voir lib/scenes.ts). */
+export interface SceneOption {
+  id: string;
+  label: string;
+  gender: 'man' | 'woman';
+  /** `null` = scène neutre, utilisable avec tous les kits. */
+  kitSlug: string | null;
+}

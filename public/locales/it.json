@@ -25,7 +25,8 @@
     "feature2Body": "Fino a tre foto. Vengono disposte verticalmente dentro il numero.",
     "feature3Title": "Conferma l'anteprima",
     "feature3Body": "Vedi il risultato esatto prima di ordinare. Il file di stampa a 300 dpi va direttamente in laboratorio.",
-    "shipping": "Spedizioni Europa + USA"
+    "shipping": "Spedizioni Europa + USA",
+    "priceFrom": "da {price}"
   },
   "builder": {
     "title": "Crea la tua maglia",
@@ -83,7 +84,12 @@
       "generating": "Generazione dell'anteprima…",
       "failed": "Non è stato possibile generare l'anteprima.",
       "regenerate": "Rigenera",
-      "looksGood": "Perfetto, ordino"
+      "looksGood": "Perfetto, ordino",
+      "viewFlat": "Piatta",
+      "viewWorn": {
+        "man": "Indossata — uomo",
+        "woman": "Indossata — donna"
+      }
     },
     "step6": {
       "title": "Spedizione e pagamento",
