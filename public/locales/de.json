@@ -1,0 +1,156 @@
+{
+  "common": {
+    "next": "Weiter",
+    "back": "Zurück",
+    "validate": "Bestätigen",
+    "edit": "Ändern",
+    "loading": "Wird geladen…",
+    "cancel": "Abbrechen",
+    "required": "Dieses Feld ist erforderlich",
+    "genericError": "Es ist ein Fehler aufgetreten. Bitte versuche es erneut."
+  },
+  "nav": {
+    "home": "Startseite",
+    "builder": "Trikot gestalten",
+    "tagline": "Dein Trikot, deine Fotos, deine Nummer."
+  },
+  "home": {
+    "title": "Dein personalisiertes Trikot mit deinen Fotos",
+    "subtitle": "Wähle dein Kit, füge deine Fotos hinzu – sie werden in die Nummer deines Trikots eingefügt. Versand in Europa und in die USA.",
+    "cta": "Trikot gestalten",
+    "howItWorks": "So funktioniert es",
+    "feature1Title": "Wähle dein Kit",
+    "feature1Body": "Zehn echte Trikots im Katalog und drei Ausführungen, vom Fan-Trikot bis zur Spielerversion.",
+    "feature2Title": "Füge deine Fotos hinzu",
+    "feature2Body": "Bis zu drei Fotos. Sie werden senkrecht in die Nummer eingesetzt.",
+    "feature3Title": "Vorschau bestätigen",
+    "feature3Body": "Du siehst das exakte Ergebnis vor der Bestellung. Die 300-dpi-Druckdatei geht direkt in die Werkstatt.",
+    "shipping": "Versand Europa + USA"
+  },
+  "builder": {
+    "title": "Gestalte dein Trikot",
+    "stepLabel": "Schritt {current} von {total}",
+    "step1": {
+      "title": "Wähle dein Kit",
+      "subtitle": "Wähle das Trikot, das du personalisieren möchtest."
+    },
+    "step2": {
+      "title": "Wähle deine Ausführung",
+      "subtitle": "Drei Qualitätsstufen, vom Fan-Trikot bis zur Spielerversion.",
+      "supporterName": "Fan",
+      "supporterDesc": "Klassischer Schnitt, atmungsaktives Recyclingmaterial. Das beste Preis-Leistungs-Verhältnis.",
+      "authentiqueName": "Authentic",
+      "authentiqueDesc": "Taillierter Schnitt, Verarbeitung und Beflockung wie im Handel.",
+      "joueurName": "Spielerversion",
+      "joueurDesc": "Körpernaher Schnitt, ultraleichtes Funktionsgewebe. Die Version vom Spielfeld."
+    },
+    "step3": {
+      "title": "Größe, Name und Nummer",
+      "subtitle": "Das wird auf die Rückseite deines Trikots gedruckt.",
+      "size": "Größe",
+      "sizePlaceholder": "Größe wählen",
+      "name": "Name auf dem Trikot",
+      "namePlaceholder": "MÜLLER",
+      "nameHelp": "Maximal 15 Zeichen",
+      "nameTooLong": "Maximal 15 Zeichen",
+      "number": "Nummer",
+      "numberPlaceholder": "10",
+      "numberHelp": "Von 0 bis 99",
+      "numberInvalid": "Gib eine Nummer von 0 bis 99 ein"
+    },
+    "step4": {
+      "title": "Füge deine Fotos hinzu",
+      "subtitle": "Sie werden in die Nummer eingesetzt, von oben nach unten gestapelt. Ein bis drei Fotos.",
+      "dropzone": "Fotos hierher ziehen",
+      "browse": "oder klicken zum Auswählen",
+      "formats": "JPG, PNG oder WebP — maximal 12 MB pro Foto",
+      "preparing": "Wird vorbereitet…",
+      "removing": "Wird importiert…",
+      "done": "Bereit",
+      "failed": "Import fehlgeschlagen",
+      "retry": "Erneut versuchen",
+      "remove": "Entfernen",
+      "atLeastOne": "Füge mindestens ein Foto hinzu, um fortzufahren",
+      "maxReached": "Maximal drei Fotos",
+      "tooLarge": "Dieses Foto ist größer als 12 MB",
+      "unsupported": "Format nicht unterstützt",
+      "unsupportedDevice": "Dieses Foto konnte nicht gelesen werden. Versuche eine andere Datei.",
+      "explain": "Deine Fotos verlassen dein Gerät erst, wenn du die Bestellung bestätigst."
+    },
+    "step5": {
+      "title": "Deine Vorschau",
+      "subtitle": "So sieht dein personalisiertes Trikot aus.",
+      "generating": "Vorschau wird erstellt…",
+      "failed": "Die Vorschau konnte nicht erstellt werden.",
+      "regenerate": "Neu erstellen",
+      "looksGood": "Perfekt, ich bestelle"
+    },
+    "step6": {
+      "title": "Versand und Zahlung",
+      "shippingSection": "Lieferdaten",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "country": "Land",
+      "countryPlaceholder": "Land wählen",
+      "address": "Adresse",
+      "postalCode": "Postleitzahl",
+      "city": "Stadt",
+      "emailInvalid": "Ungültige E-Mail-Adresse",
+      "summarySection": "Bestellübersicht",
+      "summaryKit": "Kit",
+      "summaryTier": "Ausführung",
+      "summarySize": "Größe",
+      "summaryName": "Name auf dem Trikot",
+      "summaryNumber": "Nummer",
+      "summaryAmount": "Betrag",
+      "paymentSection": "Zahlung",
+      "paymentIntro": "Keine Online-Zahlung. Wähle deine Zahlungsart, wir bestätigen die Bestellung persönlich.",
+      "ibanOption": "Banküberweisung",
+      "ibanInstruction": "Überweise {amount} auf dieses Konto:",
+      "ibanHolder": "Kontoinhaber",
+      "ibanBic": "BIC",
+      "ibanReference": "Gib die Referenz {reference} im Überweisungstext an.",
+      "whatsappOption": "Über WhatsApp bestellen",
+      "whatsappInstruction": "Wir klären die Bestellung per Nachricht, Zahlung nach Erhalt der Anweisungen.",
+      "whatsappButton": "Über WhatsApp bestellen",
+      "submit": "Bestellen",
+      "submitting": "Bestellung wird erstellt…"
+    }
+  },
+  "confirmation": {
+    "title": "Bestellung erfasst",
+    "subtitle": "Deine Bestellung {reference} ist erfasst.",
+    "nextStepsTitle": "Nächste Schritte",
+    "ibanNext": "Überweise {amount} mit der Referenz {reference}. Sobald der Betrag eingeht, starten wir die Produktion.",
+    "whatsappNext": "Setze das Gespräch auf WhatsApp fort, um die Zahlung abzuschließen.",
+    "emailNote": "Eine Zusammenfassung geht an {email}.",
+    "backHome": "Zurück zur Startseite",
+    "openWhatsapp": "WhatsApp öffnen"
+  },
+  "sizes": {
+    "XS": "XS",
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "XL": "XL",
+    "XXL": "XXL"
+  },
+  "kits": {
+    "portugal": "Portugal",
+    "portugal-away": "Portugal Auswärts",
+    "spain": "Spanien",
+    "spain-away": "Spanien Auswärts",
+    "france": "Frankreich",
+    "france-away": "Frankreich Auswärts",
+    "brazil": "Brasilien",
+    "argentina": "Argentinien",
+    "barcelona": "FC Barcelona",
+    "real-madrid": "Real Madrid"
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten.",
+    "madeWith": "Personalisierte Trikots — Europa und USA."
+  }
+}

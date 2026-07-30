@@ -1,0 +1,156 @@
+{
+  "common": {
+    "next": "Continuar",
+    "back": "Volver",
+    "validate": "Confirmar",
+    "edit": "Modificar",
+    "loading": "Cargando…",
+    "cancel": "Cancelar",
+    "required": "Este campo es obligatorio",
+    "genericError": "Se ha producido un error. Vuelve a intentarlo."
+  },
+  "nav": {
+    "home": "Inicio",
+    "builder": "Crear mi camiseta",
+    "tagline": "Tu camiseta, tus fotos, tu número."
+  },
+  "home": {
+    "title": "Tu camiseta personalizada con tus fotos",
+    "subtitle": "Elige tu equipación, añade tus fotos y se integran dentro del número de tu camiseta. Envíos a Europa y Estados Unidos.",
+    "cta": "Crear mi camiseta",
+    "howItWorks": "Cómo funciona",
+    "feature1Title": "Elige tu equipación",
+    "feature1Body": "Diez camisetas reales en catálogo y tres niveles de acabado, de aficionado a versión jugador.",
+    "feature2Title": "Añade tus fotos",
+    "feature2Body": "Hasta tres fotos. Se colocan verticalmente dentro del número.",
+    "feature3Title": "Valida tu vista previa",
+    "feature3Body": "Ves el resultado exacto antes de pedir. El archivo de impresión a 300 ppp va directo al taller.",
+    "shipping": "Envíos a Europa + EE. UU."
+  },
+  "builder": {
+    "title": "Crea tu camiseta",
+    "stepLabel": "Paso {current} de {total}",
+    "step1": {
+      "title": "Elige tu equipación",
+      "subtitle": "Selecciona la camiseta que quieres personalizar."
+    },
+    "step2": {
+      "title": "Elige tu acabado",
+      "subtitle": "Tres niveles de calidad, de camiseta de aficionado a versión jugador.",
+      "supporterName": "Aficionado",
+      "supporterDesc": "Corte clásico, tejido reciclado transpirable. La mejor relación calidad-precio.",
+      "authentiqueName": "Auténtica",
+      "authentiqueDesc": "Corte entallado, acabados y serigrafía idénticos a la camiseta de tienda.",
+      "joueurName": "Jugador",
+      "joueurDesc": "Corte ajustado al cuerpo, tejido técnico ultraligero. La que se usa en el campo."
+    },
+    "step3": {
+      "title": "Talla, nombre y número",
+      "subtitle": "Esto es lo que se imprimirá en la espalda de tu camiseta.",
+      "size": "Talla",
+      "sizePlaceholder": "Elegir una talla",
+      "name": "Nombre en la camiseta",
+      "namePlaceholder": "GARCÍA",
+      "nameHelp": "15 caracteres como máximo",
+      "nameTooLong": "15 caracteres como máximo",
+      "number": "Número",
+      "numberPlaceholder": "10",
+      "numberHelp": "Del 0 al 99",
+      "numberInvalid": "Introduce un número del 0 al 99"
+    },
+    "step4": {
+      "title": "Añade tus fotos",
+      "subtitle": "Se integrarán dentro del número, apiladas de arriba abajo. De una a tres fotos.",
+      "dropzone": "Arrastra tus fotos aquí",
+      "browse": "o haz clic para explorar",
+      "formats": "JPG, PNG o WebP — 12 MB máximo por foto",
+      "preparing": "Preparando…",
+      "removing": "Importando…",
+      "done": "Lista",
+      "failed": "La importación ha fallado",
+      "retry": "Reintentar",
+      "remove": "Eliminar",
+      "atLeastOne": "Añade al menos una foto para continuar",
+      "maxReached": "Tres fotos como máximo",
+      "tooLarge": "Esta foto supera los 12 MB",
+      "unsupported": "Formato no compatible",
+      "unsupportedDevice": "No se ha podido leer esta foto. Prueba con otro archivo.",
+      "explain": "Tus fotos solo salen de tu dispositivo cuando confirmas el pedido."
+    },
+    "step5": {
+      "title": "Tu vista previa",
+      "subtitle": "Así queda tu camiseta personalizada.",
+      "generating": "Generando la vista previa…",
+      "failed": "No se ha podido generar la vista previa.",
+      "regenerate": "Regenerar",
+      "looksGood": "Perfecto, lo pido"
+    },
+    "step6": {
+      "title": "Envío y pago",
+      "shippingSection": "Datos de envío",
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "country": "País",
+      "countryPlaceholder": "Elegir un país",
+      "address": "Dirección",
+      "postalCode": "Código postal",
+      "city": "Ciudad",
+      "emailInvalid": "Dirección de correo no válida",
+      "summarySection": "Resumen del pedido",
+      "summaryKit": "Equipación",
+      "summaryTier": "Acabado",
+      "summarySize": "Talla",
+      "summaryName": "Nombre en la camiseta",
+      "summaryNumber": "Número",
+      "summaryAmount": "Importe",
+      "paymentSection": "Pago",
+      "paymentIntro": "Sin pago en línea. Elige cómo quieres pagar y te confirmamos el pedido personalmente.",
+      "ibanOption": "Transferencia bancaria",
+      "ibanInstruction": "Haz una transferencia de {amount} a esta cuenta:",
+      "ibanHolder": "Titular",
+      "ibanBic": "BIC",
+      "ibanReference": "Indica la referencia {reference} en el concepto de la transferencia.",
+      "whatsappOption": "Pedir por WhatsApp",
+      "whatsappInstruction": "Cerramos el pedido juntos por mensaje, el pago se hace al recibir las instrucciones.",
+      "whatsappButton": "Pedir por WhatsApp",
+      "submit": "Realizar el pedido",
+      "submitting": "Creando el pedido…"
+    }
+  },
+  "confirmation": {
+    "title": "Pedido registrado",
+    "subtitle": "Tu pedido {reference} ha quedado registrado.",
+    "nextStepsTitle": "Siguientes pasos",
+    "ibanNext": "Haz la transferencia de {amount} indicando la referencia {reference}. En cuanto la recibamos, lanzamos la producción.",
+    "whatsappNext": "Sigue la conversación en WhatsApp para cerrar el pago.",
+    "emailNote": "Te enviamos un resumen a {email}.",
+    "backHome": "Volver al inicio",
+    "openWhatsapp": "Abrir WhatsApp"
+  },
+  "sizes": {
+    "XS": "XS",
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "XL": "XL",
+    "XXL": "XXL"
+  },
+  "kits": {
+    "portugal": "Portugal",
+    "portugal-away": "Portugal visitante",
+    "spain": "España",
+    "spain-away": "España visitante",
+    "france": "Francia",
+    "france-away": "Francia visitante",
+    "brazil": "Brasil",
+    "argentina": "Argentina",
+    "barcelona": "FC Barcelona",
+    "real-madrid": "Real Madrid"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "madeWith": "Camisetas personalizadas — Europa y Estados Unidos."
+  }
+}

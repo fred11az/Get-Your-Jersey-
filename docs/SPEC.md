@@ -15,12 +15,12 @@ Tu es un développeur full-stack senior spécialisé en architectures modernes e
 
 ## 2. STACK TECHNIQUE
 
-- **Frontend :** Next.js 15 (App Router) + TypeScript
+- **Frontend :** Next.js 16 (App Router) + TypeScript — voir docs/DIVERGENCES.md §8
 - **Styling :** Tailwind CSS (blanc, bleu/orange primaires)
 - **Backend :** Next.js API Routes (Node.js)
 - **Base de données :** PostgreSQL Vercel
-- **Image processing :** Sharp (compositing) + pdf-lib (PDF 300 dpi) côté serveur ;
-  détourage WASM/WebGPU côté navigateur (voir sections 6 et 11)
+- **Image processing :** Sharp (compositing) + pdf-lib (PDF 300 dpi) + opentype.js
+  (vectorisation nom/numéro). Aucun détourage — voir sections 6 et 11.
 - **Multilangue :** next-intl (FR, EN, ES, DE, IT)
 - **Auth admin :** Token simple (variable d'environnement)
 - **Déploiement :** Vercel (avec Vercel Postgres)
@@ -66,7 +66,7 @@ CREATE TABLE orders (
   currency TEXT DEFAULT 'EUR',
   
   -- Design
-  design_json JSONB NOT NULL, -- {photos: [urls des PNG RGBA détourés], layout: {...}}
+  design_json JSONB NOT NULL, -- {photos: [urls], layout: {...}}
   render_preview_url TEXT, -- aperçu WebP
   render_pdf_url TEXT, -- PDF 300dpi production
   
@@ -154,7 +154,7 @@ getyourjersey/
 │   ├── db.ts (connexion PostgreSQL)
 │   ├── render.ts (orchestration Sharp : masque, collage, trame, aperçu WebP)
 │   ├── print-pdf.ts (assemblage du PDF 300 dpi via pdf-lib)
-│   ├── background-removal.client.ts (détourage navigateur, WASM/WebGPU)
+│   ├── glyphs.ts (vectorisation nom/numéro via opentype.js)
 │   ├── whatsapp.ts (génère lien WhatsApp pré-rempli)
 │   ├── analytics.ts (track events)
 │   └── auth.ts (token verification)
@@ -169,9 +169,7 @@ getyourjersey/
 │   │   ├── spain/ ... (etc)
 │   │   └── (4 autres kits)
 │   ├── fonts/
-│   │   └── number-masks/ (fichiers SVG ou données des numéros 0-99)
-│   ├── models/
-│   │   └── background-removal/ (poids ONNX + WASM auto-hébergés, ~40 Mo)
+│   │   └── jersey-display.woff (police de flocage, vectorisée à la volée)
 │   └── locales/
 │       └── (fichiers JSON de traduction)
 │
@@ -189,7 +187,7 @@ getyourjersey/
 ## 5. PARCOURS CLIENT (6 ÉTAPES)
 
 ### Étape 1 : Sélection du Kit
-- Affiche 5 kits (France, Spain, Germany, UK, USA)
+- Affiche les 10 kits réels du catalogue (voir lib/kit-catalog.ts)
 - Chaque kit = image mockup + description
 - Utilisateur clique sur un kit
 - **Track event :** STEP_1_SELECTED
@@ -208,7 +206,7 @@ getyourjersey/
 
 ### Étape 4 : Import Photos
 - Drag & drop ou clic pour upload
-- Support 1-3 photos (redimensionnement auto)
+- Support 1-3 photos (redimensionnement auto, aucun détourage)
 - Aperçu des photos uploadées
 - **Validation :** Au moins 1 photo
 - **Track event :** STEP_4_PHOTOS_UPLOADED
@@ -247,24 +245,23 @@ getyourjersey/
 
 ### Répartition client / serveur
 
-Le détourage tourne **dans le navigateur du client** (WebAssembly / WebGPU), pas dans la
-fonction Vercel — voir section 11 pour la justification et le choix du modèle. La
-fonction serverless ne fait donc que du compositing Sharp et de l'assemblage PDF via
-pdf-lib : deux dépendances légères, aucun runtime Python, aucun `onnxruntime` natif.
+**Il n'y a pas de détourage.** Le maillot de référence fourni par le client
+(`docs/reference/target-result.jpg`) empile des photos rectangulaires entières et les
+découpe par la silhouette du numéro : le fond de chaque photo fait partie du visuel.
+Détourer percerait le chiffre de zones transparentes laissant voir le tissu. Voir
+`docs/DIVERGENCES.md` §1.
+
+Le serveur fait donc tout le rendu, en pur compositing Sharp + pdf-lib : aucun runtime
+Python, aucun `onnxruntime`, aucun modèle à charger.
 
 | Étape | Où ça tourne | Techno |
 | --- | --- | --- |
-| Détourage des photos | Navigateur (pendant l'étape 4) | `@imgly/background-removal` (WASM/WebGPU) |
-| Upload des PNG détourés (RGBA) | Navigateur → Vercel Blob | `fetch` + `@vercel/blob` |
-| Masque du numéro | Serveur | SVG rastérisé par Sharp |
-| Collage des photos dans le masque | Serveur | Sharp |
+| Upload des photos | Navigateur → Vercel Blob | `fetch` + `@vercel/blob` |
+| Empilement vertical des photos | Serveur | Sharp |
+| Silhouette du numéro et du nom | Serveur | `opentype.js` → chemins SVG → Sharp |
+| Bordure blanche + trait rouge | Serveur | Sharp (strokes concentriques) |
 | Aperçu écran | Serveur | Sharp → WebP |
 | Fichier imprimeur 300 dpi | Serveur | Sharp → PNG, puis **pdf-lib** |
-
-**Conséquence sur le contrat d'API :** le serveur ne reçoit jamais de photo brute mais
-des PNG **déjà détourés avec canal alpha**. `design_json.photos` stocke ces URLs de
-cutouts. Le serveur vérifie la présence d'un alpha non trivial et refuse la requête
-sinon (garde-fou `assertCutout()` ci-dessous) — il ne tente aucun détourage de secours.
 
 ### Workflow Détaillé
 
@@ -601,82 +598,31 @@ Bouton Save (bleu) + Cancel (gris)
 
 ## 11. INTÉGRATIONS EXTERNES
 
-### Détourage : modèle de segmentation exécuté dans le navigateur
+### Détourage : abandonné
 
-**Décision : le détourage tourne côté client en WebAssembly / WebGPU, pas dans la
-fonction Vercel.**
+Le détourage a été retiré du produit après analyse du maillot de référence : les photos
+y sont des rectangles entiers découpés par le chiffre, sans suppression de fond. Un
+chiffre doit être **plein**.
 
-#### Pourquoi pas `rembg` dans une fonction serverless
+Historique des décisions, pour éviter d'y revenir :
 
-- `rembg` n'est **pas** un package npm : c'est un outil Python (PyPI). Il n'y a rien à
-  `npm install`.
-- L'équivalent Node (`onnxruntime-node` + poids du modèle) empile un binaire natif
-  d'environ 100 Mo et un modèle de 40 à 170 Mo, à mettre dans le même bundle que Sharp.
-  On frôle ou dépasse la limite de 250 Mo décompressés d'une fonction Vercel.
-- Le modèle est rechargé à chaque cold start : plusieurs secondes avant même de traiter
-  la première image, sur un chemin critique du parcours d'achat.
-- On paie du temps d'exécution GPU-less pour un travail qui tient très bien sur la
-  machine du client.
+1. `rembg` n'existe pas sur npm (outil Python) et n'a pas sa place dans une fonction
+   Vercel — binaire natif ~100 Mo + modèle 40 à 170 Mo, cold start de plusieurs secondes.
+2. L'alternative retenue un temps, `@imgly/background-removal` en WASM navigateur, est
+   sous licence **AGPL-3.0** : copyleft réseau, incompatible avec un site marchand
+   propriétaire sans accord commercial. Dépendance supprimée.
+3. Le besoin lui-même n'existe pas. Question close.
 
-#### Solution retenue
+Si un mode « détourage » devient une option produit, le réintroduire derrière un drapeau
+avec un modèle sous licence permissive — BiRefNet (MIT) ou IS-Net (Apache-2.0). **Ne
+jamais** utiliser BRIA RMBG 1.4 / 2.0 : licence non commerciale.
 
-| | |
-| --- | --- |
-| **Package** | `@imgly/background-removal` (build navigateur) |
-| **Modèle** | IS-Net *general use* — segmentation d'objet saillant générique |
-| **Exécution** | WebGPU si disponible, sinon WASM multi-thread (SIMD) |
-| **Poids** | ~40 Mo en `quint8`, mis en cache par le navigateur après le 1er usage |
-| **Coût** | 0 € — aucun appel réseau vers un tiers, aucune limite de volume |
-| **Serveur** | Aucune charge : la fonction Vercel ne reçoit que des PNG RGBA |
+### Polices de flocage
 
-**Traite n'importe quelle photo.** IS-Net *general use* est un modèle de segmentation
-d'objet saillant généraliste — personnes, objets, animaux, arrière-plans complexes. Ce
-n'est pas un chroma key : aucune hypothèse sur la couleur du fond. Il n'y a **pas** de
-mode dégradé « fond blanc uniquement » dans cette spec.
-
-#### Intégration
-
-- Auto-héberger les poids : servir les assets depuis `/public/models/background-removal/`
-  et pointer `config.publicPath` dessus. Évite la dépendance à un CDN tiers et tout
-  transfert de données vers un domaine externe (RGPD).
-- Lancer le détourage **dès l'étape 4**, en tâche de fond, pendant que le client
-  continue à remplir le formulaire : à l'étape 5 les cutouts sont prêts et l'aperçu est
-  quasi instantané. Afficher une progression par photo (`config.progress`).
-- Compter 2 à 8 s par photo en WASM sur desktop, moins en WebGPU, davantage sur mobile
-  d'entrée de gamme. Limiter les photos à 3 (déjà dans la spec) et redimensionner à
-  ~1500 px sur le grand côté avant traitement.
-- Uploader le PNG RGBA résultant vers Vercel Blob ; stocker l'URL dans
-  `design_json.photos`.
-
-#### Licences — à vérifier avant la mise en production
-
-Point commercial important : plusieurs modèles de détourage populaires sont en licence
-**non commerciale**, ce qui les exclut d'un site marchand.
-
-| Modèle | Licence | Utilisable ici |
-| --- | --- | --- |
-| IS-Net / DIS (*general use*) | Apache-2.0 | ✅ |
-| BiRefNet | MIT | ✅ (alternative) |
-| U²-Net | Apache-2.0 | ✅ |
-| MODNet | Apache-2.0 | ⚠️ portraits humains uniquement |
-| **BRIA RMBG 1.4 / 2.0** | Non commerciale sans accord payant | ❌ **à éviter** |
-
-Vérifier séparément (a) la licence du code du package et (b) celle des poids du modèle,
-et refaire ce contrôle au moment du choix définitif : ces licences changent.
-
-#### Repli si le navigateur ne peut pas exécuter le modèle
-
-Cas résiduel : appareil très ancien, WASM désactivé, mémoire insuffisante. Alors :
-
-1. Détecter l'échec côté client et le remonter comme un vrai état d'erreur.
-2. Si `BACKGROUND_REMOVAL_FALLBACK_URL` est configurée, poster la photo à ce
-   microservice (conteneur `rembg` auto-hébergé sur Hugging Face Spaces, Fly.io, Render
-   — hors Vercel, là où un runtime Python et un modèle lourd sont à leur place).
-3. Sinon, message explicite : « le détourage n'a pas pu s'exécuter sur cet appareil,
-   essayez depuis un autre navigateur ». Mieux vaut ce message qu'un maillot imprimé
-   avec un fond parasite.
-
-Ce repli est **désactivé par défaut** et n'est pas nécessaire au MVP.
+Le nom et le numéro sont vectorisés par `opentype.js` depuis
+`public/fonts/jersey-display.woff` (Archivo Black, OFL). Le runtime Vercel n'embarque
+quasiment aucune police : un `font-family` dans un SVG rendu par Sharp produirait
+silencieusement du vide en production.
 
 ### WhatsApp
 - **Pas d'API WhatsApp Business** ; juste des liens `https://wa.me/`
@@ -698,18 +644,12 @@ DATABASE_URL=postgresql://...
 ADMIN_TOKEN=supersecret123
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 BLOB_READ_WRITE_TOKEN=vercel_blob_rw_...
-# Chemin des poids du modèle de détourage, servis depuis notre propre domaine
-NEXT_PUBLIC_BG_REMOVAL_PUBLIC_PATH=/models/background-removal/
-# Repli de détourage serveur (optionnel, désactivé si vide — voir section 11)
-BACKGROUND_REMOVAL_FALLBACK_URL=
 
 # Vercel (prod)
 DATABASE_URL=postgresql://...
 ADMIN_TOKEN=supersecret123_prod
 NEXT_PUBLIC_SITE_URL=https://getyourjersey.com
 BLOB_READ_WRITE_TOKEN=(fourni par Vercel Blob)
-NEXT_PUBLIC_BG_REMOVAL_PUBLIC_PATH=/models/background-removal/
-BACKGROUND_REMOVAL_FALLBACK_URL=
 ```
 
 ---
@@ -836,15 +776,13 @@ BACKGROUND_REMOVAL_FALLBACK_URL=
 npx create-next-app@latest getyourjersey --typescript --tailwind --app
 cd getyourjersey
 
-# Serveur : compositing + PDF + DB + i18n (aucune dépendance native lourde)
-npm install sharp pdf-lib pg next-intl @vercel/blob
-
-# Navigateur : détourage WASM/WebGPU
-npm install @imgly/background-removal
+# Aucune dépendance native lourde, aucun modèle à charger.
+npm install sharp pdf-lib pg next-intl @vercel/blob opentype.js @fontsource/archivo-black
 ```
 
-⚠️ **Ne pas exécuter `npm install rembg`** : ce package n'existe pas sur npm (`rembg` est
-un outil Python). Voir section 11.
+⚠️ **Ne pas installer de bibliothèque de détourage** : le produit n'en a pas besoin
+(section 11), `rembg` n'existe pas sur npm, et `@imgly/background-removal` est en
+AGPL-3.0. Voir docs/DIVERGENCES.md §1.
 
 ⚠️ **`pdf-lib` n'est pas optionnel** : Sharp n'a pas de sortie `.pdf()`. Tout le PDF
 300 dpi passe par `pdf-lib`, alimenté par un PNG produit par Sharp. Voir section 6.

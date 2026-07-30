@@ -1,0 +1,156 @@
+{
+  "common": {
+    "next": "Continue",
+    "back": "Back",
+    "validate": "Confirm",
+    "edit": "Edit",
+    "loading": "Loading…",
+    "cancel": "Cancel",
+    "required": "This field is required",
+    "genericError": "Something went wrong. Please try again."
+  },
+  "nav": {
+    "home": "Home",
+    "builder": "Build my jersey",
+    "tagline": "Your jersey, your photos, your number."
+  },
+  "home": {
+    "title": "Your custom jersey, made from your photos",
+    "subtitle": "Pick your kit, add your photos, and watch them fill the number on your jersey. Shipping across Europe and the USA.",
+    "cta": "Build my jersey",
+    "howItWorks": "How it works",
+    "feature1Title": "Pick your kit",
+    "feature1Body": "Ten real jerseys in the catalogue and three finish levels, from supporter to player issue.",
+    "feature2Title": "Add your photos",
+    "feature2Body": "Up to three photos. They stack vertically inside the number.",
+    "feature3Title": "Approve your preview",
+    "feature3Body": "You see the exact result before ordering. A 300 dpi print file goes straight to the workshop.",
+    "shipping": "Shipping to Europe + USA"
+  },
+  "builder": {
+    "title": "Build your jersey",
+    "stepLabel": "Step {current} of {total}",
+    "step1": {
+      "title": "Pick your kit",
+      "subtitle": "Select the jersey you want to customise."
+    },
+    "step2": {
+      "title": "Pick your finish",
+      "subtitle": "Three quality levels, from supporter shirt to player issue.",
+      "supporterName": "Supporter",
+      "supporterDesc": "Classic fit, breathable recycled fabric. Best value for money.",
+      "authentiqueName": "Authentic",
+      "authentiqueDesc": "Tailored fit, same finishing and lettering as the retail shirt.",
+      "joueurName": "Player issue",
+      "joueurDesc": "Near-body fit, ultra-light technical fabric. The one worn on the pitch."
+    },
+    "step3": {
+      "title": "Size, name and number",
+      "subtitle": "This is what gets printed on the back of your jersey.",
+      "size": "Size",
+      "sizePlaceholder": "Choose a size",
+      "name": "Name on jersey",
+      "namePlaceholder": "SMITH",
+      "nameHelp": "15 characters maximum",
+      "nameTooLong": "15 characters maximum",
+      "number": "Number",
+      "numberPlaceholder": "10",
+      "numberHelp": "From 0 to 99",
+      "numberInvalid": "Enter a number from 0 to 99"
+    },
+    "step4": {
+      "title": "Add your photos",
+      "subtitle": "They will be placed inside the number, stacked top to bottom. One to three photos.",
+      "dropzone": "Drop your photos here",
+      "browse": "or click to browse",
+      "formats": "JPG, PNG or WebP — 12 MB maximum per photo",
+      "preparing": "Preparing…",
+      "removing": "Uploading…",
+      "done": "Ready",
+      "failed": "Import failed",
+      "retry": "Try again",
+      "remove": "Remove",
+      "atLeastOne": "Add at least one photo to continue",
+      "maxReached": "Three photos maximum",
+      "tooLarge": "This photo is over 12 MB",
+      "unsupported": "Unsupported format",
+      "unsupportedDevice": "This photo could not be read. Try another file.",
+      "explain": "Your photos only leave your device when you confirm the order."
+    },
+    "step5": {
+      "title": "Your preview",
+      "subtitle": "Here is how your custom jersey looks.",
+      "generating": "Generating preview…",
+      "failed": "The preview could not be generated.",
+      "regenerate": "Regenerate",
+      "looksGood": "Looks great, order it"
+    },
+    "step6": {
+      "title": "Shipping and payment",
+      "shippingSection": "Shipping details",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "country": "Country",
+      "countryPlaceholder": "Choose a country",
+      "address": "Address",
+      "postalCode": "Postal code",
+      "city": "City",
+      "emailInvalid": "Invalid email address",
+      "summarySection": "Order summary",
+      "summaryKit": "Kit",
+      "summaryTier": "Finish",
+      "summarySize": "Size",
+      "summaryName": "Name on jersey",
+      "summaryNumber": "Number",
+      "summaryAmount": "Total",
+      "paymentSection": "Payment",
+      "paymentIntro": "No online payment. Choose how you want to pay and we confirm your order by hand.",
+      "ibanOption": "Bank transfer",
+      "ibanInstruction": "Transfer {amount} to this account:",
+      "ibanHolder": "Account holder",
+      "ibanBic": "BIC",
+      "ibanReference": "Include reference {reference} in the transfer description.",
+      "whatsappOption": "Order via WhatsApp",
+      "whatsappInstruction": "We finish the order together by message, payment once you get the instructions.",
+      "whatsappButton": "Order via WhatsApp",
+      "submit": "Place order",
+      "submitting": "Creating your order…"
+    }
+  },
+  "confirmation": {
+    "title": "Order received",
+    "subtitle": "Your order {reference} has been recorded.",
+    "nextStepsTitle": "Next steps",
+    "ibanNext": "Send the {amount} transfer with reference {reference}. Production starts as soon as it lands.",
+    "whatsappNext": "Continue the conversation on WhatsApp to settle the payment.",
+    "emailNote": "A summary is on its way to {email}.",
+    "backHome": "Back to home",
+    "openWhatsapp": "Open WhatsApp"
+  },
+  "sizes": {
+    "XS": "XS",
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "XL": "XL",
+    "XXL": "XXL"
+  },
+  "kits": {
+    "portugal": "Portugal",
+    "portugal-away": "Portugal Away",
+    "spain": "Spain",
+    "spain-away": "Spain Away",
+    "france": "France",
+    "france-away": "France Away",
+    "brazil": "Brazil",
+    "argentina": "Argentina",
+    "barcelona": "FC Barcelona",
+    "real-madrid": "Real Madrid"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "madeWith": "Custom jerseys — Europe and the USA."
+  }
+}

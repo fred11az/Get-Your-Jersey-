@@ -1,0 +1,47 @@
+{
+  "slug": "portugal",
+  "name": "Portugal",
+  "color_hex": "#B4223C",
+  "mockup": {
+    "width": 1200,
+    "height": 1600
+  },
+  "tiers": {
+    "supporter": {
+      "print_zone": {
+        "x": 396,
+        "y": 512,
+        "width": 408,
+        "height": 544,
+        "width_mm": 180,
+        "height_mm": 240
+      },
+      "price_eur": 35,
+      "price_usd": 38
+    },
+    "authentique": {
+      "print_zone": {
+        "x": 360,
+        "y": 480,
+        "width": 480,
+        "height": 640,
+        "width_mm": 198,
+        "height_mm": 264
+      },
+      "price_eur": 59,
+      "price_usd": 65
+    },
+    "joueur": {
+      "print_zone": {
+        "x": 324,
+        "y": 448,
+        "width": 552,
+        "height": 736,
+        "width_mm": 216,
+        "height_mm": 288
+      },
+      "price_eur": 89,
+      "price_usd": 97
+    }
+  }
+}

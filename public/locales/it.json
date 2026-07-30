@@ -1,0 +1,156 @@
+{
+  "common": {
+    "next": "Continua",
+    "back": "Indietro",
+    "validate": "Conferma",
+    "edit": "Modifica",
+    "loading": "Caricamento…",
+    "cancel": "Annulla",
+    "required": "Questo campo è obbligatorio",
+    "genericError": "Si è verificato un errore. Riprova."
+  },
+  "nav": {
+    "home": "Home",
+    "builder": "Crea la mia maglia",
+    "tagline": "La tua maglia, le tue foto, il tuo numero."
+  },
+  "home": {
+    "title": "La tua maglia personalizzata con le tue foto",
+    "subtitle": "Scegli il kit, aggiungi le tue foto e si integrano dentro il numero della maglia. Spedizioni in Europa e negli Stati Uniti.",
+    "cta": "Crea la mia maglia",
+    "howItWorks": "Come funziona",
+    "feature1Title": "Scegli il kit",
+    "feature1Body": "Dieci maglie reali in catalogo e tre livelli di finitura, da tifoso a versione giocatore.",
+    "feature2Title": "Aggiungi le tue foto",
+    "feature2Body": "Fino a tre foto. Vengono disposte verticalmente dentro il numero.",
+    "feature3Title": "Conferma l'anteprima",
+    "feature3Body": "Vedi il risultato esatto prima di ordinare. Il file di stampa a 300 dpi va direttamente in laboratorio.",
+    "shipping": "Spedizioni Europa + USA"
+  },
+  "builder": {
+    "title": "Crea la tua maglia",
+    "stepLabel": "Passo {current} di {total}",
+    "step1": {
+      "title": "Scegli il kit",
+      "subtitle": "Seleziona la maglia che vuoi personalizzare."
+    },
+    "step2": {
+      "title": "Scegli la finitura",
+      "subtitle": "Tre livelli di qualità, dalla maglia da tifoso alla versione giocatore.",
+      "supporterName": "Tifoso",
+      "supporterDesc": "Taglio classico, tessuto riciclato traspirante. Il miglior rapporto qualità-prezzo.",
+      "authentiqueName": "Authentic",
+      "authentiqueDesc": "Taglio aderente, finiture e stampa identiche alla maglia da negozio.",
+      "joueurName": "Giocatore",
+      "joueurDesc": "Taglio near-body, tessuto tecnico ultraleggero. Quella indossata in campo."
+    },
+    "step3": {
+      "title": "Taglia, nome e numero",
+      "subtitle": "Questo verrà stampato sul retro della maglia.",
+      "size": "Taglia",
+      "sizePlaceholder": "Scegli una taglia",
+      "name": "Nome sulla maglia",
+      "namePlaceholder": "ROSSI",
+      "nameHelp": "Massimo 15 caratteri",
+      "nameTooLong": "Massimo 15 caratteri",
+      "number": "Numero",
+      "numberPlaceholder": "10",
+      "numberHelp": "Da 0 a 99",
+      "numberInvalid": "Inserisci un numero da 0 a 99"
+    },
+    "step4": {
+      "title": "Aggiungi le tue foto",
+      "subtitle": "Verranno inserite dentro il numero, impilate dall’alto in basso. Da una a tre foto.",
+      "dropzone": "Trascina qui le tue foto",
+      "browse": "oppure clicca per sfogliare",
+      "formats": "JPG, PNG o WebP — massimo 12 MB per foto",
+      "preparing": "Preparazione…",
+      "removing": "Importazione…",
+      "done": "Pronta",
+      "failed": "Importazione fallita",
+      "retry": "Riprova",
+      "remove": "Rimuovi",
+      "atLeastOne": "Aggiungi almeno una foto per continuare",
+      "maxReached": "Massimo tre foto",
+      "tooLarge": "Questa foto supera i 12 MB",
+      "unsupported": "Formato non supportato",
+      "unsupportedDevice": "Non è stato possibile leggere questa foto. Prova con un altro file.",
+      "explain": "Le tue foto lasciano il dispositivo solo quando confermi l’ordine."
+    },
+    "step5": {
+      "title": "La tua anteprima",
+      "subtitle": "Ecco come viene la tua maglia personalizzata.",
+      "generating": "Generazione dell'anteprima…",
+      "failed": "Non è stato possibile generare l'anteprima.",
+      "regenerate": "Rigenera",
+      "looksGood": "Perfetto, ordino"
+    },
+    "step6": {
+      "title": "Spedizione e pagamento",
+      "shippingSection": "Dati di spedizione",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "email": "Email",
+      "phone": "Telefono",
+      "country": "Paese",
+      "countryPlaceholder": "Scegli un paese",
+      "address": "Indirizzo",
+      "postalCode": "Codice postale",
+      "city": "Città",
+      "emailInvalid": "Indirizzo email non valido",
+      "summarySection": "Riepilogo dell'ordine",
+      "summaryKit": "Kit",
+      "summaryTier": "Finitura",
+      "summarySize": "Taglia",
+      "summaryName": "Nome sulla maglia",
+      "summaryNumber": "Numero",
+      "summaryAmount": "Importo",
+      "paymentSection": "Pagamento",
+      "paymentIntro": "Nessun pagamento online. Scegli come vuoi pagare e ti confermiamo l'ordine a mano.",
+      "ibanOption": "Bonifico bancario",
+      "ibanInstruction": "Effettua un bonifico di {amount} su questo conto:",
+      "ibanHolder": "Intestatario",
+      "ibanBic": "BIC",
+      "ibanReference": "Indica il riferimento {reference} nella causale del bonifico.",
+      "whatsappOption": "Ordina via WhatsApp",
+      "whatsappInstruction": "Chiudiamo l'ordine insieme via messaggio, pagamento alla ricezione delle istruzioni.",
+      "whatsappButton": "Ordina via WhatsApp",
+      "submit": "Ordina",
+      "submitting": "Creazione dell'ordine…"
+    }
+  },
+  "confirmation": {
+    "title": "Ordine registrato",
+    "subtitle": "Il tuo ordine {reference} è stato registrato.",
+    "nextStepsTitle": "Prossimi passi",
+    "ibanNext": "Effettua il bonifico di {amount} indicando il riferimento {reference}. Alla ricezione avviamo la produzione.",
+    "whatsappNext": "Continua la conversazione su WhatsApp per completare il pagamento.",
+    "emailNote": "Un riepilogo sta arrivando a {email}.",
+    "backHome": "Torna alla home",
+    "openWhatsapp": "Apri WhatsApp"
+  },
+  "sizes": {
+    "XS": "XS",
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "XL": "XL",
+    "XXL": "XXL"
+  },
+  "kits": {
+    "portugal": "Portogallo",
+    "portugal-away": "Portogallo trasferta",
+    "spain": "Spagna",
+    "spain-away": "Spagna trasferta",
+    "france": "Francia",
+    "france-away": "Francia trasferta",
+    "brazil": "Brasile",
+    "argentina": "Argentina",
+    "barcelona": "FC Barcellona",
+    "real-madrid": "Real Madrid"
+  },
+  "footer": {
+    "rights": "Tutti i diritti riservati.",
+    "madeWith": "Maglie personalizzate — Europa e Stati Uniti."
+  }
+}

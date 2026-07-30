@@ -1,0 +1,19 @@
+node_modules/
+.next/
+out/
+build/
+next-env.d.ts
+*.tsbuildinfo
+
+# Environnement — ne jamais committer les secrets
+.env
+.env.local
+.env*.local
+
+
+# Sorties de rendu locales
+/tmp-render/
+.DS_Store
+*.log
+.vercel
+tmp-render/

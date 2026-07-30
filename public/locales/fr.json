@@ -1,0 +1,156 @@
+{
+  "common": {
+    "next": "Continuer",
+    "back": "Retour",
+    "validate": "Valider",
+    "edit": "Modifier",
+    "loading": "Chargement…",
+    "cancel": "Annuler",
+    "required": "Ce champ est obligatoire",
+    "genericError": "Une erreur est survenue. Merci de réessayer."
+  },
+  "nav": {
+    "home": "Accueil",
+    "builder": "Créer mon maillot",
+    "tagline": "Ton maillot, tes photos, ton numéro."
+  },
+  "home": {
+    "title": "Ton maillot personnalisé avec tes photos",
+    "subtitle": "Choisis ton kit, ajoute tes photos, elles s'intègrent dans le numéro de ton maillot. Livraison en Europe et aux États-Unis.",
+    "cta": "Créer mon maillot",
+    "howItWorks": "Comment ça marche",
+    "feature1Title": "Choisis ton kit",
+    "feature1Body": "Dix maillots réels au catalogue et trois niveaux de finition, du supporter au maillot joueur.",
+    "feature2Title": "Ajoute tes photos",
+    "feature2Body": "Jusqu’à trois photos. Elles se placent verticalement à l’intérieur du numéro.",
+    "feature3Title": "Valide ton aperçu",
+    "feature3Body": "Tu vois le rendu exact avant de commander. Fichier d'impression 300 dpi envoyé à l'atelier.",
+    "shipping": "Livraison Europe + USA"
+  },
+  "builder": {
+    "title": "Crée ton maillot",
+    "stepLabel": "Étape {current} sur {total}",
+    "step1": {
+      "title": "Choisis ton kit",
+      "subtitle": "Sélectionne le maillot que tu veux personnaliser."
+    },
+    "step2": {
+      "title": "Choisis ta finition",
+      "subtitle": "Trois niveaux de qualité, du maillot supporter au maillot joueur.",
+      "supporterName": "Supporter",
+      "supporterDesc": "Coupe classique, tissu recyclé respirant. Le meilleur rapport qualité-prix.",
+      "authentiqueName": "Authentique",
+      "authentiqueDesc": "Coupe ajustée, finitions et flocage identiques au maillot vendu en boutique.",
+      "joueurName": "Joueur",
+      "joueurDesc": "Coupe near-body, tissu technique ultra-léger. La version portée sur le terrain."
+    },
+    "step3": {
+      "title": "Taille, nom et numéro",
+      "subtitle": "Ce qui sera floqué au dos de ton maillot.",
+      "size": "Taille",
+      "sizePlaceholder": "Choisir une taille",
+      "name": "Nom sur le maillot",
+      "namePlaceholder": "MARTIN",
+      "nameHelp": "15 caractères maximum",
+      "nameTooLong": "15 caractères maximum",
+      "number": "Numéro",
+      "numberPlaceholder": "10",
+      "numberHelp": "De 0 à 99",
+      "numberInvalid": "Entre un numéro de 0 à 99"
+    },
+    "step4": {
+      "title": "Ajoute tes photos",
+      "subtitle": "Elles seront intégrées à l’intérieur du numéro, empilées de haut en bas. Une à trois photos.",
+      "dropzone": "Glisse tes photos ici",
+      "browse": "ou clique pour parcourir",
+      "formats": "JPG, PNG ou WebP — 12 Mo maximum par photo",
+      "preparing": "Préparation…",
+      "removing": "Import en cours…",
+      "done": "Prête",
+      "failed": "L’import a échoué",
+      "retry": "Réessayer",
+      "remove": "Supprimer",
+      "atLeastOne": "Ajoute au moins une photo pour continuer",
+      "maxReached": "Trois photos maximum",
+      "tooLarge": "Cette photo dépasse 12 Mo",
+      "unsupported": "Format non pris en charge",
+      "unsupportedDevice": "Cette photo n’a pas pu être lue. Essaie un autre fichier.",
+      "explain": "Tes photos ne quittent ton appareil qu’au moment où tu valides la commande."
+    },
+    "step5": {
+      "title": "Ton aperçu",
+      "subtitle": "Voici le rendu de ton maillot personnalisé.",
+      "generating": "Génération de l'aperçu…",
+      "failed": "L'aperçu n'a pas pu être généré.",
+      "regenerate": "Régénérer",
+      "looksGood": "C'est parfait, je commande"
+    },
+    "step6": {
+      "title": "Livraison et paiement",
+      "shippingSection": "Données de livraison",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "country": "Pays",
+      "countryPlaceholder": "Choisir un pays",
+      "address": "Adresse",
+      "postalCode": "Code postal",
+      "city": "Ville",
+      "emailInvalid": "Adresse email invalide",
+      "summarySection": "Résumé de la commande",
+      "summaryKit": "Kit",
+      "summaryTier": "Finition",
+      "summarySize": "Taille",
+      "summaryName": "Nom sur le maillot",
+      "summaryNumber": "Numéro",
+      "summaryAmount": "Montant",
+      "paymentSection": "Paiement",
+      "paymentIntro": "Aucun paiement en ligne. Choisis ton mode de règlement, on te confirme la commande à la main.",
+      "ibanOption": "Virement bancaire",
+      "ibanInstruction": "Effectue un virement de {amount} sur ce compte :",
+      "ibanHolder": "Titulaire",
+      "ibanBic": "BIC",
+      "ibanReference": "Indique la référence {reference} dans le libellé du virement.",
+      "whatsappOption": "Commander via WhatsApp",
+      "whatsappInstruction": "On finalise ensemble par message, paiement à la réception des instructions.",
+      "whatsappButton": "Commander via WhatsApp",
+      "submit": "Commander",
+      "submitting": "Création de la commande…"
+    }
+  },
+  "confirmation": {
+    "title": "Commande enregistrée",
+    "subtitle": "Ta commande {reference} est bien enregistrée.",
+    "nextStepsTitle": "Prochaines étapes",
+    "ibanNext": "Effectue le virement de {amount} en indiquant la référence {reference}. Dès réception, on lance la production.",
+    "whatsappNext": "Continue la conversation sur WhatsApp pour finaliser le règlement.",
+    "emailNote": "Un récapitulatif part sur {email}.",
+    "backHome": "Retour à l'accueil",
+    "openWhatsapp": "Ouvrir WhatsApp"
+  },
+  "sizes": {
+    "XS": "XS",
+    "S": "S",
+    "M": "M",
+    "L": "L",
+    "XL": "XL",
+    "XXL": "XXL"
+  },
+  "kits": {
+    "portugal": "Portugal",
+    "portugal-away": "Portugal extérieur",
+    "spain": "Espagne",
+    "spain-away": "Espagne extérieur",
+    "france": "France",
+    "france-away": "France extérieur",
+    "brazil": "Brésil",
+    "argentina": "Argentine",
+    "barcelona": "FC Barcelone",
+    "real-madrid": "Real Madrid"
+  },
+  "footer": {
+    "rights": "Tous droits réservés.",
+    "madeWith": "Maillots personnalisés — Europe et États-Unis."
+  }
+}
