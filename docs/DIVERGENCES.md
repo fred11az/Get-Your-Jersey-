@@ -49,21 +49,38 @@ déclarent pas.
 
 ---
 
-## 3. Dix kits réels au lieu de cinq kits fictifs
+## 3. Dix-neuf kits réels au lieu de cinq kits fictifs
 
 **Spec :** section 15, cinq kits (France, Spain, Germany, Brazil, UK) en placeholder.
 
-**Réalité :** le client a fourni dix photos produit réelles. Elles sont importées par
-`scripts/import-real-kits.ts` et catalogées dans `lib/kit-catalog.ts` : Portugal (+
-extérieur), Espagne (+ extérieur), France (+ extérieur), Brésil, Argentine, FC
-Barcelone, Real Madrid. Le générateur de placeholders SVG a été supprimé.
+**Réalité :** le client a fourni des photos produit réelles, par lots successifs. Elles
+sont importées par `scripts/import-real-kits.ts` et cataloguées dans
+`lib/kit-catalog.ts` : Portugal, Espagne, France, Angleterre, Brésil, Argentine et
+États-Unis (domicile + extérieur pour chacun sauf le Portugal et l'Argentine côté
+domicile), FC Barcelone, Real Madrid (+ extérieur), Paris Saint-Germain (+ extérieur).
+Le générateur de placeholders SVG a été supprimé.
+
+Le second lot est arrivé **avec les photos de dos**, ce qui lève l'écart §4 pour douze
+des dix-neuf kits.
 
 ---
 
-## 4. Mockups de dos dérivés des photos de face
+## 4. Mockups de dos dérivés des photos de face — levé pour 12 kits sur 19
 
-Le flocage se place au **dos** du maillot, mais les dix photos fournies sont des vues de
-face. Un mockup de face placerait le numéro sur la poitrine — faux.
+> **État actuel.** Douze kits ont désormais une **vraie photo de dos** fournie par le
+> client (champ `backMarker` dans `lib/kit-catalog.ts`) : Espagne, Espagne extérieur,
+> Angleterre, Angleterre extérieur, Brésil, Brésil extérieur, Argentine extérieur,
+> États-Unis, États-Unis extérieur, Real Madrid extérieur, PSG, PSG extérieur. Pour
+> eux, `back.png` est la photo réelle et la zone d'impression est mesurée **sur le
+> dos**, pas sur la face.
+>
+> Les sept autres (Portugal, Portugal extérieur, France, France extérieur, Argentine,
+> FC Barcelone, Real Madrid) restent sur le mockup décrit ci-dessous, faute de photo de
+> dos. C'est visible à l'œil sur la planche `npm run kits:board` : leur dos est une
+> silhouette, pas une photo.
+
+Le flocage se place au **dos** du maillot, mais les premières photos fournies étaient
+des vues de face. Un mockup de face placerait le numéro sur la poitrine — faux.
 
 Récupérer des photos de dos officielles sur le web est impossible depuis cet
 environnement : la politique réseau refuse tout hôte hors registres de paquets (403 sur
@@ -93,6 +110,15 @@ d'entrée et **ignore** les opérations en attente du pipeline. Un `.extract().s
 renvoie les statistiques de l'image entière, fond blanc compris — d'où des couleurs
 délavées et identiques d'un kit à l'autre. Il faut matérialiser l'extrait dans un buffer
 avant de l'analyser.
+
+Le même piège s'appliquait à `.metadata()` dans `import-real-kits.ts` :
+`sharp(png).trim().metadata()` renvoyait 1200×1600, la taille du canevas d'entrée, et
+non celle du vêtement détouré. La zone d'impression dégénérait donc en une fraction
+constante du canevas, **identique pour tous les kits**, au lieu d'épouser la boîte du
+vêtement. Corrigé en mesurant les pixels du canevas (`garmentBox()`), qui écarte au
+passage le crochet du cintre : une ligne d'image ne compte comme vêtement que si elle
+est large, ce qu'un crochet n'est jamais. Sans cela, la boîte démarrait en haut de
+l'image et la zone remontait dans le col.
 
 ---
 

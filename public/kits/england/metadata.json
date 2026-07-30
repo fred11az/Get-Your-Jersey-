@@ -1,11 +1,11 @@
 {
-  "slug": "spain-away",
-  "name": "Spain Away",
+  "slug": "england",
+  "name": "England",
   "flocking": {
-    "primary": "#7B1E2B",
-    "secondary": "#C8A34A"
+    "primary": "#12224C",
+    "secondary": "#D2202F"
   },
-  "color_hex": "#EFE9DC",
+  "color_hex": "#F2F4F8",
   "mockup": {
     "width": 1200,
     "height": 1600
@@ -13,10 +13,10 @@
   "tiers": {
     "supporter": {
       "print_zone": {
-        "x": 415,
-        "y": 567,
-        "width": 363,
-        "height": 484,
+        "x": 404,
+        "y": 566,
+        "width": 389,
+        "height": 519,
         "width_mm": 180,
         "height_mm": 240
       },
@@ -25,10 +25,10 @@
     },
     "authentique": {
       "print_zone": {
-        "x": 383,
+        "x": 370,
         "y": 540,
-        "width": 428,
-        "height": 571,
+        "width": 458,
+        "height": 611,
         "width_mm": 198,
         "height_mm": 264
       },
@@ -37,10 +37,10 @@
     },
     "joueur": {
       "print_zone": {
-        "x": 351,
+        "x": 335,
         "y": 514,
-        "width": 492,
-        "height": 656,
+        "width": 527,
+        "height": 703,
         "width_mm": 216,
         "height_mm": 288
       },

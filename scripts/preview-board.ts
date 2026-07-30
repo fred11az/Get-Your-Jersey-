@@ -15,7 +15,8 @@ async function photo(hue: number): Promise<Buffer> {
   ).jpeg().toBuffer();
 }
 
-// Les dix kits : c'est la planche qui prouve que le flocage n'est pas générique.
+// Les dix-neuf kits : c'est la planche qui prouve que le flocage n'est pas
+// générique — chaque maillot a sa paire de couleurs, lisible sur SON tissu.
 const CASES: { kit: KitSlug; number: string; name: string }[] = [
   { kit: 'portugal', number: '7', name: 'RONALDO' },
   { kit: 'portugal-away', number: '8', name: 'BRUNO' },
@@ -23,10 +24,19 @@ const CASES: { kit: KitSlug; number: string; name: string }[] = [
   { kit: 'spain-away', number: '6', name: 'RODRI' },
   { kit: 'france', number: '10', name: 'BB DE SAI' },
   { kit: 'france-away', number: '7', name: 'GRIEZMANN' },
+  { kit: 'england', number: '9', name: 'KANE' },
+  { kit: 'england-away', number: '10', name: 'BELLINGHAM' },
   { kit: 'brazil', number: '11', name: 'RAPHINHA' },
+  { kit: 'brazil-away', number: '20', name: 'VINICIUS' },
   { kit: 'argentina', number: '10', name: 'MESSI' },
+  { kit: 'argentina-away', number: '22', name: 'LAUTARO' },
+  { kit: 'usa', number: '10', name: 'PULISIC' },
+  { kit: 'usa-away', number: '8', name: 'MCKENNIE' },
   { kit: 'barcelona', number: '19', name: 'LAMINE' },
   { kit: 'real-madrid', number: '5', name: 'BELLINGHAM' },
+  { kit: 'real-madrid-away', number: '7', name: 'VINI JR' },
+  { kit: 'psg', number: '10', name: 'DEMBELE' },
+  { kit: 'psg-away', number: '5', name: 'MARQUINHOS' },
 ];
 
 async function main() {

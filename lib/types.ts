@@ -3,7 +3,9 @@ import type { Locale } from '@/i18n/routing';
 /**
  * Kits disponibles, adossés aux photos produit réelles fournies par le client
  * (voir lib/kit-catalog.ts et scripts/import-real-kits.ts). La spec en prévoyait
- * cinq fictifs ; les dix ci-dessous sont les maillots réellement en catalogue.
+ * cinq fictifs ; les dix-neuf ci-dessous sont les maillots réellement en
+ * catalogue. L'ordre est celui de l'affichage : sélections nationales d'abord,
+ * clubs ensuite, chaque domicile suivi de son extérieur.
  */
 export const KIT_SLUGS = [
   'portugal',
@@ -12,10 +14,19 @@ export const KIT_SLUGS = [
   'spain-away',
   'france',
   'france-away',
+  'england',
+  'england-away',
   'brazil',
+  'brazil-away',
   'argentina',
+  'argentina-away',
+  'usa',
+  'usa-away',
   'barcelona',
   'real-madrid',
+  'real-madrid-away',
+  'psg',
+  'psg-away',
 ] as const;
 export type KitSlug = (typeof KIT_SLUGS)[number];
 

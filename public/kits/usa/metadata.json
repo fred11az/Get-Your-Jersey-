@@ -1,11 +1,11 @@
 {
-  "slug": "spain-away",
-  "name": "Spain Away",
+  "slug": "usa",
+  "name": "USA",
   "flocking": {
-    "primary": "#7B1E2B",
-    "secondary": "#C8A34A"
+    "primary": "#1B2A5B",
+    "secondary": "#FFFFFF"
   },
-  "color_hex": "#EFE9DC",
+  "color_hex": "#D62232",
   "mockup": {
     "width": 1200,
     "height": 1600
@@ -13,10 +13,10 @@
   "tiers": {
     "supporter": {
       "print_zone": {
-        "x": 415,
-        "y": 567,
-        "width": 363,
-        "height": 484,
+        "x": 409,
+        "y": 573,
+        "width": 375,
+        "height": 500,
         "width_mm": 180,
         "height_mm": 240
       },
@@ -25,10 +25,10 @@
     },
     "authentique": {
       "print_zone": {
-        "x": 383,
-        "y": 540,
-        "width": 428,
-        "height": 571,
+        "x": 376,
+        "y": 547,
+        "width": 442,
+        "height": 589,
         "width_mm": 198,
         "height_mm": 264
       },
@@ -37,10 +37,10 @@
     },
     "joueur": {
       "print_zone": {
-        "x": 351,
-        "y": 514,
-        "width": 492,
-        "height": 656,
+        "x": 343,
+        "y": 521,
+        "width": 508,
+        "height": 677,
         "width_mm": 216,
         "height_mm": 288
       },

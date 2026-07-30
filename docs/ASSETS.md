@@ -5,12 +5,15 @@ qu'il faut pour passer en qualité production, et où le déposer.
 
 ---
 
-## 1. Photos de dos des maillots — priorité haute
+## 1. Photos de dos des maillots — sept kits restants
 
-**Pourquoi :** le flocage se place au dos. Les dix photos actuellement en
-catalogue sont des vues de face ; les dos sont pour l'instant **fabriqués** à
-partir d'elles (`scripts/generate-back-mockups.ts`). Ils gardent la couleur et le
-motif réels, mais ce ne sont pas des photos.
+**Pourquoi :** le flocage se place au dos. Douze kits sur dix-neuf ont maintenant
+une vraie photo de dos, fournie par le client. Les sept autres gardent un dos
+**fabriqué** à partir de la face (`scripts/generate-back-mockups.ts`) : la couleur
+et le motif sont réels, mais la silhouette est synthétique et cela se voit.
+
+**Encore à fournir :** Portugal, Portugal extérieur, France, France extérieur,
+Argentine, FC Barcelone, Real Madrid.
 
 **À fournir :** une photo de dos par maillot, cadrée comme la photo de face.
 
@@ -28,9 +31,17 @@ motif réels, mais ce ne sont pas des photos.
 npx tsx scripts/import-real-kits.ts <dossier-des-photos>
 ```
 
-Puis mettre à jour `sourceMarker` dans `lib/kit-catalog.ts` si le nom de fichier
-change. **Ne pas relancer `npm run kits:backs`** après cela : ce script écraserait
-les vraies photos par des mockups générés.
+Puis renseigner dans `lib/kit-catalog.ts` le `sourceMarker` (face) et le
+`backMarker` (dos) du kit — ce sont des fragments de nom de fichier. C'est le
+`backMarker` qui bascule un kit du mockup généré à la vraie photo, et qui fait
+mesurer la zone d'impression sur le dos. **Ne pas relancer `npm run kits:backs`**
+après cela : ce script écraserait les vraies photos par des mockups générés.
+
+**Une photo à remplacer :** celle de face d'Argentine extérieur est la seule prise
+contre un mur, avec le cintre visible, au lieu du studio sur fond blanc des
+autres. Le fond est ramené au blanc à l'import (`whitenBackdrop` dans le
+catalogue), ce qui la rend présentable en grille, mais une vraie prise de vue
+produit serait mieux.
 
 ---
 

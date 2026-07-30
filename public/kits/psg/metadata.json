@@ -1,11 +1,11 @@
 {
-  "slug": "spain-away",
-  "name": "Spain Away",
+  "slug": "psg",
+  "name": "Paris Saint-Germain",
   "flocking": {
-    "primary": "#7B1E2B",
-    "secondary": "#C8A34A"
+    "primary": "#FFFFFF",
+    "secondary": "#C8102E"
   },
-  "color_hex": "#EFE9DC",
+  "color_hex": "#1A3EA8",
   "mockup": {
     "width": 1200,
     "height": 1600
@@ -13,10 +13,10 @@
   "tiers": {
     "supporter": {
       "print_zone": {
-        "x": 415,
-        "y": 567,
-        "width": 363,
-        "height": 484,
+        "x": 408,
+        "y": 573,
+        "width": 374,
+        "height": 499,
         "width_mm": 180,
         "height_mm": 240
       },
@@ -25,10 +25,10 @@
     },
     "authentique": {
       "print_zone": {
-        "x": 383,
-        "y": 540,
-        "width": 428,
-        "height": 571,
+        "x": 375,
+        "y": 548,
+        "width": 440,
+        "height": 587,
         "width_mm": 198,
         "height_mm": 264
       },
@@ -37,10 +37,10 @@
     },
     "joueur": {
       "print_zone": {
-        "x": 351,
-        "y": 514,
-        "width": 492,
-        "height": 656,
+        "x": 342,
+        "y": 522,
+        "width": 506,
+        "height": 675,
         "width_mm": 216,
         "height_mm": 288
       },

@@ -1,11 +1,11 @@
 {
-  "slug": "spain-away",
-  "name": "Spain Away",
+  "slug": "brazil-away",
+  "name": "Brazil Away",
   "flocking": {
-    "primary": "#7B1E2B",
-    "secondary": "#C8A34A"
+    "primary": "#FFC72C",
+    "secondary": "#00A868"
   },
-  "color_hex": "#EFE9DC",
+  "color_hex": "#14224A",
   "mockup": {
     "width": 1200,
     "height": 1600
@@ -13,10 +13,10 @@
   "tiers": {
     "supporter": {
       "print_zone": {
-        "x": 415,
-        "y": 567,
-        "width": 363,
-        "height": 484,
+        "x": 416,
+        "y": 588,
+        "width": 359,
+        "height": 479,
         "width_mm": 180,
         "height_mm": 240
       },
@@ -25,10 +25,10 @@
     },
     "authentique": {
       "print_zone": {
-        "x": 383,
-        "y": 540,
-        "width": 428,
-        "height": 571,
+        "x": 385,
+        "y": 564,
+        "width": 422,
+        "height": 563,
         "width_mm": 198,
         "height_mm": 264
       },
@@ -37,10 +37,10 @@
     },
     "joueur": {
       "print_zone": {
-        "x": 351,
-        "y": 514,
-        "width": 492,
-        "height": 656,
+        "x": 353,
+        "y": 539,
+        "width": 486,
+        "height": 648,
         "width_mm": 216,
         "height_mm": 288
       },

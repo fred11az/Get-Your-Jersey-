@@ -44,6 +44,9 @@ const ZONE_MM: Record<Tier, { width_mm: number; height_mm: number }> = {
   joueur: { width_mm: 216, height_mm: 288 },
 };
 
+/** Une photo source : chemin de fichier ou image déjà en mémoire. */
+type Source = string | Buffer;
+
 interface Bbox {
   left: number;
   top: number;
@@ -53,10 +56,45 @@ interface Bbox {
 }
 
 /**
+ * Ramène un fond de studio légèrement gris ou crème au blanc pur.
+ *
+ * Les photos prises contre un mur ne sortent pas sur du blanc franc (mesuré à
+ * 239,235,231 sur la photo Argentine extérieur) : posées telles quelles à côté
+ * des visuels produit sur fond blanc, elles trahissent une vignette grise dans
+ * la grille du catalogue.
+ *
+ * Le test porte sur la SATURATION autant que sur la clarté : un pixel clair mais
+ * coloré (jaune Brésil, crème Espagne extérieur) est conservé. C'est ce qui
+ * empêche l'opération de manger le vêtement lui-même — raison pour laquelle elle
+ * reste malgré tout opt-in par kit.
+ */
+async function whitenBackdrop(file: Source): Promise<Buffer> {
+  const { data, info } = await sharp(file).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { width, height, channels } = info;
+  const out = Buffer.from(data);
+
+  for (let i = 0; i < width * height; i++) {
+    const p = i * channels;
+    const r = data[p] ?? 0;
+    const g = data[p + 1] ?? 0;
+    const b = data[p + 2] ?? 0;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    if (min > 196 && max - min < 28) {
+      out[p] = 255;
+      out[p + 1] = 255;
+      out[p + 2] = 255;
+    }
+  }
+
+  return sharp(out, { raw: { width, height, channels } }).png().toBuffer();
+}
+
+/**
  * Boîte englobante du vêtement. On échantillonne la couleur des quatre bords
  * pour estimer le fond, puis on retient les pixels qui s'en écartent nettement.
  */
-async function detectGarment(file: string): Promise<Bbox> {
+async function detectGarment(file: Source): Promise<Bbox> {
   const SAMPLE = 200;
   const { data, info } = await sharp(file)
     .resize(SAMPLE, SAMPLE, { fit: 'fill' })
@@ -141,7 +179,7 @@ const ZONE_OVERRIDES: Partial<
 
 /** Efface un flocage en étirant une bande de tissu propre sur sa zone. */
 async function erasePrint(
-  sourceFile: string,
+  sourceFile: Source,
   crop: { left: number; top: number; width: number; height: number },
   zone: { x: number; y: number; w: number; h: number },
 ): Promise<Buffer> {
@@ -179,12 +217,81 @@ async function erasePrint(
     .toBuffer();
 }
 
-async function processKit(
-  definition: RealKitDefinition,
-  sourceFile: string,
-): Promise<{ slug: string; confidence: number }> {
-  const dir = path.join(process.cwd(), 'public', 'kits', definition.slug);
-  await mkdir(dir, { recursive: true });
+/**
+ * Boîte du vêtement sur le canevas blanc, cintre exclu.
+ *
+ * Un simple `trim()` prend tout ce qui n'est pas blanc, donc aussi le crochet du
+ * cintre, une ficelle ou une ombre portée : la boîte démarre alors au sommet de
+ * l'image et la zone d'impression, calculée en fraction de sa hauteur, remonte
+ * dans le col. On raisonne donc par profil de lignes — une ligne ne compte que
+ * si elle est large, ce qu'un crochet n'est jamais.
+ */
+function garmentBox(
+  data: Buffer,
+  info: { width: number; height: number; channels: number },
+): { left: number; top: number; width: number; height: number } | null {
+  const { width, height, channels } = info;
+  const perRow = new Int32Array(height);
+  const minXRow = new Int32Array(height).fill(width);
+  const maxXRow = new Int32Array(height).fill(-1);
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = (y * width + x) * channels;
+      // Le canevas est blanc par construction (`contain` sur fond blanc).
+      if ((data[i] ?? 255) > 240 && (data[i + 1] ?? 255) > 240 && (data[i + 2] ?? 255) > 240) {
+        continue;
+      }
+      perRow[y] = (perRow[y] ?? 0) + 1;
+      if (x < (minXRow[y] ?? width)) minXRow[y] = x;
+      if (x > (maxXRow[y] ?? -1)) maxXRow[y] = x;
+    }
+  }
+
+  const widest = Math.max(...perRow);
+  if (widest === 0) return null;
+  // Un quart de la ligne la plus large : au-dessus, c'est du vêtement ; en
+  // dessous, un accessoire ou du bruit.
+  const floor = widest * 0.25;
+
+  let top = -1;
+  let bottom = -1;
+  let left = width;
+  let right = -1;
+  for (let y = 0; y < height; y++) {
+    if ((perRow[y] ?? 0) < floor) continue;
+    if (top < 0) top = y;
+    bottom = y;
+    if ((minXRow[y] ?? width) < left) left = minXRow[y] ?? width;
+    if ((maxXRow[y] ?? -1) > right) right = maxXRow[y] ?? -1;
+  }
+
+  if (top < 0 || right < 0) return null;
+  return { left, top, width: right - left + 1, height: bottom - top + 1 };
+}
+
+/** Vêtement recadré et posé sur le canevas blanc, avec sa boîte finale. */
+interface Normalized {
+  png: Buffer;
+  garment: { width: number; height: number };
+  offsetX: number;
+  offsetY: number;
+  confidence: number;
+}
+
+/**
+ * Recadre une photo sur le vêtement détecté et la pose sur le canevas blanc.
+ * Renvoie aussi où le vêtement a atterri : c'est de cette boîte que dérive la
+ * zone d'impression, jamais de constantes en dur.
+ */
+async function normalizePhoto(
+  file: string,
+  eraseZone: RealKitDefinition['eraseZone'],
+  whiten = false,
+): Promise<Normalized> {
+  // Le blanchiment passe en premier : la détection du vêtement compare au fond,
+  // elle est d'autant plus nette que le fond est franc.
+  const sourceFile: Source = whiten ? await whitenBackdrop(file) : file;
 
   const box = await detectGarment(sourceFile);
 
@@ -205,13 +312,11 @@ async function processKit(
   // propre prélevée au-dessus de la zone, puis étirée verticalement, restitue
   // donc le motif exact sous le numéro effacé. Un simple aplat de couleur
   // laisserait une tache visible sur un maillot rayé.
-  const cleaned = definition.eraseZone
-    ? await erasePrint(sourceFile, crop, definition.eraseZone)
-    : sourceFile;
+  const cleaned = eraseZone ? await erasePrint(sourceFile, crop, eraseZone) : sourceFile;
 
-  const normalized = await sharp(cleaned)
+  const png = await sharp(cleaned)
     .rotate()
-    .extract(definition.eraseZone ? { ...crop, left: 0, top: 0 } : crop)
+    .extract(eraseZone ? { ...crop, left: 0, top: 0 } : crop)
     .resize(CANVAS.width, CANVAS.height, {
       fit: 'contain',
       background: { r: 255, g: 255, b: 255, alpha: 1 },
@@ -220,17 +325,59 @@ async function processKit(
     .toBuffer();
 
   // `contain` laisse des bandes blanches : on recalcule où le vêtement a atterri.
-  const contained = await sharp(normalized).trim({ threshold: 12 }).metadata();
-  const garment = {
-    width: contained.width ?? CANVAS.width,
-    height: contained.height ?? CANVAS.height,
-  };
-  const offsetX = Math.round((CANVAS.width - garment.width) / 2);
-  const offsetY = Math.round((CANVAS.height - garment.height) / 2);
+  //
+  // La mesure se fait sur les PIXELS du canevas, pas sur un pipeline en attente.
+  // `sharp(x).trim().metadata()` décrit l'image d'entrée et ignore les opérations
+  // en attente : il renverrait 1200×1600, soit le canevas entier, et la zone
+  // d'impression dégénérerait en une fraction constante du canevas, identique
+  // pour tous les kits. Même piège que `.stats()`, documenté dans
+  // docs/DIVERGENCES.md §4.
+  const raster = await sharp(png).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const measured = garmentBox(raster.data, raster.info);
 
-  await writeFile(path.join(dir, 'front.png'), normalized);
-  // Faute de photo de dos, le mockup dos reprend la face — voir docs/DIVERGENCES.md.
-  await writeFile(path.join(dir, 'back.png'), normalized);
+  const box2 = measured ?? {
+    left: 0,
+    top: 0,
+    width: CANVAS.width,
+    height: CANVAS.height,
+  };
+  if (!measured) {
+    console.warn(`⚠ ${sourceFile} : vêtement non mesurable sur le canevas, zone par défaut`);
+  }
+
+  return {
+    png,
+    garment: { width: box2.width, height: box2.height },
+    offsetX: box2.left,
+    offsetY: box2.top,
+    confidence: box.confidence,
+  };
+}
+
+async function processKit(
+  definition: RealKitDefinition,
+  sourceFile: string,
+  backFile?: string,
+): Promise<{ slug: string; confidence: number; realBack: boolean }> {
+  const dir = path.join(process.cwd(), 'public', 'kits', definition.slug);
+  await mkdir(dir, { recursive: true });
+
+  const front = await normalizePhoto(sourceFile, definition.eraseZone, definition.whitenBackdrop);
+  // Le flocage à effacer est repéré sur la face ; sur une vraie photo de dos le
+  // maillot est vierge, on n'y touche pas.
+  const back = backFile
+    ? await normalizePhoto(backFile, undefined, definition.whitenBackdrop)
+    : null;
+
+  await writeFile(path.join(dir, 'front.png'), front.png);
+  // Sans photo de dos, le mockup dos reprend la face — voir docs/DIVERGENCES.md §4.
+  await writeFile(path.join(dir, 'back.png'), (back ?? front).png);
+
+  // La zone d'impression se mesure sur l'image où le flocage sera posé : le dos
+  // dès qu'il est réel. Front et dos ne se recadrent pas identiquement (les
+  // manches ne tombent pas au même endroit), une zone calée sur la face
+  // dériverait de quelques dizaines de pixels sur le dos.
+  const { garment, offsetX, offsetY } = back ?? front;
 
   const tiers = {} as KitMetadata['tiers'];
   for (const tier of Object.keys(TIER_PRICING) as Tier[]) {
@@ -268,7 +415,11 @@ async function processKit(
   };
 
   await writeFile(path.join(dir, 'metadata.json'), `${JSON.stringify(metadata, null, 2)}\n`);
-  return { slug: definition.slug, confidence: box.confidence };
+  return {
+    slug: definition.slug,
+    confidence: (back ?? front).confidence,
+    realBack: back !== null,
+  };
 }
 
 async function main() {
@@ -279,7 +430,7 @@ async function main() {
   }
 
   const available = await readdir(sourceDir);
-  const report: { slug: string; confidence: number }[] = [];
+  const report: { slug: string; confidence: number; realBack: boolean }[] = [];
 
   for (const definition of REAL_KITS) {
     const match = available.find((f) => f.includes(definition.sourceMarker));
@@ -287,14 +438,33 @@ async function main() {
       console.warn(`⚠ ${definition.slug} : aucune photo contenant « ${definition.sourceMarker} »`);
       continue;
     }
-    report.push(await processKit(definition, path.join(sourceDir, match)));
-    console.log(`✓ ${definition.slug.padEnd(16)} ← ${match}`);
+
+    const backMatch = definition.backMarker
+      ? available.find((f) => f.includes(definition.backMarker as string))
+      : undefined;
+    if (definition.backMarker && !backMatch) {
+      console.warn(
+        `⚠ ${definition.slug} : dos « ${definition.backMarker} » introuvable, mockup dérivé de la face`,
+      );
+    }
+
+    report.push(
+      await processKit(
+        definition,
+        path.join(sourceDir, match),
+        backMatch ? path.join(sourceDir, backMatch) : undefined,
+      ),
+    );
+    console.log(
+      `✓ ${definition.slug.padEnd(18)} ← ${match}${backMatch ? ` + ${backMatch} (dos réel)` : ''}`,
+    );
   }
 
   console.log('\nConfiance de détection du vêtement :');
   for (const row of [...report].sort((a, b) => a.confidence - b.confidence)) {
     const flag = row.confidence < 0.25 || row.confidence > 0.9 ? ' ← à vérifier' : '';
-    console.log(`  ${row.slug.padEnd(16)} ${(row.confidence * 100).toFixed(0)}%${flag}`);
+    const back = row.realBack ? 'dos réel' : 'dos dérivé';
+    console.log(`  ${row.slug.padEnd(18)} ${(row.confidence * 100).toFixed(0)}%  ${back}${flag}`);
   }
 }
 
