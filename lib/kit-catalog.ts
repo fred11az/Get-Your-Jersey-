@@ -27,6 +27,12 @@ export interface RealKitDefinition {
   colorHex: string;
   flocking: FlockingColors;
   sourceMarker: string;
+  /**
+   * Zone à retoucher sur la photo produit, en fractions de l'image du vêtement.
+   * Sert à effacer un flocage déjà présent : le maillot doit être vierge, sinon
+   * l'ancien numéro transparaît sous celui du client.
+   */
+  eraseZone?: { x: number; y: number; w: number; h: number };
   /** Qualité de la photo source, pour prioriser les remplacements. */
   sourceQuality: 'clean' | 'mannequin' | 'flatlay';
 }
@@ -56,7 +62,7 @@ export const REAL_KITS: RealKitDefinition[] = [
     colorHex: '#C8102E',
     // jaune sur le rouge, liseré navy
     flocking: { primary: '#FFD100', secondary: '#1B3A6B' },
-    sourceMarker: 'WA0013',
+    sourceMarker: 'WA0031',
     sourceQuality: 'clean',
   },
   {
@@ -65,7 +71,7 @@ export const REAL_KITS: RealKitDefinition[] = [
     colorHex: '#EFE9DC',
     // grenat sur le crème, liseré or
     flocking: { primary: '#7B1E2B', secondary: '#C8A34A' },
-    sourceMarker: 'WA0010',
+    sourceMarker: 'WA0029',
     sourceQuality: 'clean',
   },
   {
@@ -92,16 +98,18 @@ export const REAL_KITS: RealKitDefinition[] = [
     colorHex: '#F7DF1E',
     // vert sur le jaune, liseré bleu
     flocking: { primary: '#0B6B3A', secondary: '#1B3A8F' },
-    sourceMarker: 'WA0014',
+    sourceMarker: 'WA0061',
     sourceQuality: 'mannequin',
   },
   {
     slug: 'argentina',
     name: 'Argentina',
-    colorHex: '#1B2A4A',
+    colorHex: '#8AB6E0',
     // blanc sur le sombre, liseré céleste
     flocking: { primary: '#FFFFFF', secondary: '#6CACE4' },
-    sourceMarker: 'WA0016',
+    // Le maillot domicile fourni porte un « 10 » floqué : effacé à l'import.
+    eraseZone: { x: 0.28, y: 0.24, w: 0.44, h: 0.40 },
+    sourceMarker: 'WA0059',
     sourceQuality: 'clean',
   },
   {
@@ -119,7 +127,7 @@ export const REAL_KITS: RealKitDefinition[] = [
     colorHex: '#F0F0F0',
     // navy sur le blanc, liseré or
     flocking: { primary: '#1B3A6B', secondary: '#C8A34A' },
-    sourceMarker: 'WA0009',
+    sourceMarker: 'WA0036',
     sourceQuality: 'mannequin',
   },
 ];

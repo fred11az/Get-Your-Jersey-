@@ -139,6 +139,46 @@ const ZONE_OVERRIDES: Partial<
   france: { cxFrac: 0.46, topFrac: 0.32 },
 };
 
+/** Efface un flocage en étirant une bande de tissu propre sur sa zone. */
+async function erasePrint(
+  sourceFile: string,
+  crop: { left: number; top: number; width: number; height: number },
+  zone: { x: number; y: number; w: number; h: number },
+): Promise<Buffer> {
+  const base = await sharp(sourceFile).rotate().extract(crop).png().toBuffer();
+
+  const target = {
+    left: Math.round(crop.width * zone.x),
+    top: Math.round(crop.height * zone.y),
+    width: Math.round(crop.width * zone.w),
+    height: Math.round(crop.height * zone.h),
+  };
+
+  // Bande propre prélevée juste au-dessus de la zone, sur toute sa largeur.
+  const bandHeight = Math.max(8, Math.round(target.height * 0.16));
+  const band = await sharp(base)
+    .extract({
+      left: target.left,
+      top: Math.max(0, target.top - bandHeight - 4),
+      width: target.width,
+      height: bandHeight,
+    })
+    .png()
+    .toBuffer();
+
+  // Étirement vertical : conserve les motifs verticaux du maillot.
+  const patch = await sharp(band)
+    .resize(target.width, target.height, { fit: 'fill' })
+    .blur(0.6)
+    .png()
+    .toBuffer();
+
+  return sharp(base)
+    .composite([{ input: patch, left: target.left, top: target.top }])
+    .png()
+    .toBuffer();
+}
+
 async function processKit(
   definition: RealKitDefinition,
   sourceFile: string,
@@ -158,9 +198,20 @@ async function processKit(
     height: Math.min((meta.height ?? 0) - Math.max(0, box.top - pad), box.height + pad * 2),
   };
 
-  const normalized = await sharp(sourceFile)
+  // Effacement d'un flocage déjà présent, AVANT normalisation.
+  //
+  // La reconstitution exploite une propriété du produit : les motifs d'un
+  // maillot sont verticaux (rayures, bandes, dégradés). Une bande de tissu
+  // propre prélevée au-dessus de la zone, puis étirée verticalement, restitue
+  // donc le motif exact sous le numéro effacé. Un simple aplat de couleur
+  // laisserait une tache visible sur un maillot rayé.
+  const cleaned = definition.eraseZone
+    ? await erasePrint(sourceFile, crop, definition.eraseZone)
+    : sourceFile;
+
+  const normalized = await sharp(cleaned)
     .rotate()
-    .extract(crop)
+    .extract(definition.eraseZone ? { ...crop, left: 0, top: 0 } : crop)
     .resize(CANVAS.width, CANVAS.height, {
       fit: 'contain',
       background: { r: 255, g: 255, b: 255, alpha: 1 },
