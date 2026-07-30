@@ -9,10 +9,10 @@
   "tiers": {
     "supporter": {
       "print_zone": {
-        "x": 348,
-        "y": 512,
-        "width": 408,
-        "height": 544,
+        "x": 450,
+        "y": 620,
+        "width": 300,
+        "height": 400,
         "width_mm": 180,
         "height_mm": 240
       },
@@ -21,10 +21,10 @@
     },
     "authentique": {
       "print_zone": {
-        "x": 312,
-        "y": 512,
-        "width": 480,
-        "height": 640,
+        "x": 430,
+        "y": 600,
+        "width": 339,
+        "height": 452,
         "width_mm": 198,
         "height_mm": 264
       },
@@ -33,10 +33,10 @@
     },
     "joueur": {
       "print_zone": {
-        "x": 276,
-        "y": 512,
-        "width": 552,
-        "height": 736,
+        "x": 411,
+        "y": 580,
+        "width": 378,
+        "height": 504,
         "width_mm": 216,
         "height_mm": 288
       },

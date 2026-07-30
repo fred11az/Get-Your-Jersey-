@@ -60,17 +60,39 @@ Barcelone, Real Madrid. Le générateur de placeholders SVG a été supprimé.
 
 ---
 
-## 4. Mockups de face, alors que le flocage va au dos — **à traiter**
+## 4. Mockups de dos dérivés des photos de face
 
-Les dix photos fournies sont des vues de **face**. Le visuel de référence est un
-flocage de **dos** (nom sous le col, numéro au centre du dos).
+Le flocage se place au **dos** du maillot, mais les dix photos fournies sont des vues de
+face. Un mockup de face placerait le numéro sur la poitrine — faux.
 
-Faute de photo de dos, `back.png` reprend actuellement `front.png` pour chaque kit :
-l'aperçu montre donc le flocage posé sur la poitrine. Le pipeline est correct, seul
-l'asset manque.
+Récupérer des photos de dos officielles sur le web est impossible depuis cet
+environnement : la politique réseau refuse tout hôte hors registres de paquets (403 sur
+CONNECT). Et utiliser des photos produit de marque sur un site marchand poserait de
+toute façon une question de droits.
 
-**Action requise côté client :** fournir une photo de dos par maillot. Il suffira de la
-déposer et de relancer l'import, sans changement de code.
+**Solution retenue :** `scripts/generate-back-mockups.ts` fabrique un dos par kit à
+partir de la photo de face du client :
+
+1. prélèvement d'une bande horizontale dans le torse (30–70 % de la largeur, 55–75 % de
+   la hauteur) — sous l'écusson et le sponsor, hors des bras de mannequin ;
+2. étirement vertical de cette bande dans une silhouette de dos. L'étirement vertical
+   préserve les motifs verticaux : les rayures du Barça restent des rayures, les vagues
+   du Portugal restent des vagues ;
+3. col prélevé à sa position réelle, ombrage latéral, ourlet.
+
+Le résultat garde la colorimétrie et le motif du maillot réel, et la géométrie de la
+zone d'impression est exactement connue — ce qu'aucune photo trouvée ailleurs ne
+garantirait. Les zones sont recentrées sur le dos par le même script.
+
+**Quand de vraies photos de dos seront disponibles :** les déposer et relancer
+`npm run kits:import`. Ne pas relancer `npm run kits:backs`, qui écraserait les vraies
+photos par des mockups générés.
+
+Piège rencontré au passage, documenté dans le code : `sharp().stats()` analyse l'image
+d'entrée et **ignore** les opérations en attente du pipeline. Un `.extract().stats()`
+renvoie les statistiques de l'image entière, fond blanc compris — d'où des couleurs
+délavées et identiques d'un kit à l'autre. Il faut matérialiser l'extrait dans un buffer
+avant de l'analyser.
 
 ---
 
