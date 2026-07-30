@@ -146,8 +146,13 @@ export function BuilderShell({
         for (const file of prepared) form.append('photos', file, file.name);
         const upload = await fetch('/api/upload', { method: 'POST', body: form });
         if (!upload.ok) {
-          const body = (await upload.json().catch(() => ({}))) as { error?: string };
-          throw new Error(body.error ?? 'UPLOAD_FAILED');
+          const body = (await upload.json().catch(() => ({}))) as {
+            error?: string;
+            detail?: string;
+          };
+          throw new Error(
+            body.detail ? `${body.error} — ${body.detail}` : (body.error ?? 'UPLOAD_FAILED'),
+          );
         }
         const uploaded = (await upload.json()) as { urls: string[] };
         urls = uploaded.urls;

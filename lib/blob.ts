@@ -53,21 +53,48 @@ export async function putFile(
 
   if (isBlobConfigured()) {
     const { put } = await import('@vercel/blob');
-    const result = await put(clean, Buffer.from(body), {
-      access: 'public',
+    const options = {
       contentType,
       // Le chemin porte déjà un identifiant unique : pas de suffixe aléatoire,
       // sinon on ne peut plus recalculer l'URL depuis l'ID de commande.
       addRandomSuffix: false,
       allowOverwrite: true,
-    });
-    return { url: result.url, pathname: clean };
+    } as const;
+
+    try {
+      // Blob public : servi directement par le CDN Vercel, c'est le plus rapide.
+      const result = await put(clean, Buffer.from(body), { ...options, access: 'public' });
+      return { url: result.url, pathname: clean };
+    } catch (error) {
+      // Un store créé en « Private » refuse les blobs publics. Plutôt que
+      // d'imposer une reconfiguration, on stocke en privé et on sert les
+      // fichiers par notre propre route, qui détient le jeton de lecture.
+      console.warn('[blob] écriture publique refusée, bascule en privé :', error);
+      await put(clean, Buffer.from(body), { ...options, access: 'private' });
+      return { url: `/api/files/${clean}`, pathname: clean };
+    }
   }
 
   const target = path.join(LOCAL_DIR, clean);
   await mkdir(path.dirname(target), { recursive: true });
   await writeFile(target, body);
   return { url: `/api/files/${clean}`, pathname: clean };
+}
+
+/** Lecture d'un blob privé, via le jeton du serveur. */
+export async function readPrivateBlob(pathname: string): Promise<Buffer> {
+  const { get } = await import('@vercel/blob');
+  const result = await get(safePathname(pathname), { access: 'private' });
+  if (!result?.stream) throw new Error(`Blob introuvable : ${pathname}`);
+
+  const chunks: Uint8Array[] = [];
+  const reader = result.stream.getReader();
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (value) chunks.push(value);
+  }
+  return Buffer.concat(chunks);
 }
 
 /** Lecture du repli disque (utilisée uniquement par `/api/files`). */
@@ -78,7 +105,10 @@ export async function readLocalFile(pathname: string): Promise<Buffer> {
 /** Récupère le contenu d'un fichier stocké, quel que soit le backend. */
 export async function fetchStored(url: string): Promise<Buffer> {
   if (url.startsWith('/api/files/')) {
-    return readLocalFile(url.slice('/api/files/'.length));
+    const pathname = url.slice('/api/files/'.length);
+    // Avec un store privé, ces chemins vivent chez Blob et non sur le disque.
+    if (isBlobConfigured()) return readPrivateBlob(pathname);
+    return readLocalFile(pathname);
   }
   const absolute = url.startsWith('http')
     ? url

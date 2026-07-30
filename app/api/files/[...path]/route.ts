@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { isBlobConfigured, readLocalFile } from '@/lib/blob';
+import { isBlobConfigured, readLocalFile, readPrivateBlob } from '@/lib/blob';
 
 export const runtime = 'nodejs';
 
@@ -18,15 +18,14 @@ const CONTENT_TYPES: Record<string, string> = {
  * traîner un second chemin d'accès aux fichiers en production.
  */
 export async function GET(_request: Request, { params }: { params: Promise<{ path: string[] }> }) {
-  if (isBlobConfigured()) {
-    return NextResponse.json({ error: 'NOT_FOUND' }, { status: 404 });
-  }
-
   const { path: segments } = await params;
   const relative = segments.join('/');
 
   try {
-    const file = await readLocalFile(relative);
+    // Store privé : le fichier est chez Blob, seul le serveur peut le lire.
+    const file = isBlobConfigured()
+      ? await readPrivateBlob(relative)
+      : await readLocalFile(relative);
     const extension = relative.split('.').pop()?.toLowerCase() ?? '';
 
     return new NextResponse(new Uint8Array(file), {
