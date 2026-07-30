@@ -20,7 +20,8 @@ aperçu du maillot personnalisé généré localement avec Sharp.
 | Styling | Tailwind CSS (blanc / bleu / orange) |
 | Backend | Next.js API Routes (Node.js) |
 | Base de données | PostgreSQL Vercel |
-| Traitement d'image | Sharp + rembg |
+| Traitement d'image | Sharp (compositing) + pdf-lib (PDF 300 dpi) |
+| Détourage photos | `@imgly/background-removal` — WASM/WebGPU, côté navigateur |
 | Multilangue | next-intl (FR, EN, ES, DE, IT) |
 | Déploiement | Vercel |
 

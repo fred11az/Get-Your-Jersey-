@@ -15,10 +15,15 @@ que de deviner.
 ## Résumé rapide (détails dans docs/SPEC.md)
 
 - **Produit** : plateforme e-commerce de personnalisation de maillots de football,
-  avec aperçu généré localement (Sharp + rembg, aucune API générative).
+  avec aperçu généré localement (Sharp, aucune API générative).
 - **Marchés** : Europe + USA.
 - **Stack** : Next.js 15 (App Router) + TypeScript, Tailwind CSS, API Routes Node.js,
   PostgreSQL Vercel, next-intl (FR, EN, ES, DE, IT), déploiement Vercel.
+- **Détourage photos** : exécuté dans le navigateur en WASM/WebGPU
+  (`@imgly/background-removal`), jamais dans une fonction Vercel. `rembg` n'existe pas
+  sur npm — ne pas l'installer. Le serveur ne reçoit que des PNG RGBA déjà détourés.
+- **PDF imprimeur** : `pdf-lib`. Sharp n'a pas de sortie `.pdf()` — il produit le PNG
+  300 dpi, pdf-lib fabrique le document.
 - **Auth admin** : token simple via variable d'environnement `ADMIN_TOKEN`.
 - **Paiement** : pas de traitement de paiement — affichage d'un IBAN configurable ou
   redirection vers un lien `https://wa.me/` pré-rempli.
