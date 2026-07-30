@@ -210,6 +210,7 @@ async function processKit(
   const metadata: KitMetadata = {
     slug: definition.slug as KitMetadata['slug'],
     name: definition.name,
+    flocking: definition.flocking,
     color_hex: definition.colorHex,
     mockup: CANVAS,
     tiers,

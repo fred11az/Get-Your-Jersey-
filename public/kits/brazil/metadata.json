@@ -1,6 +1,10 @@
 {
   "slug": "brazil",
   "name": "Brazil",
+  "flocking": {
+    "primary": "#0B6B3A",
+    "secondary": "#1B3A8F"
+  },
   "color_hex": "#F7DF1E",
   "mockup": {
     "width": 1200,

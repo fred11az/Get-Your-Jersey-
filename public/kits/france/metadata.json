@@ -1,6 +1,10 @@
 {
   "slug": "france",
   "name": "France",
+  "flocking": {
+    "primary": "#FFFFFF",
+    "secondary": "#D2202F"
+  },
   "color_hex": "#1E3A8A",
   "mockup": {
     "width": 1200,

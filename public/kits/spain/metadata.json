@@ -1,6 +1,10 @@
 {
   "slug": "spain",
   "name": "Spain",
+  "flocking": {
+    "primary": "#FFD100",
+    "secondary": "#1B3A6B"
+  },
   "color_hex": "#C8102E",
   "mockup": {
     "width": 1200,

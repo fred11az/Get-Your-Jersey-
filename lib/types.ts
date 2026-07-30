@@ -47,10 +47,22 @@ export interface TierMeta {
   price_usd: number;
 }
 
+/**
+ * Couleurs de flocage propres au kit. `primary` remplit le nom et forme la
+ * bordure extérieure du numéro ; `secondary` cerne le nom et forme le liseré
+ * intérieur du numéro. Elles sont choisies pour contraster avec le tissu du
+ * maillot — une bordure blanche serait invisible sur un maillot blanc.
+ */
+export interface Flocking {
+  primary: string;
+  secondary: string;
+}
+
 export interface KitMetadata {
   slug: KitSlug;
   name: string;
   color_hex: string;
+  flocking: Flocking;
   mockup: { width: number; height: number };
   tiers: Record<Tier, TierMeta>;
 }

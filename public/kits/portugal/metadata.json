@@ -1,6 +1,10 @@
 {
   "slug": "portugal",
   "name": "Portugal",
+  "flocking": {
+    "primary": "#FFFFFF",
+    "secondary": "#046A38"
+  },
   "color_hex": "#B4223C",
   "mockup": {
     "width": 1200,

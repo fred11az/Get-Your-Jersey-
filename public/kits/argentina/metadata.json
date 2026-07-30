@@ -1,6 +1,10 @@
 {
   "slug": "argentina",
   "name": "Argentina",
+  "flocking": {
+    "primary": "#FFFFFF",
+    "secondary": "#6CACE4"
+  },
   "color_hex": "#1B2A4A",
   "mockup": {
     "width": 1200,

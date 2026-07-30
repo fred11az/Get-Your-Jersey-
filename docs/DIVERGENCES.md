@@ -96,6 +96,36 @@ avant de l'analyser.
 
 ---
 
+## 4 bis. Couleurs de flocage propres à chaque kit
+
+La spec ne parle pas des couleurs du flocage ; une première version utilisait un
+blanc + rouge générique pour les dix maillots. C'est faux, et pas seulement sur le plan
+esthétique : une bordure blanche est **invisible** sur un Real Madrid ou un maillot
+extérieur clair.
+
+Chaque kit déclare donc sa paire dans `lib/kit-catalog.ts`, reportée dans
+`metadata.flocking` à l'import :
+
+- `primary` → remplissage du nom **et** bordure extérieure du numéro ;
+- `secondary` → cerne du nom **et** liseré intérieur du numéro.
+
+Deux couleurs suffisent parce que le maillot de référence les réutilise de façon croisée.
+`renderJersey` les lit depuis le kit ; `DEFAULT_STYLE` ne sert plus que de repli, et une
+surcharge explicite de l'appelant reste prioritaire.
+
+Les paires sont choisies pour contraster avec le tissu du kit tout en restant dans la
+palette de l'équipe (Portugal blanc/vert, Espagne jaune/navy, Barça jaune/navy, Real
+Madrid navy/or, Brésil vert/bleu…). Elles restent des approximations à confirmer avec
+l'atelier.
+
+**Hauteur de flocage constante.** Le bloc nom est 1,6 fois plus large que la zone du
+numéro — sur un vrai maillot le nom court d'une épaule à l'autre. La hauteur de lettre
+est constante et les noms longs se **condensent** horizontalement jusqu'à 38 %, comme un
+vrai flocage, au lieu de rétrécir. Sans cela « BELLINGHAM » faisait 36 px de haut contre
+78 px pour « RODRI » (mesuré par `scripts/check-name-fit.ts`).
+
+---
+
 ## 5. Zone d'impression : ajout de `width_mm` / `height_mm`
 
 La spec ne donnait la `print_zone` qu'en pixels. Les pixels positionnent le visuel sur

@@ -1,6 +1,10 @@
 {
   "slug": "barcelona",
   "name": "FC Barcelona",
+  "flocking": {
+    "primary": "#FFD100",
+    "secondary": "#1B2A6B"
+  },
   "color_hex": "#A50044",
   "mockup": {
     "width": 1200,

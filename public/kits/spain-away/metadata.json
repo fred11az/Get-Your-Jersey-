@@ -1,6 +1,10 @@
 {
   "slug": "spain-away",
   "name": "Spain Away",
+  "flocking": {
+    "primary": "#7B1E2B",
+    "secondary": "#C8A34A"
+  },
   "color_hex": "#EFE9DC",
   "mockup": {
     "width": 1200,

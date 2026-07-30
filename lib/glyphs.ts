@@ -79,27 +79,69 @@ export async function textToPath(text: string, fontSize = 1000): Promise<Bounded
  * d'aspect. `padding` réserve la place des contours (bordure blanche + trait
  * rouge) qui débordent du glyphe.
  */
+export interface FitOptions {
+  padding?: number;
+  /**
+   * Condensation horizontale autorisée quand le texte est trop large.
+   *
+   * `1` = échelle strictement uniforme : un nom long rétrécit en hauteur, ce qui
+   * donne « BELLINGHAM » minuscule à côté d'un « RODRI » énorme. Sur un vrai
+   * flocage la hauteur de lettre est constante et le nom se condense.
+   *
+   * Une valeur < 1 fixe la hauteur et comprime la largeur jusqu'à ce plancher
+   * (0.72 = jusqu'à 28 % de compression), au-delà duquel on retombe sur une
+   * réduction uniforme pour ne pas rendre le texte illisible.
+   */
+  minCondense?: number;
+}
+
 export function fitTransform(
   source: BoundedPath,
   box: { width: number; height: number },
-  padding = 0,
-): { transform: string; scale: number; renderedWidth: number; renderedHeight: number } {
+  options: number | FitOptions = {},
+): {
+  transform: string;
+  /** Échelle représentative, pour dimensionner les contours. */
+  scale: number;
+  scaleX: number;
+  scaleY: number;
+  renderedWidth: number;
+  renderedHeight: number;
+} {
+  const { padding = 0, minCondense = 1 } =
+    typeof options === 'number' ? { padding: options } : options;
+
   const available = {
     width: Math.max(1, box.width - padding * 2),
     height: Math.max(1, box.height - padding * 2),
   };
-  const scale = Math.min(available.width / source.width, available.height / source.height);
 
-  const renderedWidth = source.width * scale;
-  const renderedHeight = source.height * scale;
+  const byWidth = available.width / source.width;
+  const byHeight = available.height / source.height;
+
+  // On maximise la hauteur de lettre sous trois contraintes :
+  //   scaleX ≤ byWidth, scaleY ≤ byHeight, et scaleX / scaleY ≥ minCondense.
+  // La deuxième et la troisième donnent scaleY ≤ byWidth / minCondense.
+  const scaleY = Math.min(byHeight, byWidth / minCondense);
+  // Jamais plus large que le naturel : on condense, on n'étire pas.
+  const scaleX = Math.min(byWidth, scaleY);
+
+  const renderedWidth = source.width * scaleX;
+  const renderedHeight = source.height * scaleY;
 
   // Centrage : on annule d'abord l'origine de la bbox, puis on recentre.
-  const offsetX = (box.width - renderedWidth) / 2 - source.bbox.x1 * scale;
-  const offsetY = (box.height - renderedHeight) / 2 - source.bbox.y1 * scale;
+  const offsetX = (box.width - renderedWidth) / 2 - source.bbox.x1 * scaleX;
+  const offsetY = (box.height - renderedHeight) / 2 - source.bbox.y1 * scaleY;
 
   return {
-    transform: `translate(${offsetX.toFixed(3)} ${offsetY.toFixed(3)}) scale(${scale.toFixed(6)})`,
-    scale,
+    transform:
+      `translate(${offsetX.toFixed(3)} ${offsetY.toFixed(3)}) ` +
+      `scale(${scaleX.toFixed(6)} ${scaleY.toFixed(6)})`,
+    // Moyenne géométrique : avec une échelle non uniforme, c'est elle qui donne
+    // une épaisseur de contour correcte en moyenne sur les deux axes.
+    scale: Math.sqrt(scaleX * scaleY),
+    scaleX,
+    scaleY,
     renderedWidth,
     renderedHeight,
   };

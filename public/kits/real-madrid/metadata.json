@@ -1,6 +1,10 @@
 {
   "slug": "real-madrid",
   "name": "Real Madrid",
+  "flocking": {
+    "primary": "#1B3A6B",
+    "secondary": "#C8A34A"
+  },
   "color_hex": "#F0F0F0",
   "mockup": {
     "width": 1200,

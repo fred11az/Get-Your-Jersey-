@@ -22,18 +22,31 @@ import type { KitSlug, PrintZone, Tier } from './types';
  */
 
 export interface RenderStyle {
-  /** Épaisseur de la bordure blanche, en % de la largeur de la zone. */
+  /** Épaisseur de la bordure extérieure, en % de la plus petite dimension. */
   borderRatio: number;
-  /** Épaisseur du trait rouge, en % de la largeur de la zone. */
+  /** Épaisseur du liseré intérieur, en % de la plus petite dimension. */
   accentRatio: number;
+  /** Remplissage du nom et bordure extérieure du numéro. */
   borderColor: string;
+  /** Cerne du nom et liseré intérieur du numéro. */
   accentColor: string;
   /** Trame demi-teinte. `size: 0` la désactive. */
   halftone: { angle: number; size: number };
   /** Hauteur du bloc nom, en % de la hauteur de la zone. */
   nameHeightRatio: number;
+  /**
+   * Largeur du bloc nom, en multiple de la largeur de la zone du numéro. Sur un
+   * vrai maillot le nom court d'une épaule à l'autre, donc plus large que le
+   * numéro : sans ça, un nom de dix lettres devient illisible.
+   */
+  nameWidthFactor: number;
 }
 
+/**
+ * Géométrie par défaut. Les **couleurs** ne sont volontairement pas génériques :
+ * elles proviennent de `metadata.flocking` du kit choisi (voir `renderJersey`).
+ * Celles-ci ne servent que de repli si un kit n'en déclare pas.
+ */
 export const DEFAULT_STYLE: RenderStyle = {
   borderRatio: 0.035,
   accentRatio: 0.014,
@@ -41,6 +54,7 @@ export const DEFAULT_STYLE: RenderStyle = {
   accentColor: '#D2202F',
   halftone: { angle: 45, size: 0 },
   nameHeightRatio: 0.17,
+  nameWidthFactor: 1.6,
 };
 
 export interface RenderInput {
@@ -157,6 +171,7 @@ async function buildPlate(
   box: { width: number; height: number },
   style: RenderStyle,
   order: 'border-outside' | 'accent-outside',
+  minCondense = 1,
 ): Promise<Plate> {
   // L'épaisseur suit la plus petite dimension du bloc : indexée sur la largeur,
   // la bordure d'un bloc nom (large et bas) deviendrait plus épaisse que
@@ -165,7 +180,7 @@ async function buildPlate(
   const border = reference * style.borderRatio;
   const accent = reference * style.accentRatio;
   const padding = border + accent;
-  const { transform, scale } = fitTransform(glyph, box, padding);
+  const { transform, scale } = fitTransform(glyph, box, { padding, minCondense });
 
   // Les épaisseurs sont exprimées dans l'espace du glyphe : on divise par
   // l'échelle pour que la bande garde la largeur voulue après mise à l'échelle.
@@ -230,16 +245,29 @@ async function renderNameArtwork(
 ): Promise<Buffer | null> {
   if (!jerseyName) return null;
   const glyph = await textToPath(jerseyName);
-  const { outline } = await buildPlate(glyph, box, style, 'accent-outside');
+  // Hauteur de lettre constante, nom condensé jusqu'à 38 % s'il est long.
+  const { outline } = await buildPlate(glyph, box, style, 'accent-outside', 0.62);
   return outline;
 }
 
 export async function renderJersey(input: RenderInput): Promise<RenderOutput> {
   const startedAt = Date.now();
-  const style = { ...DEFAULT_STYLE, ...input.style };
   const side = input.side ?? 'back';
 
   const kit = await loadKit(input.kitSlug);
+
+  // Les couleurs de flocage sont propres au maillot, jamais génériques : une
+  // bordure blanche disparaîtrait sur un Real Madrid. Ordre de priorité :
+  // surcharge explicite de l'appelant > couleurs du kit > repli.
+  const style: RenderStyle = {
+    ...DEFAULT_STYLE,
+    ...(kit.flocking && {
+      borderColor: kit.flocking.primary,
+      accentColor: kit.flocking.secondary,
+    }),
+    ...input.style,
+  };
+
   const tierMeta = kit.tiers[input.tier];
   if (!tierMeta) {
     throw new RenderError(`Finition inconnue : ${input.tier}`, 'UNKNOWN_TIER');
@@ -254,9 +282,15 @@ export async function renderJersey(input: RenderInput): Promise<RenderOutput> {
   );
 
   const nameHeight = Math.round(zone.height * style.nameHeightRatio);
+  // Le bloc nom est plus large que le numéro et reste centré sur lui, sans
+  // jamais déborder du mockup.
+  const nameWidth = Math.min(
+    Math.round(zone.width * style.nameWidthFactor),
+    kit.mockup.width - 2 * Math.max(0, Math.min(zone.x, kit.mockup.width - zone.x - zone.width)),
+  );
   const nameArtwork = await renderNameArtwork(
     input.jerseyName,
-    { width: zone.width, height: nameHeight },
+    { width: nameWidth, height: nameHeight },
     style,
   );
 
@@ -269,7 +303,7 @@ export async function renderJersey(input: RenderInput): Promise<RenderOutput> {
     const gap = Math.round(nameHeight * 0.35);
     layers.unshift({
       input: nameArtwork,
-      left: zone.x,
+      left: Math.max(0, zone.x + Math.round((zone.width - nameWidth) / 2)),
       top: Math.max(0, zone.y - nameHeight - gap),
     });
   }

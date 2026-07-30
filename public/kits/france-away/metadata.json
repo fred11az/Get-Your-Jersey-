@@ -1,6 +1,10 @@
 {
   "slug": "france-away",
   "name": "France Away",
+  "flocking": {
+    "primary": "#1B3A6B",
+    "secondary": "#D2202F"
+  },
   "color_hex": "#CDEBDD",
   "mockup": {
     "width": 1200,

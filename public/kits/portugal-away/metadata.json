@@ -1,6 +1,10 @@
 {
   "slug": "portugal-away",
   "name": "Portugal Away",
+  "flocking": {
+    "primary": "#046A38",
+    "secondary": "#B4223C"
+  },
   "color_hex": "#A7E8D2",
   "mockup": {
     "width": 1200,

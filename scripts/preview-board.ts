@@ -15,16 +15,24 @@ async function photo(hue: number): Promise<Buffer> {
   ).jpeg().toBuffer();
 }
 
+// Les dix kits : c'est la planche qui prouve que le flocage n'est pas générique.
 const CASES: { kit: KitSlug; number: string; name: string }[] = [
   { kit: 'portugal', number: '7', name: 'RONALDO' },
-  { kit: 'barcelona', number: '10', name: 'BB DE SAI' },
-  { kit: 'france', number: '9', name: 'MARTIN' },
+  { kit: 'portugal-away', number: '8', name: 'BRUNO' },
+  { kit: 'spain', number: '9', name: 'MORATA' },
+  { kit: 'spain-away', number: '6', name: 'RODRI' },
+  { kit: 'france', number: '10', name: 'BB DE SAI' },
+  { kit: 'france-away', number: '7', name: 'GRIEZMANN' },
+  { kit: 'brazil', number: '11', name: 'RAPHINHA' },
   { kit: 'argentina', number: '10', name: 'MESSI' },
+  { kit: 'barcelona', number: '19', name: 'LAMINE' },
+  { kit: 'real-madrid', number: '5', name: 'BELLINGHAM' },
 ];
 
 async function main() {
   const photos = await Promise.all([photo(20), photo(200), photo(120)]);
-  const W = 420;
+  const W = 300;
+  const COLS = 5;
   const tiles = await Promise.all(
     CASES.map(async (c, i) => {
       const r = await renderJersey({
@@ -36,11 +44,12 @@ async function main() {
         side: 'back',
       });
       const img = await sharp(r.previewWebP).resize(W).png().toBuffer();
-      return { input: img, left: i * W, top: 0 };
+      return { input: img, left: (i % COLS) * W, top: Math.floor(i / COLS) * Math.round((W * 1600) / 1200) };
     }),
   );
   const h = Math.round((W * 1600) / 1200);
-  await sharp({ create: { width: W * CASES.length, height: h, channels: 4, background: '#ffffff' } })
+  const rows = Math.ceil(CASES.length / COLS);
+  await sharp({ create: { width: W * COLS, height: h * rows, channels: 4, background: '#ffffff' } })
     .composite(tiles)
     .jpeg({ quality: 90 })
     .toFile('tmp-render/board.jpg');
