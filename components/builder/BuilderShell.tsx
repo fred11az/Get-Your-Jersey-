@@ -137,7 +137,10 @@ export function BuilderShell({
         const form = new FormData();
         for (const photo of photos) form.append('photos', photo.file, photo.file.name);
         const upload = await fetch('/api/upload', { method: 'POST', body: form });
-        if (!upload.ok) throw new Error('UPLOAD_FAILED');
+        if (!upload.ok) {
+          const body = (await upload.json().catch(() => ({}))) as { error?: string };
+          throw new Error(body.error ?? 'UPLOAD_FAILED');
+        }
         const uploaded = (await upload.json()) as { urls: string[] };
         urls = uploaded.urls;
         setUploadedUrls(urls);
@@ -155,7 +158,10 @@ export function BuilderShell({
           sceneId,
         }),
       });
-      if (!response.ok) throw new Error('RENDER_FAILED');
+      if (!response.ok) {
+        const body = (await response.json().catch(() => ({}))) as { error?: string };
+        throw new Error(body.error ?? 'RENDER_FAILED');
+      }
 
       const result = (await response.json()) as {
         previewUrl: string;
@@ -169,8 +175,12 @@ export function BuilderShell({
         tier,
         generationTime: result.generationTime,
       });
-    } catch {
-      setPreviewError(tStep5('failed'));
+    } catch (error) {
+      // Le code serveur est repris tel quel : sans lui, « aperçu impossible »
+      // ne dit ni au client ni à nous ce qui a réellement échoué.
+      const code = error instanceof Error ? error.message : '';
+      setPreviewError(code ? `${tStep5('failed')} (${code})` : tStep5('failed'));
+      console.error('[builder] aperçu', error);
     } finally {
       setPreviewLoading(false);
     }

@@ -1,4 +1,5 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 
 /**
@@ -10,7 +11,15 @@ import path from 'node:path';
  * production — d'où l'avertissement au démarrage.
  */
 
-const LOCAL_DIR = path.join(process.cwd(), '.next', 'cache', 'gyj-uploads');
+/**
+ * Repli disque, pour le développement uniquement.
+ *
+ * Impérativement sous `os.tmpdir()` : sur Vercel, tout le système de fichiers
+ * est en LECTURE SEULE à l'exécution sauf `/tmp`. Écrire ailleurs — dans
+ * `.next/cache` par exemple — lève EROFS, l'upload échoue, et le client ne voit
+ * qu'un « aperçu impossible » sans indice de la cause.
+ */
+const LOCAL_DIR = path.join(os.tmpdir(), 'gyj-uploads');
 
 export function isBlobConfigured(): boolean {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
@@ -18,9 +27,9 @@ export function isBlobConfigured(): boolean {
 
 if (!isBlobConfigured() && process.env.NODE_ENV === 'production') {
   console.warn(
-    '[blob] BLOB_READ_WRITE_TOKEN absent en production : les aperçus et PDF seront ' +
-      'écrits sur un disque local non partagé entre instances et deviendront ' +
-      'introuvables. Configurer Vercel Blob.',
+    '[blob] BLOB_READ_WRITE_TOKEN absent en production : les fichiers vont dans le ' +
+      "répertoire temporaire d'une seule instance. Ils seront introuvables dès que " +
+      'la requête suivante atterrit ailleurs. Configurer Vercel Blob.',
   );
 }
 

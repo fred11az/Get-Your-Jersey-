@@ -60,8 +60,18 @@ export async function POST(request: Request) {
       );
       urls.push(stored.url);
     } catch (error) {
-      console.error('[upload] photo illisible', error);
-      return NextResponse.json({ error: 'UNREADABLE_IMAGE' }, { status: 422 });
+      // Deux causes distinctes, à ne pas confondre : une image corrompue (faute
+      // du client) et un stockage indisponible (faute de configuration).
+      const message = error instanceof Error ? error.message : String(error);
+      const storageFailure = /EROFS|EACCES|ENOSPC|BLOB|token/i.test(message);
+      console.error('[upload]', storageFailure ? 'stockage indisponible' : 'photo illisible', error);
+      return NextResponse.json(
+        {
+          error: storageFailure ? 'STORAGE_UNAVAILABLE' : 'UNREADABLE_IMAGE',
+          detail: storageFailure ? message : undefined,
+        },
+        { status: storageFailure ? 503 : 422 },
+      );
     }
   }
 

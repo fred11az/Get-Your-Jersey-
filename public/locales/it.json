@@ -158,5 +158,28 @@
   "footer": {
     "rights": "Tutti i diritti riservati.",
     "madeWith": "Maglie personalizzate — Europa e Stati Uniti."
+  },
+  "kitPage": {
+    "metaTitle": "Maglia {kit} personalizzata con le tue foto — nome e numero",
+    "metaDescription": "Crea la tua maglia {kit} personalizzata: le tue foto dentro il numero, il tuo nome sulla schiena. Anteprima immediata, file di stampa a 300 dpi, spedizioni in Europa e USA.",
+    "h1": "Maglia {kit} personalizzata con le tue foto",
+    "imageAlt": "Retro della maglia {kit} con nome e numero personalizzati",
+    "intro": "La maglia {kit} con il tuo nome e le tue foto inserite dentro il numero. Vedi il risultato esatto prima di ordinare, e il laboratorio riceve un file di stampa a 300 dpi.",
+    "bullet1": "Da una a tre foto impilate dentro il numero",
+    "bullet2": "Nome sulla schiena, massimo 15 caratteri",
+    "bullet3": "Taglie da XS a XXL, tre livelli di finitura",
+    "bullet4": "Spedizioni in Europa e negli Stati Uniti",
+    "priceTableCaption": "Prezzi della maglia {kit} per finitura",
+    "tierColumn": "Finitura",
+    "priceColumn": "Prezzo",
+    "cta": "Personalizza questa maglia {kit}",
+    "faqTitle": "Domande frequenti",
+    "faq1Q": "Quante foto posso mettere sulla maglia {kit}?",
+    "faq1A": "Da una a tre. Vengono impilate verticalmente dentro il numero, nell ordine in cui le aggiungi. Tre foto danno il risultato più ricco su un numero largo.",
+    "faq2Q": "Le mie foto devono avere uno sfondo particolare?",
+    "faq2A": "No. Le foto sono usate intere e ritagliate dalla sagoma del numero, quindi lo sfondo entra a far parte del disegno. Una foto luminosa e nitida con il soggetto centrato rende meglio.",
+    "faq3Q": "Quanto tempo serve e come si paga?",
+    "faq3A": "L ordine viene registrato subito con la sua anteprima. Il pagamento avviene con bonifico o si chiude via WhatsApp: confermiamo ogni ordine a mano prima di produrre.",
+    "otherKits": "Altre maglie da personalizzare"
   }
 }

@@ -158,5 +158,28 @@
   "footer": {
     "rights": "Alle Rechte vorbehalten.",
     "madeWith": "Personalisierte Trikots — Europa und USA."
+  },
+  "kitPage": {
+    "metaTitle": "{kit} Trikot personalisiert mit deinen Fotos — Name und Nummer",
+    "metaDescription": "Gestalte dein personalisiertes {kit} Trikot: deine Fotos in der Nummer, dein Name auf dem Rücken. Sofortige Vorschau, 300-dpi-Druckdatei, Versand in Europa und die USA.",
+    "h1": "{kit} Trikot personalisiert mit deinen Fotos",
+    "imageAlt": "Rückseite des {kit} Trikots mit personalisiertem Namen und Nummer",
+    "intro": "Das {kit} Trikot mit deinem Namen und deinen Fotos in der Nummer. Du siehst das exakte Ergebnis vor der Bestellung, die Werkstatt erhält eine 300-dpi-Druckdatei.",
+    "bullet1": "Ein bis drei Fotos, senkrecht in der Nummer gestapelt",
+    "bullet2": "Name auf dem Rücken, maximal 15 Zeichen",
+    "bullet3": "Größen XS bis XXL, drei Ausführungen",
+    "bullet4": "Versand in Europa und in die USA",
+    "priceTableCaption": "Preise des {kit} Trikots nach Ausführung",
+    "tierColumn": "Ausführung",
+    "priceColumn": "Preis",
+    "cta": "Dieses {kit} Trikot gestalten",
+    "faqTitle": "Häufige Fragen",
+    "faq1Q": "Wie viele Fotos kann ich auf das {kit} Trikot setzen?",
+    "faq1A": "Ein bis drei. Sie werden senkrecht in der Nummer gestapelt, in der Reihenfolge, in der du sie hinzufügst. Drei Fotos ergeben bei einer breiten Ziffer das reichste Ergebnis.",
+    "faq2Q": "Brauchen meine Fotos einen bestimmten Hintergrund?",
+    "faq2A": "Nein. Die Fotos werden ganz verwendet und von der Form der Ziffer beschnitten — der Hintergrund wird Teil des Motivs. Ein helles, scharfes Foto mit zentriertem Motiv wirkt am besten.",
+    "faq3Q": "Wie lange dauert es und wie bezahle ich?",
+    "faq3A": "Deine Bestellung wird sofort mit Vorschau erfasst. Bezahlt wird per Banküberweisung oder über WhatsApp: wir bestätigen jede Bestellung persönlich, bevor die Produktion startet.",
+    "otherKits": "Weitere Trikots zum Gestalten"
   }
 }

@@ -158,5 +158,28 @@
   "footer": {
     "rights": "All rights reserved.",
     "madeWith": "Custom jerseys — Europe and the USA."
+  },
+  "kitPage": {
+    "metaTitle": "Custom {kit} jersey with your photos — name and number printing",
+    "metaDescription": "Build your custom {kit} jersey: your photos inside the number, your name across the back. Instant preview, 300 dpi print file, shipping to Europe and the USA.",
+    "h1": "Custom {kit} jersey with your photos",
+    "imageAlt": "Back of the {kit} jersey with custom name and number printing",
+    "intro": "The {kit} jersey printed with your name, and your photos set inside the number. You see the exact result before ordering, and the workshop receives a 300 dpi print file.",
+    "bullet1": "One to three photos stacked inside the number",
+    "bullet2": "Name printed across the back, 15 characters maximum",
+    "bullet3": "Sizes XS to XXL, three finish levels",
+    "bullet4": "Shipping across Europe and the USA",
+    "priceTableCaption": "{kit} jersey pricing by finish",
+    "tierColumn": "Finish",
+    "priceColumn": "Price",
+    "cta": "Customise this {kit} jersey",
+    "faqTitle": "Frequently asked questions",
+    "faq1Q": "How many photos can I put on the {kit} jersey?",
+    "faq1A": "One to three. They stack vertically inside the number, in the order you add them. Three photos give the richest result on a wide digit.",
+    "faq2Q": "Do my photos need a particular background?",
+    "faq2A": "No. Photos are used whole and clipped by the shape of the digit, so your background becomes part of the design. A bright, sharp photo with the subject centred works best.",
+    "faq3Q": "How long does it take and how do I pay?",
+    "faq3A": "Your order is recorded immediately with its preview. Payment is by bank transfer or finalised over WhatsApp: we confirm every order by hand before production starts.",
+    "otherKits": "Other jerseys to customise"
   }
 }

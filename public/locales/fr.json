@@ -158,5 +158,28 @@
   "footer": {
     "rights": "Tous droits réservés.",
     "madeWith": "Maillots personnalisés — Europe et États-Unis."
+  },
+  "kitPage": {
+    "metaTitle": "Maillot {kit} personnalisé avec vos photos — flocage nom et numéro",
+    "metaDescription": "Créez votre maillot {kit} personnalisé : vos photos intégrées dans le numéro, nom floqué au dos. Aperçu immédiat, impression 300 dpi, livraison Europe et USA.",
+    "h1": "Maillot {kit} personnalisé avec vos photos",
+    "imageAlt": "Dos du maillot {kit} avec flocage nom et numéro personnalisé",
+    "intro": "Le maillot {kit} floqué à votre nom, avec vos photos intégrées à l'intérieur du numéro. Vous voyez le rendu exact avant de commander, et l'atelier reçoit un fichier d'impression à 300 dpi.",
+    "bullet1": "Une à trois photos empilées dans le numéro",
+    "bullet2": "Nom floqué au dos, 15 caractères maximum",
+    "bullet3": "Tailles XS à XXL, trois niveaux de finition",
+    "bullet4": "Livraison en Europe et aux États-Unis",
+    "priceTableCaption": "Prix du maillot {kit} par finition",
+    "tierColumn": "Finition",
+    "priceColumn": "Prix",
+    "cta": "Personnaliser ce maillot {kit}",
+    "faqTitle": "Questions fréquentes",
+    "faq1Q": "Combien de photos puis-je mettre sur le maillot {kit} ?",
+    "faq1A": "Une à trois photos. Elles sont empilées verticalement à l'intérieur du numéro, dans l'ordre où vous les ajoutez. Trois photos donnent le rendu le plus riche sur un chiffre large.",
+    "faq2Q": "Mes photos doivent-elles avoir un fond particulier ?",
+    "faq2A": "Non. Les photos sont utilisées entières et découpées par la silhouette du chiffre : le fond de votre photo fait partie du visuel. Une photo lumineuse et nette au centre donne le meilleur résultat.",
+    "faq3Q": "Quel est le délai et comment se passe le paiement ?",
+    "faq3A": "La commande est enregistrée immédiatement avec son aperçu. Le règlement se fait par virement bancaire ou en finalisant par WhatsApp : nous confirmons chaque commande à la main avant lancement en production.",
+    "otherKits": "Autres maillots à personnaliser"
   }
 }

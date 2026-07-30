@@ -158,5 +158,28 @@
   "footer": {
     "rights": "Todos los derechos reservados.",
     "madeWith": "Camisetas personalizadas — Europa y Estados Unidos."
+  },
+  "kitPage": {
+    "metaTitle": "Camiseta {kit} personalizada con tus fotos — nombre y número",
+    "metaDescription": "Crea tu camiseta {kit} personalizada: tus fotos dentro del número y tu nombre en la espalda. Vista previa inmediata, archivo de impresión a 300 ppp, envíos a Europa y EE. UU.",
+    "h1": "Camiseta {kit} personalizada con tus fotos",
+    "imageAlt": "Espalda de la camiseta {kit} con nombre y número personalizados",
+    "intro": "La camiseta {kit} con tu nombre y tus fotos integradas dentro del número. Ves el resultado exacto antes de pedir, y el taller recibe un archivo de impresión a 300 ppp.",
+    "bullet1": "De una a tres fotos apiladas dentro del número",
+    "bullet2": "Nombre en la espalda, 15 caracteres como máximo",
+    "bullet3": "Tallas XS a XXL, tres niveles de acabado",
+    "bullet4": "Envíos a Europa y Estados Unidos",
+    "priceTableCaption": "Precios de la camiseta {kit} por acabado",
+    "tierColumn": "Acabado",
+    "priceColumn": "Precio",
+    "cta": "Personalizar esta camiseta {kit}",
+    "faqTitle": "Preguntas frecuentes",
+    "faq1Q": "¿Cuántas fotos puedo poner en la camiseta {kit}?",
+    "faq1A": "De una a tres. Se apilan verticalmente dentro del número, en el orden en que las añades. Tres fotos dan el resultado más rico en un número ancho.",
+    "faq2Q": "¿Mis fotos necesitan un fondo concreto?",
+    "faq2A": "No. Las fotos se usan enteras y se recortan con la silueta del número, así que el fondo forma parte del diseño. Una foto luminosa y nítida con el sujeto centrado funciona mejor.",
+    "faq3Q": "¿Cuánto tarda y cómo se paga?",
+    "faq3A": "El pedido queda registrado al instante con su vista previa. El pago es por transferencia o se cierra por WhatsApp: confirmamos cada pedido a mano antes de producir.",
+    "otherKits": "Otras camisetas para personalizar"
   }
 }
