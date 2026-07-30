@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fitTransform, textToPath, type BoundedPath } from './glyphs';
 import { kitDir, loadKit } from './kits';
 import { getScene, quadPlacement, sceneDir } from './scenes';
+import { kitFabricBand, swapGarmentFabric } from './garment';
 import type { KitSlug, PrintZone, Tier } from './types';
 
 /**
@@ -358,9 +359,21 @@ export async function renderJersey(input: RenderInput): Promise<RenderOutput> {
   const scene = input.sceneId ? await getScene(input.sceneId) : undefined;
   const placement = scene ? quadPlacement(scene.quad) : null;
 
-  const background = scene
+  // Sur une scène, le mannequin doit porter le kit choisi, pas celui de la
+  // prise de vue : on remplace la matière en conservant l'éclairage de la photo.
+  let background: string | Buffer = scene
     ? path.join(sceneDir(scene.id), 'photo.jpg')
     : path.join(kitDir(input.kitSlug), `${side}.png`);
+
+  if (scene?.garment && scene.garment.length >= 3) {
+    background = await swapGarmentFabric({
+      photo: await sharp(background).png().toBuffer(),
+      garment: scene.garment,
+      fabric: await kitFabricBand(input.kitSlug),
+      width: scene.photo.width,
+      height: scene.photo.height,
+    });
+  }
 
   // Sur une scène, le visuel est redimensionné et incliné pour suivre le dos du
   // mannequin ; sur un mockup à plat il est posé tel quel dans la zone.

@@ -45,6 +45,24 @@ const MODELS = [
     gender: 'man' as const,
     kitSlug: null,
     split: 0.5,
+    /**
+     * Contour du maillot sur la vue de dos, en fractions.
+     *
+     * ⚠️ NON UTILISÉ pour l'instant. Ces valeurs ont été estimées à l'œil sur
+     * une capture réduite et sont fausses : le remplacement de tissu produisait
+     * une plaque rectangulaire au lieu d'épouser le vêtement. Les relever
+     * correctement demande soit une annotation précise sur la photo pleine
+     * résolution, soit une segmentation automatique du vêtement.
+     * Le mécanisme lui-même (lib/garment.ts) est fonctionnel et attend ces
+     * coordonnées ; il s'active dès que `garment` est écrit dans metadata.json.
+     */
+    garment: [
+      { x: 0.35, y: 0.31 }, { x: 0.65, y: 0.31 },
+      { x: 0.74, y: 0.39 }, { x: 0.71, y: 0.50 },
+      { x: 0.66, y: 0.48 }, { x: 0.67, y: 0.71 },
+      { x: 0.33, y: 0.71 }, { x: 0.34, y: 0.48 },
+      { x: 0.29, y: 0.50 }, { x: 0.26, y: 0.39 },
+    ],
     // Le nom est floqué AU-DESSUS du quad : son bord haut doit laisser la place
     // du bloc nom sous le col, sinon le texte retombe sur la nuque.
     backQuad: [
@@ -61,6 +79,13 @@ const MODELS = [
     gender: 'woman' as const,
     kitSlug: null,
     split: 0.5,
+    garment: [
+      { x: 0.37, y: 0.33 }, { x: 0.64, y: 0.33 },
+      { x: 0.72, y: 0.41 }, { x: 0.69, y: 0.51 },
+      { x: 0.65, y: 0.49 }, { x: 0.66, y: 0.72 },
+      { x: 0.34, y: 0.72 }, { x: 0.35, y: 0.49 },
+      { x: 0.31, y: 0.51 }, { x: 0.28, y: 0.41 },
+    ],
     backQuad: [
       { x: 0.37, y: 0.40 },
       { x: 0.65, y: 0.40 },
@@ -155,6 +180,9 @@ async function importModels(dir: string) {
       })) as SceneMetadata['quad'],
       kitSlug: model.kitSlug,
       blendOpacity: 0.95,
+      // Contour VOLONTAIREMENT non écrit : voir le commentaire sur `garment`
+      // dans MODELS. Sans lui, le mannequin garde le maillot de la prise de
+      // vue, ce qui est correct — au lieu d'une plaque de tissu mal placée.
     };
 
     await writeFile(

@@ -66,6 +66,13 @@ export interface SceneMetadata {
   kitSlug: string | null;
   /** Opacité du visuel, pour laisser passer le grain du tissu. */
   blendOpacity?: number;
+  /**
+   * Contour du maillot porté, en pixels de la photo. Sa présence active le
+   * remplacement de tissu : le mannequin « porte » alors le kit choisi par le
+   * client au lieu de celui de la prise de vue. Absent, la photo est utilisée
+   * telle quelle.
+   */
+  garment?: ScenePoint[];
 }
 
 const SCENES_DIR = path.join(process.cwd(), 'public', 'scenes');
