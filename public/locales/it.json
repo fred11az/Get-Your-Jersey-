@@ -26,7 +26,11 @@
     "feature3Title": "Conferma l'anteprima",
     "feature3Body": "Vedi il risultato esatto prima di ordinare. Il file di stampa a 300 dpi va direttamente in laboratorio.",
     "shipping": "Spedizioni Europa + USA",
-    "priceFrom": "da {price}"
+    "priceFrom": "da {price}",
+    "heroAlt": "Maglie personalizzate da indossare ogni giorno",
+    "lifestyleTitle": "Le tue foto, il tuo nome, il tuo numero",
+    "lifestyleBody": "Una maglia che racconta qualcosa. Le persone a cui tieni dentro il numero, il tuo nome sulla schiena.",
+    "lifestyleAlt": "Gruppo di tifosi con maglie personalizzate per strada"
   },
   "builder": {
     "title": "Crea la tua maglia",

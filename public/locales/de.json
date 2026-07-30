@@ -26,7 +26,11 @@
     "feature3Title": "Vorschau bestätigen",
     "feature3Body": "Du siehst das exakte Ergebnis vor der Bestellung. Die 300-dpi-Druckdatei geht direkt in die Werkstatt.",
     "shipping": "Versand Europa + USA",
-    "priceFrom": "ab {price}"
+    "priceFrom": "ab {price}",
+    "heroAlt": "Personalisierte Trikots für jeden Tag",
+    "lifestyleTitle": "Deine Fotos, dein Name, deine Nummer",
+    "lifestyleBody": "Ein Trikot, das etwas erzählt. Die Menschen, die zählen, in der Nummer, dein Name auf dem Rücken.",
+    "lifestyleAlt": "Gruppe von Fans in personalisierten Trikots auf der Straße"
   },
   "builder": {
     "title": "Gestalte dein Trikot",

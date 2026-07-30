@@ -44,18 +44,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           </div>
         </div>
 
-        {/* Aperçu produit : le maillot de référence du client. */}
-        <div className="gyj-card gyj-mockup-bg overflow-hidden p-4">
-          <div className="relative mx-auto aspect-[3/4] w-full max-w-sm">
-            <Image
-              src="/kits/france/back.png"
-              alt=""
-              fill
-              priority
-              sizes="(min-width: 1024px) 24rem, 80vw"
-              className="object-contain"
-            />
-          </div>
+        {/* Visuel d'accroche : des gens qui portent réellement le produit. */}
+        <div className="overflow-hidden rounded-[18px]">
+          <Image
+            src="/lifestyle/studio-lineup-1600.jpg"
+            alt={t('heroAlt')}
+            width={1600}
+            height={900}
+            priority
+            sizes="(min-width: 1024px) 34rem, 92vw"
+            className="h-full w-full object-cover"
+          />
         </div>
       </section>
 
@@ -107,6 +106,27 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <ButtonLink href={`/${locale}/builder`} variant="primary" size="lg">
             {t('cta')}
           </ButtonLink>
+        </div>
+      </section>
+
+      {/* Bandeau lifestyle : le produit porté, en situation réelle. */}
+      <section className="relative isolate overflow-hidden">
+        <Image
+          src="/lifestyle/street-group-1600.jpg"
+          alt={t('lifestyleAlt')}
+          width={1600}
+          height={900}
+          sizes="100vw"
+          className="h-[22rem] w-full object-cover sm:h-[28rem]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+            <p className="max-w-md text-2xl font-extrabold leading-tight text-white sm:text-3xl">
+              {t('lifestyleTitle')}
+            </p>
+            <p className="mt-3 max-w-md text-sm text-white/85">{t('lifestyleBody')}</p>
+          </div>
         </div>
       </section>
     </>

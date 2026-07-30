@@ -1,0 +1,29 @@
+{
+  "id": "woman",
+  "label": "woman",
+  "gender": "woman",
+  "photo": {
+    "width": 592,
+    "height": 1024
+  },
+  "quad": [
+    {
+      "x": 219,
+      "y": 410
+    },
+    {
+      "x": 385,
+      "y": 410
+    },
+    {
+      "x": 385,
+      "y": 799
+    },
+    {
+      "x": 219,
+      "y": 799
+    }
+  ],
+  "kitSlug": null,
+  "blendOpacity": 0.95
+}

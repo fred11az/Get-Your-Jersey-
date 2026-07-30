@@ -1,0 +1,29 @@
+{
+  "id": "man",
+  "label": "man",
+  "gender": "man",
+  "photo": {
+    "width": 547,
+    "height": 1024
+  },
+  "quad": [
+    {
+      "x": 191,
+      "y": 389
+    },
+    {
+      "x": 361,
+      "y": 389
+    },
+    {
+      "x": 361,
+      "y": 799
+    },
+    {
+      "x": 191,
+      "y": 799
+    }
+  ],
+  "kitSlug": null,
+  "blendOpacity": 0.95
+}

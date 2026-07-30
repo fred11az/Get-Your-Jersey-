@@ -26,7 +26,11 @@
     "feature3Title": "Valida tu vista previa",
     "feature3Body": "Ves el resultado exacto antes de pedir. El archivo de impresión a 300 ppp va directo al taller.",
     "shipping": "Envíos a Europa + EE. UU.",
-    "priceFrom": "desde {price}"
+    "priceFrom": "desde {price}",
+    "heroAlt": "Camisetas personalizadas para el día a día",
+    "lifestyleTitle": "Tus fotos, tu nombre, tu número",
+    "lifestyleBody": "Una camiseta que cuenta algo. Los tuyos dentro del número, tu nombre en la espalda, para llevar a todas partes.",
+    "lifestyleAlt": "Grupo de aficionados con camisetas personalizadas en la calle"
   },
   "builder": {
     "title": "Crea tu camiseta",

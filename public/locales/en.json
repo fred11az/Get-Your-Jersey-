@@ -26,7 +26,11 @@
     "feature3Title": "Approve your preview",
     "feature3Body": "You see the exact result before ordering. A 300 dpi print file goes straight to the workshop.",
     "shipping": "Shipping to Europe + USA",
-    "priceFrom": "from {price}"
+    "priceFrom": "from {price}",
+    "heroAlt": "Custom jerseys worn every day",
+    "lifestyleTitle": "Your photos, your name, your number",
+    "lifestyleBody": "A jersey that means something. The people you love inside the number, your name across the back, worn everywhere.",
+    "lifestyleAlt": "Group of supporters wearing custom jerseys in the street"
   },
   "builder": {
     "title": "Build your jersey",

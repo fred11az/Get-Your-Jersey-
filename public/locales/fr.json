@@ -26,7 +26,11 @@
     "feature3Title": "Valide ton aperçu",
     "feature3Body": "Tu vois le rendu exact avant de commander. Fichier d'impression 300 dpi envoyé à l'atelier.",
     "shipping": "Livraison Europe + USA",
-    "priceFrom": "dès {price}"
+    "priceFrom": "dès {price}",
+    "heroAlt": "Des maillots personnalisés portés au quotidien",
+    "lifestyleTitle": "Vos photos, votre nom, votre numéro",
+    "lifestyleBody": "Un maillot qui raconte quelque chose. Vos proches à l’intérieur du numéro, votre nom au dos, porté partout.",
+    "lifestyleAlt": "Groupe de supporters en maillots personnalisés dans la rue"
   },
   "builder": {
     "title": "Crée ton maillot",
