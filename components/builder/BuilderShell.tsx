@@ -14,6 +14,7 @@ import type {
 } from '@/lib/types';
 import type { ScenePlayback } from '@/lib/scenes';
 import { currencyForCountry } from '@/lib/countries';
+import { prepareUpload, TOTAL_UPLOAD_BUDGET } from '@/lib/downscale.client';
 import { Button } from '@/components/shared/Button';
 import { ProgressBar, TOTAL_STEPS } from './ProgressBar';
 import { Step1KitSelection } from './Step1KitSelection';
@@ -134,8 +135,15 @@ export function BuilderShell({
       let urls = uploadedUrls;
 
       if (!urls) {
+        // Réduction AVANT envoi : une fonction Vercel refuse tout corps au-delà
+        // de 4,5 Mo, et le rejet a lieu avant elle — le navigateur ne voit alors
+        // qu'un « Failed to fetch » sans réponse exploitable.
+        const prepared = await prepareUpload(photos.map((p) => p.file));
+        const total = prepared.reduce((sum, file) => sum + file.size, 0);
+        if (total > TOTAL_UPLOAD_BUDGET) throw new Error('PHOTOS_TOO_LARGE');
+
         const form = new FormData();
-        for (const photo of photos) form.append('photos', photo.file, photo.file.name);
+        for (const file of prepared) form.append('photos', file, file.name);
         const upload = await fetch('/api/upload', { method: 'POST', body: form });
         if (!upload.ok) {
           const body = (await upload.json().catch(() => ({}))) as { error?: string };

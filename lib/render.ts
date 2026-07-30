@@ -1,5 +1,6 @@
 import sharp, { type OverlayOptions } from 'sharp';
 import path from 'node:path';
+import { readFile } from 'node:fs/promises';
 import { fitTransform, textToPath, type BoundedPath } from './glyphs';
 import { kitDir, loadKit } from './kits';
 import { getScene, quadPlacement, sceneDir } from './scenes';
@@ -365,10 +366,10 @@ export async function renderJersey(input: RenderInput): Promise<RenderOutput> {
     ? path.join(sceneDir(scene.id), 'photo.jpg')
     : path.join(kitDir(input.kitSlug), `${side}.png`);
 
-  if (scene?.garment && scene.garment.length >= 3) {
+  if (scene?.garmentMask) {
     background = await swapGarmentFabric({
       photo: await sharp(background).png().toBuffer(),
-      garment: scene.garment,
+      mask: await readFile(path.join(sceneDir(scene.id), scene.garmentMask)),
       fabric: await kitFabricBand(input.kitSlug),
       width: scene.photo.width,
       height: scene.photo.height,

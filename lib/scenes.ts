@@ -67,12 +67,11 @@ export interface SceneMetadata {
   /** Opacité du visuel, pour laisser passer le grain du tissu. */
   blendOpacity?: number;
   /**
-   * Contour du maillot porté, en pixels de la photo. Sa présence active le
-   * remplacement de tissu : le mannequin « porte » alors le kit choisi par le
-   * client au lieu de celui de la prise de vue. Absent, la photo est utilisée
-   * telle quelle.
+   * Nom du fichier de masque du vêtement dans le dossier de la scène. Sa
+   * présence active le remplacement de tissu : le mannequin porte alors le kit
+   * choisi par le client. Généré par scripts/build-garment-masks.ts.
    */
-  garment?: ScenePoint[];
+  garmentMask?: string;
 }
 
 const SCENES_DIR = path.join(process.cwd(), 'public', 'scenes');

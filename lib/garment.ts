@@ -2,7 +2,6 @@ import sharp from 'sharp';
 import path from 'node:path';
 import { kitDir } from './kits';
 import type { KitSlug } from './types';
-import type { ScenePoint } from './scenes';
 
 /**
  * Remplacement du tissu porté par un mannequin.
@@ -52,36 +51,15 @@ export async function kitFabricBand(slug: KitSlug): Promise<Buffer> {
     .toBuffer();
 }
 
-/**
- * Masque binaire du polygone, aux dimensions exactes de la photo.
- *
- * Le `resize` final n'est pas décoratif : librsvg rend un SVG à sa propre
- * échelle, et un masque aux dimensions nominales dépasse d'un pixel ou deux, ce
- * qui fait échouer le composite avec « must have same dimensions or smaller ».
- */
-async function polygonMask(
-  polygon: ScenePoint[],
-  width: number,
-  height: number,
-  blurPx: number,
-): Promise<Buffer> {
-  const points = polygon.map((p) => `${p.x},${p.y}`).join(' ');
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"
-       viewBox="0 0 ${width} ${height}">
-       <polygon points="${points}" fill="#fff"/>
-     </svg>`;
-
-  let pipeline = sharp(Buffer.from(svg)).resize(width, height, { fit: 'fill' });
-  // Bord adouci : une frontière franche trahit le montage sur les épaules.
-  if (blurPx > 0) pipeline = pipeline.blur(blurPx);
-  return pipeline.greyscale().png().toBuffer();
-}
-
 export interface SwapFabricInput {
   /** Photo du mannequin. */
   photo: Buffer;
-  /** Zone du vêtement sur cette photo, en pixels. */
-  garment: ScenePoint[];
+  /**
+   * Masque du vêtement, en niveaux de gris aux dimensions de la photo (blanc =
+   * tissu). Détecté sur l'image par `scripts/build-garment-masks.ts` : un
+   * contour dessiné à la main produit une plaque décalée.
+   */
+  mask: Buffer;
   /** Bande de tissu du kit choisi. */
   fabric: Buffer;
   width: number;
@@ -90,15 +68,11 @@ export interface SwapFabricInput {
 
 export async function swapGarmentFabric({
   photo,
-  garment,
+  mask,
   fabric,
   width,
   height,
 }: SwapFabricInput): Promise<Buffer> {
-  if (garment.length < 3) return photo;
-
-  const mask = await polygonMask(garment, width, height, Math.max(1, Math.round(width * 0.004)));
-
   // Carte d'éclairage : la luminance de la photo d'origine. `normalise` étale
   // l'histogramme pour récupérer du contraste sur un maillot sombre, sans quoi
   // les plis disparaîtraient sous la nouvelle couleur.
