@@ -3,7 +3,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { isLocale } from '@/i18n/routing';
 import { loadAllKits } from '@/lib/kits';
 import { getSettings } from '@/lib/settings';
-import { loadScenes } from '@/lib/scenes';
+import { loadScenes, scenePlayback, type ScenePlayback } from '@/lib/scenes';
 import type { KitOption, PublicSettings } from '@/lib/types';
 import { BuilderShell } from '@/components/builder/BuilderShell';
 
@@ -61,6 +61,11 @@ export default async function BuilderPage({
         gender: scene.gender,
         kitSlug: scene.kitSlug,
       }))}
+      playbacks={Object.fromEntries(
+        scenes
+          .map((scene) => [scene.id, scenePlayback(scene)] as const)
+          .filter((entry): entry is [string, ScenePlayback] => entry[1] !== null),
+      )}
     />
   );
 }

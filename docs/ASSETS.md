@@ -61,6 +61,50 @@ sélection du client. Deux options :
 - **scène par kit** (`kitSlug: "portugal"`) : le mannequin porte réellement ce
   maillot. Rendu exact, mais il faut deux photos par kit (20 au total).
 
+### Animation — mannequin en mouvement
+
+L'aperçu peut être **animé** : le mannequin marche, se balance ou bouge les bras,
+et le flocage suit son dos image par image. C'est implémenté
+(`components/builder/WornPlayer.tsx`) et vérifié avec une séquence de
+démonstration visible dans le builder (« Porté — homme »).
+
+**Comment ça marche :** la composition est faite dans le **navigateur**, en
+canvas. Composer une cinquantaine d'images côté serveur prendrait une quinzaine
+de secondes par aperçu, à refaire au moindre changement de configuration, et
+dépasserait le budget d'une fonction Vercel. Côté client, les images sont
+téléchargées une fois puis mises en cache : le coût serveur est nul et le rendu
+instantané.
+
+**Ce qu'il faut filmer :**
+
+| Critère | Attendu |
+| --- | --- |
+| Durée | 2 à 4 s, en boucle naturelle (le premier et le dernier geste se raccordent) |
+| Caméra | **fixe**, sur pied. Un mouvement de caméra rend le suivi bien plus lourd |
+| Sujet | de dos, qui s'éloigne, se balance, ou bouge les bras |
+| Fond | uni, sans passage de personnes |
+| Cadence | 24 ou 30 i/s ; on n'en garde que 12 à 16 pour la boucle |
+| Résolution | 1080 px de haut minimum |
+
+**Ce qui marche bien et ce qui ne marche pas :**
+
+- ✅ **marcher en s'éloignant**, balancement d'épaules, bras qui bougent : le dos
+  reste face à l'objectif, le suivi est fiable et le rendu convaincant ;
+- ⚠️ **rotation sur soi-même à 360°** : passé une quarantaine de degrés, le dos
+  n'est plus face à l'objectif. Une approximation par rotation et échelle ne
+  suffit plus, le visuel glisserait hors du dos. Ces images doivent être marquées
+  `visible: false` — le flocage y disparaît, ce qui est le comportement réel
+  puisque le dos n'est plus visible. Une vraie déformation en perspective
+  demanderait WebGL.
+
+**Traitement :** extraire les images avec `ffmpeg`, puis renseigner le `quad` de
+chacune. En pratique on annote une image sur quatre et on interpole — un
+balancement est régulier.
+
+```bash
+ffmpeg -i video.mp4 -vf fps=12,scale=-1:960 public/scenes/<id>/frame-%02d.jpg
+```
+
 ### Structure à créer
 
 ```
@@ -74,6 +118,9 @@ public/scenes/
 ```
 
 `metadata.json` :
+
+Ajouter un bloc `sequence` pour animer (voir `public/scenes/demo-walk/` pour un
+exemple complet généré par `scripts/generate-demo-scene.ts`).
 
 ```json
 {
@@ -93,7 +140,9 @@ public/scenes/
 ```
 
 `quad` = les quatre coins de la zone de flocage sur le dos, **en pixels de la
-photo**, dans l'ordre haut-gauche, haut-droit, bas-droit, bas-gauche. C'est un
+photo**, dans l'ordre haut-gauche, haut-droit, bas-droit, bas-gauche. La zone
+couvre **le nom ET le numéro** : le lecteur ne pose qu'une image par
+quadrilatère, et le serveur lui fournit les deux réunis. C'est un
 quadrilatère et non un rectangle parce qu'un dos réel n'est jamais parfaitement
 de face : les quatre points permettent de suivre l'inclinaison des épaules.
 
@@ -109,23 +158,3 @@ pixel par pixel, ou un rendu WebGL côté client.
 
 ---
 
-## 3. Police de flocage officielle — optionnel
-
-Le nom et le numéro utilisent Archivo Black (`public/fonts/jersey-display.woff`),
-une approximation libre des polices de flocage. Pour le rendu exact d'un
-équipementier : déposer le fichier de police dans `public/fonts/` et changer
-`FONT_FILE` dans `lib/glyphs.ts`.
-
-La police doit couvrir les chiffres, les capitales latines et les accents
-FR/ES/DE/IT. `assertGlyphCoverage()` refuse tout caractère manquant plutôt que
-d'imprimer un rectangle vide à la place.
-
----
-
-## 4. Couleurs de flocage — à confirmer
-
-Chaque kit déclare sa paire de couleurs dans `lib/kit-catalog.ts`
-(`flocking.primary` / `flocking.secondary`). Les valeurs actuelles sont choisies
-pour contraster avec le tissu de chaque maillot, dans la palette de l'équipe,
-mais elles n'ont pas été validées avec l'atelier. À confirmer avant la première
-production.

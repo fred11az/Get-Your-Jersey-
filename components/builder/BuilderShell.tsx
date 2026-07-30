@@ -12,6 +12,7 @@ import type {
   Size,
   Tier,
 } from '@/lib/types';
+import type { ScenePlayback } from '@/lib/scenes';
 import { currencyForCountry } from '@/lib/countries';
 import { Button } from '@/components/shared/Button';
 import { ProgressBar, TOTAL_STEPS } from './ProgressBar';
@@ -42,10 +43,13 @@ export function BuilderShell({
   kits,
   settings,
   scenes = [],
+  playbacks = {},
 }: {
   kits: KitOption[];
   settings: PublicSettings;
   scenes?: SceneOption[];
+  /** Séquences animées par identifiant de scène. Absente = image fixe. */
+  playbacks?: Record<string, ScenePlayback>;
 }) {
   const router = useRouter();
   const locale = useLocale();
@@ -64,6 +68,7 @@ export function BuilderShell({
   const [photoError, setPhotoError] = useState<string>();
 
   const [previewUrl, setPreviewUrl] = useState<string>();
+  const [artworkUrl, setArtworkUrl] = useState<string>();
   const [uploadedUrls, setUploadedUrls] = useState<string[]>();
   const [previewLoading, setPreviewLoading] = useState(false);
   const [previewError, setPreviewError] = useState<string>();
@@ -152,8 +157,13 @@ export function BuilderShell({
       });
       if (!response.ok) throw new Error('RENDER_FAILED');
 
-      const result = (await response.json()) as { previewUrl: string; generationTime: number };
+      const result = (await response.json()) as {
+        previewUrl: string;
+        artworkUrl?: string;
+        generationTime: number;
+      };
       setPreviewUrl(result.previewUrl);
+      setArtworkUrl(result.artworkUrl);
       track('STEP_5_PREVIEW_GENERATED', {
         kitSlug: kit.slug,
         tier,
@@ -308,6 +318,8 @@ export function BuilderShell({
           // Scènes du kit choisi, plus les scènes neutres.
           scenes={scenes.filter((s) => s.kitSlug === null || s.kitSlug === kitSlug)}
           sceneId={sceneId}
+          playback={sceneId ? (playbacks[sceneId] ?? null) : null}
+          artworkUrl={artworkUrl}
           onSceneChange={setSceneId}
           onRegenerate={() => setRenderKey((k) => k + 1)}
           onBack={() => setStep(4)}

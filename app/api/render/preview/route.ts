@@ -19,7 +19,7 @@ const CACHE_TTL_MS = 5 * 60 * 1000;
  * à absorber les allers-retours d'un même visiteur qui revient à l'étape 5, pas à
  * mutualiser entre visiteurs.
  */
-const cache = new Map<string, { url: string; at: number }>();
+const cache = new Map<string, { url: string; artworkUrl: string; at: number }>();
 
 function cacheKey(payload: unknown): string {
   return createHash('sha256').update(JSON.stringify(payload)).digest('hex').slice(0, 32);
@@ -73,6 +73,7 @@ export async function POST(request: Request) {
   if (hit && Date.now() - hit.at < CACHE_TTL_MS) {
     return NextResponse.json({
       previewUrl: hit.url,
+      artworkUrl: hit.artworkUrl,
       generationTime: Date.now() - startedAt,
       cached: true,
     });
@@ -92,7 +93,10 @@ export async function POST(request: Request) {
     });
 
     const stored = await putFile(`previews/${key}.webp`, result.previewWebP, 'image/webp');
-    cache.set(key, { url: stored.url, at: Date.now() });
+    // Nom + numéro réunis, fond transparent : le lecteur animé ne pose qu'une
+    // image par quadrilatère, il lui faut donc le flocage complet.
+    const artwork = await putFile(`previews/${key}-flocking.png`, result.flockingPng, 'image/png');
+    cache.set(key, { url: stored.url, artworkUrl: artwork.url, at: Date.now() });
 
     // Purge paresseuse : évite que le cache grossisse indéfiniment.
     if (cache.size > 200) {
@@ -103,6 +107,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       previewUrl: stored.url,
+      artworkUrl: artwork.url,
       sceneId: result.sceneId,
       generationTime: Date.now() - startedAt,
       renderTime: result.generationTimeMs,

@@ -78,8 +78,17 @@ export interface RenderOutput {
   previewWebP: Buffer;
   /** Scène effectivement utilisée, `null` si rendu sur le maillot à plat. */
   sceneId: string | null;
-  /** Visuel imprimable seul, fond transparent, à la résolution de la zone. */
+  /**
+   * Numéro seul, fond transparent : c'est LUI qui part à l'impression. Le nom
+   * est floqué séparément par l'atelier, à sa propre taille.
+   */
   artworkPng: Buffer;
+  /**
+   * Nom ET numéro réunis sur un seul fond transparent, tels qu'ils apparaissent
+   * sur le dos. Sert à la superposition dans les scènes animées, où le lecteur
+   * ne peut poser qu'une image par quadrilatère.
+   */
+  flockingPng: Buffer;
   zone: PrintZone;
   generationTimeMs: number;
 }
@@ -259,6 +268,48 @@ async function renderNameArtwork(
   return outline;
 }
 
+/**
+ * Réunit le nom et le numéro sur un seul fond transparent, dans leurs positions
+ * relatives réelles.
+ *
+ * Utile pour les mises en situation : le lecteur animé ne pose qu'une image par
+ * quadrilatère. Sans cette planche, le nom disparaîtrait de l'aperçu porté.
+ * La zone annotée sur une scène couvre donc l'ensemble du flocage, nom compris.
+ */
+async function buildFlockingSheet({
+  numberArtwork,
+  nameArtwork,
+  zone,
+  nameWidth,
+  nameHeight,
+}: {
+  numberArtwork: Buffer;
+  nameArtwork: Buffer | null;
+  zone: PrintZone;
+  nameWidth: number;
+  nameHeight: number;
+}): Promise<Buffer> {
+  if (!nameArtwork) return numberArtwork;
+
+  const gap = Math.round(nameHeight * 0.35);
+  const width = Math.max(zone.width, nameWidth);
+  const height = nameHeight + gap + zone.height;
+
+  return sharp({
+    create: { width, height, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+  })
+    .composite([
+      { input: nameArtwork, left: Math.round((width - nameWidth) / 2), top: 0 },
+      {
+        input: numberArtwork,
+        left: Math.round((width - zone.width) / 2),
+        top: nameHeight + gap,
+      },
+    ])
+    .png()
+    .toBuffer();
+}
+
 export async function renderJersey(input: RenderInput): Promise<RenderOutput> {
   const startedAt = Date.now();
   const side = input.side ?? 'back';
@@ -360,6 +411,13 @@ export async function renderJersey(input: RenderInput): Promise<RenderOutput> {
     previewWebP,
     sceneId: scene?.id ?? null,
     artworkPng: numberArtwork,
+    flockingPng: await buildFlockingSheet({
+      numberArtwork,
+      nameArtwork,
+      zone,
+      nameWidth,
+      nameHeight,
+    }),
     zone,
     generationTimeMs: Date.now() - startedAt,
   };

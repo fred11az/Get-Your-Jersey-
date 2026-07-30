@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/shared/Button';
 import type { SceneOption } from '@/lib/types';
+import type { ScenePlayback } from '@/lib/scenes';
+import { WornPlayer } from './WornPlayer';
 
 export function Step5Preview({
   previewUrl,
@@ -10,6 +12,8 @@ export function Step5Preview({
   error,
   scenes = [],
   sceneId,
+  playback,
+  artworkUrl,
   onSceneChange,
   onRegenerate,
   onBack,
@@ -21,6 +25,10 @@ export function Step5Preview({
   /** Mises en situation disponibles. Vide = option masquée. */
   scenes?: SceneOption[];
   sceneId?: string;
+  /** Séquence animée de la scène courante, si elle en a une. */
+  playback?: ScenePlayback | null;
+  /** Visuel isolé à fond transparent, superposé par le lecteur animé. */
+  artworkUrl?: string;
   onSceneChange?: (id: string | undefined) => void;
   onRegenerate: () => void;
   onBack: () => void;
@@ -88,7 +96,13 @@ export function Step5Preview({
           </div>
         )}
 
-        {!loading && !error && previewUrl && (
+        {/* Scène animée : le visuel est superposé image par image dans un
+            canvas. Sinon, image composée par le serveur. */}
+        {!loading && !error && playback && artworkUrl && (
+          <WornPlayer playback={playback} artworkUrl={artworkUrl} />
+        )}
+
+        {!loading && !error && !playback && previewUrl && (
           // eslint-disable-next-line @next/next/no-img-element -- rendu dynamique hors build
           <img src={previewUrl} alt={t('title')} className="h-full w-full object-contain" />
         )}

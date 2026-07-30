@@ -22,11 +22,37 @@ export interface ScenePoint {
   y: number;
 }
 
+/**
+ * Une image de la séquence animée : le fichier et la position du dos dessus.
+ * `visible: false` marque les images où le dos n'est plus face à l'objectif
+ * (mannequin de profil) — le visuel y est masqué au lieu de glisser hors du dos.
+ */
+export interface SceneFrame {
+  file: string;
+  quad: [ScenePoint, ScenePoint, ScenePoint, ScenePoint];
+  visible?: boolean;
+}
+
+export interface SceneSequence {
+  /** Cadence de lecture. 24 suffit pour une marche fluide. */
+  fps: number;
+  frames: SceneFrame[];
+}
+
 export interface SceneMetadata {
   id: string;
   label: string;
   gender: SceneGender;
   photo: { width: number; height: number };
+  /**
+   * Séquence animée optionnelle (marche, rotation, mouvements de bras). Absente,
+   * la scène reste une image fixe. La composition des images est faite dans le
+   * NAVIGATEUR, en canvas : composer 48 images côté serveur coûterait une
+   * quinzaine de secondes par aperçu et serait refait à chaque changement de
+   * configuration. Côté client, les images sont téléchargées une fois et le
+   * visuel est superposé à 24 i/s pour un coût serveur nul.
+   */
+  sequence?: SceneSequence;
   /**
    * Les quatre coins de la zone de flocage sur le dos du mannequin, en pixels de
    * la photo, dans l'ordre : haut-gauche, haut-droit, bas-droit, bas-gauche.
@@ -91,6 +117,33 @@ export async function scenesForKit(kitSlug: string): Promise<SceneMetadata[]> {
 
 export async function getScene(id: string): Promise<SceneMetadata | undefined> {
   return (await loadScenes()).find((scene) => scene.id === id);
+}
+
+/** Données de lecture transmises au client pour animer la scène. */
+export interface ScenePlayback {
+  id: string;
+  photoUrl: string;
+  width: number;
+  height: number;
+  fps: number;
+  frames: { url: string; quad: SceneMetadata['quad']; visible: boolean }[];
+}
+
+export function scenePlayback(scene: SceneMetadata): ScenePlayback | null {
+  if (!scene.sequence || scene.sequence.frames.length === 0) return null;
+
+  return {
+    id: scene.id,
+    photoUrl: `/scenes/${scene.id}/photo.jpg`,
+    width: scene.photo.width,
+    height: scene.photo.height,
+    fps: scene.sequence.fps,
+    frames: scene.sequence.frames.map((frame) => ({
+      url: `/scenes/${scene.id}/${frame.file}`,
+      quad: frame.quad,
+      visible: frame.visible !== false,
+    })),
+  };
 }
 
 /**
