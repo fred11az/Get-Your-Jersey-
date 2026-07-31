@@ -11,7 +11,8 @@
     "render:smoke": "tsx scripts/render-smoke-test.ts",
     "kits:import": "tsx scripts/import-real-kits.ts",
     "kits:backs": "tsx scripts/generate-back-mockups.ts",
-    "kits:board": "tsx scripts/preview-board.ts"
+    "kits:board": "tsx scripts/preview-board.ts",
+    "audit:overflow": "node scripts/overflow-audit.mjs"
   },
   "dependencies": {
     "@fontsource/archivo-black": "^5.3.0",

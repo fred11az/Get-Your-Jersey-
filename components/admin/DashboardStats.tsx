@@ -45,17 +45,33 @@ export function OrdersChart({ data }: { data: { day: string; count: number }[] }
       </p>
 
       <div className="flex h-40 items-end gap-1" role="img" aria-label="Commandes par jour">
-        {data.map((point) => (
-          <div key={point.day} className="group relative flex-1">
-            <div
-              className="w-full rounded-t-[3px] bg-brand transition-colors group-hover:bg-accent"
-              style={{ height: `${Math.max(2, (point.count / max) * 100)}%` }}
-            />
-            <span className="pointer-events-none absolute -top-7 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded bg-ink px-1.5 py-0.5 text-[0.65rem] text-white opacity-0 transition-opacity group-hover:opacity-100">
-              {point.day} · {point.count}
-            </span>
-          </div>
-        ))}
+        {data.map((point, index) => {
+          // L'infobulle est centrée sur sa barre — sauf aux extrémités, où elle
+          // est alignée sur le bord. Centrée, elle mesure 80 px pour une barre
+          // de 8 px : sur la première et la dernière barre elle sortait du
+          // cadre, et le débordement remontait jusqu'à la page (mesuré à 321 px
+          // pour une fenêtre de 320).
+          const edge =
+            index === 0
+              ? 'left-0 translate-x-0'
+              : index === data.length - 1
+                ? 'right-0 translate-x-0'
+                : 'left-1/2 -translate-x-1/2';
+
+          return (
+            <div key={point.day} className="group relative flex-1">
+              <div
+                className="w-full rounded-t-[3px] bg-brand transition-colors group-hover:bg-accent"
+                style={{ height: `${Math.max(2, (point.count / max) * 100)}%` }}
+              />
+              <span
+                className={`pointer-events-none absolute -top-7 z-10 whitespace-nowrap rounded bg-ink px-1.5 py-0.5 text-[0.65rem] text-white opacity-0 transition-opacity group-hover:opacity-100 ${edge}`}
+              >
+                {point.day} · {point.count}
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       <div className="mt-2 flex justify-between text-[0.65rem] text-ink-soft">
