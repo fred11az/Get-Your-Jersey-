@@ -194,5 +194,103 @@
     "faq3Q": "Quanto tempo serve e come si paga?",
     "faq3A": "L ordine viene registrato subito con la sua anteprima. Il pagamento avviene con bonifico o si chiude via WhatsApp: confermiamo ogni ordine a mano prima di produrre.",
     "otherKits": "Altre maglie da personalizzare"
+  },
+  "idea": {
+    "page": {
+      "breadcrumb": "Idee regalo",
+      "tipsTitle": "Come procedere",
+      "featuredTitle": "Maglie consigliate",
+      "faqTitle": "Domande frequenti",
+      "cta": "Crea questa maglia",
+      "otherIdeas": "Altre idee",
+      "priceFrom": "da {price}"
+    },
+    "occasions": {
+      "gift": {
+        "name": "Regalo per un tifoso",
+        "metaTitle": "Regalo per un tifoso: la maglia con le sue foto",
+        "metaDescription": "Ha già tutte le maglie del suo club. Questa no: il suo nome, il suo numero e le vostre foto dentro la cifra. Spedizione in Europa e negli Stati Uniti.",
+        "h1": "Un regalo per il tifoso che ha già tutto",
+        "intro": "Il problema del tifoso è che ha già la maglia casalinga, quella da trasferta e spesso anche la terza. Regalargliene un'altra significa riempire uno scaffale. Questa è diversa: il numero stampato sulla schiena è ritagliato nelle vostre foto, quelle dello stadio, del divano, delle sere da finale.",
+        "tip1Title": "Parti dal suo club, non dal tuo",
+        "tip1Body": "Un tifoso riconosce una maglia al primo sguardo e nota subito un colore approssimativo. Scegli la sua nazionale o il suo club dal catalogo: sono vere foto di prodotto, la tinta è quella giusta.",
+        "tip2Title": "Bastano tre foto",
+        "tip2Body": "Le foto sono impilate verticalmente dentro la cifra. Tre danno il risultato migliore: restano leggibili e raccontano qualcosa. Scegli immagini con i volti grandi — un campo lungo sparisce nello spessore del numero.",
+        "tip3Title": "Il numero deve dire qualcosa",
+        "tip3Body": "Il suo numero fortunato, quello del suo giocatore, l'anno della prima partita allo stadio. Il nome sopra può essere un soprannome invece del cognome: è quello che strappa un sorriso all'apertura del pacco.",
+        "faq1Q": "E se sbaglio taglia?",
+        "faq1A": "Le taglie vanno dalla XS alla XXL e seguono i tagli classici delle maglie da calcio. Nel dubbio prendi la taglia superiore: una maglia stampata si porta volentieri un po' larga.",
+        "faq2Q": "Posso ordinarla a sua insaputa?",
+        "faq2A": "Sì, è il caso più frequente. Scegli tu la maglia, il nome, il numero e le foto; noi non lo contattiamo mai. Ogni ordine viene confermato a mano prima della produzione, il che lascia il tempo di correggere un dettaglio."
+      },
+      "birthday": {
+        "name": "Regalo di compleanno",
+        "metaTitle": "Regalo di compleanno originale: la maglia con il numero della sua età",
+        "metaDescription": "Il numero sulla schiena è la sua età. Dentro, le vostre foto dell'anno. Un regalo di compleanno che non somiglia a nessun altro.",
+        "h1": "La maglia il cui numero è la sua età",
+        "intro": "Trent'anni, numero 30. L'idea sta in una riga ed è questo a renderla buona: la cifra si legge da lontano e, da vicino, si scopre che è piena di foto. Quelle dell'anno appena passato, del viaggio, della compagnia. Il regalo si guarda due volte.",
+        "tip1Title": "Il numero è l'età",
+        "tip1Body": "Da 1 a 99, ogni numero è possibile. Una cifra sola — 7, 9 — lascia più spazio alle foto di un numero a due cifre, dove ognuna riceve il proprio ritaglio.",
+        "tip2Title": "Foto dell'anno, non d'archivio",
+        "tip2Body": "La maglia segna un anno preciso. Scegli tre foto degli ultimi dodici mesi invece di una raccolta: è questo a datare il regalo e a dargli valore fra dieci anni.",
+        "tip3Title": "Ordina due settimane prima",
+        "tip3Body": "L'anteprima è immediata, ma stampa e spedizione richiedono qualche giorno. Due settimane di margine permettono di approvare il risultato con calma, senza ordinare di corsa la sera prima.",
+        "faq1Q": "Si può mettere un numero a due cifre?",
+        "faq1A": "Sì, fino a 99. Ogni cifra è ritagliata separatamente e riceve la sua parte di foto: il risultato resta leggibile, solo che ogni immagine occupa una superficie minore.",
+        "faq2Q": "Quanto tempo prima bisogna ordinare?",
+        "faq2A": "Conta una decina di giorni tra ordine e consegna, spedizione compresa. Confermiamo ogni ordine a mano: se la data è stretta, segnalalo al momento della conferma."
+      },
+      "couple": {
+        "name": "Regalo di coppia",
+        "metaTitle": "Regalo di coppia: due maglie abbinate con le vostre foto",
+        "metaDescription": "Due maglie, le stesse foto, due numeri che si rispondono. Un'idea regalo di coppia per un anniversario o San Valentino.",
+        "h1": "Due maglie che raccontano la stessa storia",
+        "intro": "Una maglia personalizzata funziona bene da sola; in coppia diventa una dichiarazione. Entrambe portano le stesse foto dentro il numero, ma ognuna il suo: il giorno e il mese in cui vi siete conosciuti, due cifre che hanno senso solo per voi.",
+        "tip1Title": "Due numeri che si rispondono",
+        "tip1Body": "Il giorno su una, il mese sull'altra. Oppure le vostre due età, o 0 e 1. Funziona perché nessuna delle due si capisce da sola: affiancate, formano una data.",
+        "tip2Title": "Le stesse foto su entrambe",
+        "tip2Body": "Usa esattamente la stessa selezione nei due ordini. Poiché le foto vengono ritagliate allo stesso modo in ogni cifra, le due schiene si rispondono invece di sembrare spaiate.",
+        "tip3Title": "Due kit diversi vanno benissimo",
+        "tip3Body": "Nulla obbliga a scegliere la stessa maglia. Una casalinga e la sua trasferta — stessa squadra, due tinte — formano una coppia coerente senza essere una divisa. In foto rende quasi sempre meglio.",
+        "faq1Q": "Bisogna fare due ordini?",
+        "faq1A": "Sì, uno per maglia: ogni ordine porta la propria taglia, il proprio nome e il proprio numero. Niente di particolare da segnalare, basta riprendere la stessa selezione di foto al passo 4.",
+        "faq2Q": "Si possono mettere due nomi su una maglia?",
+        "faq2A": "Il nome stampato accetta fino a 15 caratteri, spazi inclusi: «ANNA & LUC» ci sta. Oltre, le lettere si condensano orizzontalmente come in una stampa vera: resta leggibile, solo più stretto."
+      },
+      "team": {
+        "name": "Squadra o club",
+        "metaTitle": "Maglie personalizzate per una squadra o un club amatoriale",
+        "metaDescription": "Un set di maglie con lo stesso kit, ognuna con il proprio nome, numero e foto. Per una squadra amatoriale, un torneo aziendale o un fine stagione.",
+        "h1": "Un set di maglie per tutta la squadra",
+        "intro": "Una squadra amatoriale di solito ordina maglie identiche, stampate in fretta. Qui ogni giocatore mantiene lo stesso kit, quindi lo stesso aspetto in campo, ma la schiena è sua: il suo nome, il suo numero e le sue foto dentro la cifra. È il regalo di fine stagione che non finisce in fondo a un borsone.",
+        "tip1Title": "Un solo kit, una sola finitura",
+        "tip1Body": "Fissa la maglia e il livello di finitura prima di avviare gli ordini, e comunicali al gruppo. Le finiture miste si vedono: le dimensioni della stampa cambiano da un livello all'altro.",
+        "tip2Title": "Un ordine per giocatore",
+        "tip2Body": "Ognuno fa il proprio con la sua taglia, il suo nome, il suo numero e le sue foto. È più semplice di una tabella da compilare, e nessuno sbaglia la taglia di un altro.",
+        "tip3Title": "Accordatevi prima sui numeri",
+        "tip3Body": "Nulla impedisce a due giocatori di scegliere il 10. Fai girare l'elenco dei numeri presi prima che il gruppo ordini: è l'unica cosa che dopo non si recupera.",
+        "faq1Q": "C'è una tariffa di gruppo?",
+        "faq1A": "I prezzi indicati sono gli stessi qualunque sia la quantità. Per un ordine importante scrivici prima di avviarlo: confermiamo ogni ordine a mano e possiamo parlarne in quel momento.",
+        "faq2Q": "Si può usare lo stesso visual per tutti?",
+        "faq2A": "Sì. Se il gruppo usa le stesse foto — quelle della stagione, per esempio — cambiano solo nome e numero da una maglia all'altra. Visto di spalle, l'insieme resta molto coerente."
+      },
+      "family": {
+        "name": "Foto di famiglia",
+        "metaTitle": "Maglie di famiglia personalizzate con le vostre foto",
+        "metaDescription": "Le stesse foto di famiglia dentro il numero di ciascuno, dalla XS alla XXL. Per una riunione di famiglia, la prima partita o la foto di Natale.",
+        "h1": "Le stesse foto, una maglia per ciascuno",
+        "intro": "Una foto di famiglia finisce in una cornice; una maglia si indossa. Riprendendo la stessa selezione di foto in ogni ordine, tutta la famiglia si ritrova con lo stesso visual sulla schiena, e ognuno con il proprio nome e il proprio numero. Dalla XS per il più piccolo alla XXL per lo zio che commenta le partite.",
+        "tip1Title": "Volti, grandi e nitidi",
+        "tip1Body": "La cifra taglia le foto in bande verticali: un campo lungo ci si perde. Meglio ritratti o inquadrature strette, con luce di giorno. È l'unico criterio che cambia davvero il risultato.",
+        "tip2Title": "Lo stesso trio di foto per tutti",
+        "tip2Body": "Mantieni la stessa selezione da un ordine all'altro: è questo a fare la serie. Poiché le foto vengono ritagliate allo stesso modo in ogni cifra, le schiene si somigliano anche con numeri diversi.",
+        "tip3Title": "Numeri che si leggono insieme",
+        "tip3Body": "Le età di ciascuno, gli anni di nascita dei figli, o semplicemente 1, 2, 3 e 4 in ordine di arrivo. Allineati in una foto di gruppo formano una didascalia che nessuno ha bisogno di spiegare.",
+        "faq1Q": "Quali taglie per i bambini?",
+        "faq1A": "Il catalogo va dalla XS alla XXL in taglio adulto. La XS va bene per un adolescente; su un bambino più piccolo resterà larga — molte famiglie lo mettono in conto, una maglia un po' grande si porta per anni.",
+        "faq2Q": "Si possono mischiare più squadre in famiglia?",
+        "faq2A": "Nulla lo vieta, ogni ordine è indipendente. In una foto di gruppo un kit comune rende di più; kit diversi raccontano altro — e spesso è proprio quello che si vuole mostrare."
+      }
+    }
   }
 }

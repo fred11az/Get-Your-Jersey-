@@ -194,5 +194,103 @@
     "faq3Q": "Quel est le délai et comment se passe le paiement ?",
     "faq3A": "La commande est enregistrée immédiatement avec son aperçu. Le règlement se fait par virement bancaire ou en finalisant par WhatsApp : nous confirmons chaque commande à la main avant lancement en production.",
     "otherKits": "Autres maillots à personnaliser"
+  },
+  "idea": {
+    "page": {
+      "breadcrumb": "Idées cadeau",
+      "tipsTitle": "Comment s'y prendre",
+      "featuredTitle": "Maillots suggérés",
+      "faqTitle": "Questions fréquentes",
+      "cta": "Créer ce maillot",
+      "otherIdeas": "Autres idées",
+      "priceFrom": "à partir de {price}"
+    },
+    "occasions": {
+      "gift": {
+        "name": "Cadeau pour un supporter",
+        "metaTitle": "Cadeau pour un supporter de foot : le maillot avec ses photos",
+        "metaDescription": "Il a déjà tous les maillots de son club. Pas celui-ci : son nom, son numéro, et vos photos à l'intérieur du chiffre. Livraison en Europe et aux États-Unis.",
+        "h1": "Un cadeau pour le supporter qui a déjà tout",
+        "intro": "Le problème du supporter, c'est qu'il possède déjà le maillot domicile, l'extérieur et souvent le troisième. Lui en offrir un de plus, c'est doubler une étagère. Ici, le maillot devient une pièce unique : le numéro floqué au dos est découpé dans vos photos, celles du stade, du canapé, des soirs de finale.",
+        "tip1Title": "Partez de son club, pas du vôtre",
+        "tip1Body": "Un supporter reconnaît un maillot au premier coup d'œil et repère une couleur approximative. Choisissez sa sélection ou son club dans le catalogue : ce sont de vraies photos produit, la teinte est la bonne.",
+        "tip2Title": "Trois photos suffisent, choisies pour lui",
+        "tip2Body": "Les photos sont empilées verticalement à l'intérieur du chiffre. Trois donnent le meilleur résultat : elles restent lisibles et racontent quelque chose. Prenez des images où les visages sont grands — un plan large disparaît dans l'épaisseur du trait.",
+        "tip3Title": "Le numéro dit quelque chose",
+        "tip3Body": "Son numéro fétiche, celui de son joueur, l'année de son premier match au stade. Le nom au-dessus peut être son surnom plutôt que son patronyme : c'est ce qui fait sourire à l'ouverture du colis.",
+        "faq1Q": "Et si je me trompe de taille ?",
+        "faq1A": "Les tailles vont du XS au XXL et suivent les coupes classiques de maillot de football. En cas de doute, prenez la taille du dessus : un maillot floqué se porte volontiers un peu ample.",
+        "faq2Q": "Puis-je commander sans qu'il le sache ?",
+        "faq2A": "Oui, c'est le cas le plus fréquent. Vous choisissez le maillot, le nom, le numéro et les photos ; nous ne le contactons jamais. La commande est confirmée à la main avant lancement en production, ce qui laisse le temps de corriger un détail."
+      },
+      "birthday": {
+        "name": "Cadeau d'anniversaire",
+        "metaTitle": "Cadeau d'anniversaire original : le maillot au numéro de son âge",
+        "metaDescription": "Le numéro au dos, c'est son âge. À l'intérieur, vos photos de l'année. Un cadeau d'anniversaire qui ne ressemble à aucun autre.",
+        "h1": "Le maillot dont le numéro est son âge",
+        "intro": "Trente ans, numéro 30. L'idée tient en une ligne et c'est ce qui la rend bonne : le chiffre au dos se lit de loin, et de près on découvre qu'il est rempli de photos. Celles de l'année écoulée, du voyage, de la bande — le cadeau se regarde deux fois.",
+        "tip1Title": "Le numéro, c'est l'âge",
+        "tip1Body": "De 1 à 99, tous les nombres sont possibles. Un chiffre unique — 7, 9 — laisse plus de place aux photos qu'un nombre à deux chiffres, où chaque chiffre reçoit sa propre découpe.",
+        "tip2Title": "Des photos de l'année, pas d'archives",
+        "tip2Body": "Le maillot marque une année précise. Choisissez trois photos des douze derniers mois plutôt qu'un best-of : c'est ce qui datera le cadeau et lui donnera sa valeur dans dix ans.",
+        "tip3Title": "Commandez deux semaines avant",
+        "tip3Body": "L'aperçu est immédiat, mais le flocage et l'expédition prennent quelques jours. Deux semaines d'avance laissent de la marge pour valider le rendu tranquillement, sans commander dans la précipitation la veille.",
+        "faq1Q": "Peut-on mettre un nombre à deux chiffres ?",
+        "faq1A": "Oui, jusqu'à 99. Chaque chiffre est découpé séparément et reçoit sa part des photos : le rendu reste lisible, simplement chaque image occupe une surface plus petite.",
+        "faq2Q": "Quel délai avant la date ?",
+        "faq2A": "Comptez une dizaine de jours entre la commande et la réception, expédition comprise. Nous confirmons chaque commande à la main : si la date est serrée, indiquez-la au moment de la validation."
+      },
+      "couple": {
+        "name": "Cadeau de couple",
+        "metaTitle": "Cadeau de couple : deux maillots assortis avec vos photos",
+        "metaDescription": "Deux maillots, les mêmes photos, deux numéros qui se répondent. Une idée de cadeau de couple pour un anniversaire de rencontre ou la Saint-Valentin.",
+        "h1": "Deux maillots qui racontent la même histoire",
+        "intro": "Un maillot personnalisé fonctionne bien seul ; en paire, il devient une déclaration. Les deux portent les mêmes photos à l'intérieur du numéro, mais chacun le sien : le jour et le mois de votre rencontre, deux nombres qui n'ont de sens que pour vous deux.",
+        "tip1Title": "Deux numéros qui se répondent",
+        "tip1Body": "Le jour sur l'un, le mois sur l'autre. Ou vos deux âges, ou 0 et 1. Le procédé marche parce que les deux maillots ne se comprennent qu'ensemble : posés côte à côte, ils forment une date.",
+        "tip2Title": "Les mêmes photos des deux côtés",
+        "tip2Body": "Reprenez exactement la même sélection sur les deux commandes. Les photos étant recadrées à l'identique dans chaque chiffre, les deux dos se répondent visuellement au lieu de sembler dépareillés.",
+        "tip3Title": "Deux kits différents, c'est permis",
+        "tip3Body": "Rien n'oblige à choisir le même maillot. Un domicile et son extérieur — même équipe, deux teintes — donnent une paire cohérente sans être un uniforme. C'est souvent le plus réussi en photo.",
+        "faq1Q": "Faut-il passer deux commandes ?",
+        "faq1A": "Oui, une par maillot : chaque commande porte sa taille, son nom et son numéro. Rien à signaler de particulier, il suffit de reprendre la même sélection de photos à l'étape 4.",
+        "faq2Q": "Peut-on mettre deux prénoms sur un même maillot ?",
+        "faq2A": "Le nom floqué accepte jusqu'à 15 caractères, espaces compris : « ANNA & LUC » tient. Au-delà, les lettres se condensent horizontalement comme sur un vrai flocage, ce qui reste lisible mais plus serré."
+      },
+      "team": {
+        "name": "Équipe ou club",
+        "metaTitle": "Maillots personnalisés pour une équipe ou un club amateur",
+        "metaDescription": "Un jeu de maillots au même kit, chacun avec son nom, son numéro et ses photos. Pour une équipe amateur, un tournoi d'entreprise ou une fin de saison.",
+        "h1": "Un jeu de maillots pour toute l'équipe",
+        "intro": "Une équipe amateur commande d'ordinaire des maillots identiques, floqués à la va-vite. Ici chaque joueur garde le même kit, donc la même allure sur le terrain, mais son dos lui appartient : son nom, son numéro, et ses photos à l'intérieur du chiffre. C'est le cadeau de fin de saison qui ne finit pas au fond d'un sac.",
+        "tip1Title": "Un seul kit, une seule finition",
+        "tip1Body": "Fixez le maillot et le niveau de finition avant de lancer les commandes, et communiquez-les au groupe. Des finitions mélangées se voient : les tailles de flocage diffèrent d'un niveau à l'autre.",
+        "tip2Title": "Une commande par joueur",
+        "tip2Body": "Chacun passe la sienne avec sa taille, son nom, son numéro et ses photos. C'est plus simple qu'un tableau à remplir, et personne ne se trompe de taille à la place d'un autre.",
+        "tip3Title": "Vérifiez les numéros en amont",
+        "tip3Body": "Rien n'empêche deux joueurs de choisir le 10. Faites circuler la liste des numéros pris avant que le groupe commande : c'est la seule chose qui ne se rattrape pas après coup.",
+        "faq1Q": "Y a-t-il un tarif de groupe ?",
+        "faq1A": "Les prix affichés sont les mêmes quel que soit le nombre de maillots. Pour une commande importante, écrivez-nous avant de la lancer : nous confirmons chaque commande à la main et pouvons en discuter à ce moment-là.",
+        "faq2Q": "Peut-on garder le même visuel pour tout le monde ?",
+        "faq2A": "Oui. Si le groupe utilise les mêmes photos — celles de la saison, par exemple — seuls le nom et le numéro changent d'un maillot à l'autre. L'ensemble reste très cohérent vu de dos."
+      },
+      "family": {
+        "name": "Photo de famille",
+        "metaTitle": "Maillots de famille personnalisés avec vos photos",
+        "metaDescription": "Les mêmes photos de famille dans le numéro de chacun, du XS au XXL. Pour une réunion de famille, un baptême de supporter ou une photo de Noël.",
+        "h1": "Les mêmes photos, un maillot pour chacun",
+        "intro": "Une photo de famille finit dans un cadre ; un maillot se porte. En reprenant la même sélection de photos sur chaque commande, toute la famille se retrouve avec le même visuel au dos — et chacun son prénom, chacun son numéro. Du XS pour le plus petit au XXL pour l'oncle qui commente les matchs.",
+        "tip1Title": "Des visages, gros et nets",
+        "tip1Body": "Le chiffre découpe les photos en bandes verticales : un plan large s'y perd. Préférez des portraits ou des cadrages serrés, pris à la lumière du jour. C'est le seul critère qui change vraiment le résultat.",
+        "tip2Title": "Le même trio de photos pour tous",
+        "tip2Body": "Gardez la même sélection d'une commande à l'autre : c'est ce qui fait la série. Les photos étant recadrées de la même façon dans chaque chiffre, les dos se ressemblent même avec des numéros différents.",
+        "tip3Title": "Des numéros qui se lisent ensemble",
+        "tip3Body": "Les âges de chacun, l'année de naissance des enfants, ou simplement 1, 2, 3 et 4 dans l'ordre d'arrivée. Alignés sur une photo de groupe, ils forment une légende que personne n'a besoin d'expliquer.",
+        "faq1Q": "Quelles tailles pour les enfants ?",
+        "faq1A": "Le catalogue va du XS au XXL en coupe adulte. Le XS convient à un adolescent ; pour un enfant plus jeune, il restera large — beaucoup de familles l'assument, un maillot un peu grand se porte longtemps.",
+        "faq2Q": "Peut-on mélanger plusieurs équipes dans la famille ?",
+        "faq2A": "Rien ne l'empêche, chaque commande est indépendante. Sur une photo de groupe, un kit commun donne un résultat plus fort ; des kits différents racontent autre chose — souvent, c'est justement ce qu'on veut montrer."
+      }
+    }
   }
 }

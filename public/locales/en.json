@@ -194,5 +194,103 @@
     "faq3Q": "How long does it take and how do I pay?",
     "faq3A": "Your order is recorded immediately with its preview. Payment is by bank transfer or finalised over WhatsApp: we confirm every order by hand before production starts.",
     "otherKits": "Other jerseys to customise"
+  },
+  "idea": {
+    "page": {
+      "breadcrumb": "Gift ideas",
+      "tipsTitle": "How to go about it",
+      "featuredTitle": "Suggested jerseys",
+      "faqTitle": "Frequently asked questions",
+      "cta": "Create this jersey",
+      "otherIdeas": "Other ideas",
+      "priceFrom": "from {price}"
+    },
+    "occasions": {
+      "gift": {
+        "name": "Gift for a football fan",
+        "metaTitle": "Gift for a football fan: the jersey with their own photos",
+        "metaDescription": "They already own every shirt their club makes. Not this one: their name, their number, and your photos inside the digits. Shipping across Europe and the USA.",
+        "h1": "A gift for the fan who already owns everything",
+        "intro": "The trouble with football fans is that they already have the home shirt, the away shirt and usually the third one too. One more just fills a shelf. This one is different: the number printed on the back is cut out of your photos — the stadium, the sofa, the nights that went to penalties.",
+        "tip1Title": "Start from their club, not yours",
+        "tip1Body": "A fan recognises a shirt instantly and spots a wrong shade just as fast. Pick their national side or their club from the catalogue: these are real product photos, so the colour is right.",
+        "tip2Title": "Three photos is the sweet spot",
+        "tip2Body": "Photos are stacked vertically inside the digits. Three works best: they stay readable and they tell a story. Choose images where faces are large — a wide landscape shot disappears inside the stroke of a number.",
+        "tip3Title": "Make the number mean something",
+        "tip3Body": "Their lucky number, their favourite player's, the year of their first match at the ground. The name above can be a nickname rather than a surname — that is what raises a smile when the parcel is opened.",
+        "faq1Q": "What if I get the size wrong?",
+        "faq1A": "Sizes run from XS to XXL and follow classic football shirt cuts. If you are unsure, size up: a printed shirt is happily worn a little loose.",
+        "faq2Q": "Can I order without them knowing?",
+        "faq2A": "Yes, that is the usual case. You choose the shirt, the name, the number and the photos; we never contact them. Every order is confirmed by hand before it goes into production, which leaves time to fix a detail."
+      },
+      "birthday": {
+        "name": "Birthday gift",
+        "metaTitle": "Original birthday gift: the jersey numbered with their age",
+        "metaDescription": "The number on the back is their age. Inside it, your photos from the year. A birthday present that looks like nothing else.",
+        "h1": "The jersey whose number is their age",
+        "intro": "Thirty years old, number 30. The idea fits in one line, and that is what makes it work: the digit reads from across the room, and up close you discover it is filled with photographs — this year's trip, this year's friends. The gift gets looked at twice.",
+        "tip1Title": "The number is the age",
+        "tip1Body": "Anything from 1 to 99 works. A single digit — 7, 9 — leaves more room for the photos than a two-digit number, where each digit gets its own cut-out.",
+        "tip2Title": "Photos from this year, not the archive",
+        "tip2Body": "The shirt marks one specific year. Pick three photos from the last twelve months rather than a greatest-hits selection: that is what dates the gift and gives it its value ten years from now.",
+        "tip3Title": "Order two weeks ahead",
+        "tip3Body": "The preview is instant, but printing and shipping take a few days. Two weeks of margin means you can approve the result calmly instead of ordering in a panic the night before.",
+        "faq1Q": "Can I use a two-digit number?",
+        "faq1A": "Yes, up to 99. Each digit is cut out separately and gets its share of the photos: the result stays readable, each image simply covers a smaller area.",
+        "faq2Q": "How long before the date should I order?",
+        "faq2A": "Allow around ten days from order to delivery, shipping included. We confirm every order by hand: if the date is tight, say so when you validate."
+      },
+      "couple": {
+        "name": "Gift for a couple",
+        "metaTitle": "Gift for a couple: two matching jerseys with your photos",
+        "metaDescription": "Two shirts, the same photos, two numbers that answer each other. A couple's gift idea for an anniversary or Valentine's Day.",
+        "h1": "Two jerseys telling the same story",
+        "intro": "A personalised shirt works well on its own; as a pair it becomes a statement. Both carry the same photos inside the number, but each has its own: the day and the month you met — two numbers that mean nothing to anyone else.",
+        "tip1Title": "Two numbers that answer each other",
+        "tip1Body": "The day on one, the month on the other. Or both your ages, or 0 and 1. It works because neither shirt makes sense alone: side by side, they spell a date.",
+        "tip2Title": "The same photos on both",
+        "tip2Body": "Use exactly the same selection on both orders. Since photos are cropped identically inside each digit, the two backs echo each other instead of looking mismatched.",
+        "tip3Title": "Two different kits is fine",
+        "tip3Body": "Nothing says you must pick the same shirt. A home kit and its away version — same team, two shades — make a coherent pair without being a uniform. It usually photographs better.",
+        "faq1Q": "Do I need to place two orders?",
+        "faq1A": "Yes, one per shirt: each order carries its own size, name and number. Nothing special to flag — just reuse the same photo selection at step 4.",
+        "faq2Q": "Can I put two first names on one shirt?",
+        "faq2A": "The printed name takes up to 15 characters including spaces, so \"ANNA & LUC\" fits. Beyond that, letters condense horizontally the way real printing does: still readable, just tighter."
+      },
+      "team": {
+        "name": "Team or club",
+        "metaTitle": "Custom jerseys for an amateur team or club",
+        "metaDescription": "A set of shirts on the same kit, each with its own name, number and photos. For an amateur side, a corporate tournament or an end-of-season gift.",
+        "h1": "A set of jerseys for the whole squad",
+        "intro": "Amateur sides usually order identical shirts, printed in a rush. Here everyone keeps the same kit — so the same look on the pitch — but the back belongs to each player: their name, their number, and their photos inside the digits. It is the end-of-season gift that does not end up at the bottom of a kit bag.",
+        "tip1Title": "One kit, one finish",
+        "tip1Body": "Agree the shirt and the finish level before anyone orders, and tell the group. Mixed finishes show: print sizes differ from one level to the next.",
+        "tip2Title": "One order per player",
+        "tip2Body": "Each player places their own with their size, name, number and photos. It beats filling in a spreadsheet, and nobody guesses someone else's size.",
+        "tip3Title": "Settle the numbers first",
+        "tip3Body": "Nothing stops two players picking 10. Circulate the list of taken numbers before the group orders: it is the one thing that cannot be fixed afterwards.",
+        "faq1Q": "Is there a group rate?",
+        "faq1A": "Listed prices are the same whatever the quantity. For a large order, write to us before placing it: we confirm every order by hand and can discuss it then.",
+        "faq2Q": "Can everyone share the same artwork?",
+        "faq2A": "Yes. If the group uses the same photos — the season's, for instance — only the name and number change from shirt to shirt. Seen from behind, the set stays very consistent."
+      },
+      "family": {
+        "name": "Family photo",
+        "metaTitle": "Custom family jerseys with your own photos",
+        "metaDescription": "The same family photos inside everyone's number, from XS to XXL. For a family reunion, a first match, or the Christmas photo.",
+        "h1": "The same photos, one jersey each",
+        "intro": "A family photo ends up in a frame; a jersey gets worn. By reusing the same photo selection on every order, the whole family ends up with the same artwork on the back — each with their own first name and number. XS for the youngest, XXL for the uncle who commentates every match.",
+        "tip1Title": "Faces, large and sharp",
+        "tip1Body": "The digits slice photos into vertical bands, so a wide landscape gets lost. Favour portraits or tight crops shot in daylight. It is the single criterion that really changes the result.",
+        "tip2Title": "The same three photos for everyone",
+        "tip2Body": "Keep the selection identical from one order to the next: that is what makes it a set. Because photos are cropped the same way inside each digit, the backs match even with different numbers.",
+        "tip3Title": "Numbers that read together",
+        "tip3Body": "Everyone's age, the children's birth years, or simply 1, 2, 3 and 4 in order of arrival. Lined up in a group photo they form a caption nobody needs to explain.",
+        "faq1Q": "Which sizes for children?",
+        "faq1A": "The catalogue runs XS to XXL in adult cuts. XS suits a teenager; on a younger child it will be roomy — many families accept that, since a slightly big shirt lasts for years.",
+        "faq2Q": "Can the family mix several teams?",
+        "faq2A": "Nothing stops you, each order stands alone. In a group photo a shared kit reads stronger; different kits tell another story — and often that is exactly the point."
+      }
+    }
   }
 }

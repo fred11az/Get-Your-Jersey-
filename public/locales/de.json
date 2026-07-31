@@ -194,5 +194,103 @@
     "faq3Q": "Wie lange dauert es und wie bezahle ich?",
     "faq3A": "Deine Bestellung wird sofort mit Vorschau erfasst. Bezahlt wird per Banküberweisung oder über WhatsApp: wir bestätigen jede Bestellung persönlich, bevor die Produktion startet.",
     "otherKits": "Weitere Trikots zum Gestalten"
+  },
+  "idea": {
+    "page": {
+      "breadcrumb": "Geschenkideen",
+      "tipsTitle": "So geht's",
+      "featuredTitle": "Passende Trikots",
+      "faqTitle": "Häufige Fragen",
+      "cta": "Dieses Trikot gestalten",
+      "otherIdeas": "Weitere Ideen",
+      "priceFrom": "ab {price}"
+    },
+    "occasions": {
+      "gift": {
+        "name": "Geschenk für einen Fußballfan",
+        "metaTitle": "Geschenk für einen Fußballfan: das Trikot mit seinen Fotos",
+        "metaDescription": "Er hat schon jedes Trikot seines Vereins. Dieses nicht: sein Name, seine Nummer und eure Fotos in der Ziffer. Versand nach Europa und in die USA.",
+        "h1": "Ein Geschenk für den Fan, der schon alles hat",
+        "intro": "Das Problem mit Fußballfans: Heimtrikot, Auswärtstrikot und meist auch das dritte hängen längst im Schrank. Noch eines füllt nur das Regal. Dieses hier ist anders — die Rückennummer ist aus euren Fotos ausgeschnitten: Stadion, Sofa, die Abende, die ins Elfmeterschießen gingen.",
+        "tip1Title": "Sein Verein zählt, nicht deiner",
+        "tip1Body": "Ein Fan erkennt ein Trikot sofort und einen falschen Farbton genauso schnell. Wähle seine Nationalmannschaft oder seinen Verein aus dem Katalog: Das sind echte Produktfotos, der Ton stimmt.",
+        "tip2Title": "Drei Fotos genügen",
+        "tip2Body": "Die Fotos werden senkrecht in der Ziffer gestapelt. Drei funktionieren am besten: Sie bleiben lesbar und erzählen etwas. Nimm Bilder mit großen Gesichtern — eine Totale verschwindet in der Strichstärke der Zahl.",
+        "tip3Title": "Die Nummer soll etwas bedeuten",
+        "tip3Body": "Seine Glückszahl, die seines Spielers, das Jahr des ersten Stadionbesuchs. Der Name darüber darf ein Spitzname sein statt des Nachnamens — genau das sorgt beim Auspacken für ein Grinsen.",
+        "faq1Q": "Was, wenn ich die Größe verfehle?",
+        "faq1A": "Die Größen reichen von XS bis XXL und folgen klassischen Trikotschnitten. Im Zweifel eine Nummer größer: Ein beflocktes Trikot trägt sich gern etwas weiter.",
+        "faq2Q": "Kann ich bestellen, ohne dass er es merkt?",
+        "faq2A": "Ja, das ist der Normalfall. Du wählst Trikot, Name, Nummer und Fotos; wir nehmen nie Kontakt zu ihm auf. Jede Bestellung wird vor der Produktion von Hand bestätigt — Zeit genug, ein Detail zu ändern."
+      },
+      "birthday": {
+        "name": "Geburtstagsgeschenk",
+        "metaTitle": "Originelles Geburtstagsgeschenk: das Trikot mit der Zahl seines Alters",
+        "metaDescription": "Die Rückennummer ist sein Alter. Darin: eure Fotos aus diesem Jahr. Ein Geburtstagsgeschenk, das es so kein zweites Mal gibt.",
+        "h1": "Das Trikot, dessen Nummer sein Alter ist",
+        "intro": "Dreißig Jahre, Nummer 30. Die Idee passt in eine Zeile — und genau deshalb funktioniert sie: Die Ziffer liest sich quer durch den Raum, und aus der Nähe zeigt sich, dass sie voller Fotos steckt. Die Reise dieses Jahres, die Leute dieses Jahres. Man schaut zweimal hin.",
+        "tip1Title": "Die Nummer ist das Alter",
+        "tip1Body": "Von 1 bis 99 ist alles möglich. Eine einstellige Zahl — 7, 9 — lässt den Fotos mehr Fläche als eine zweistellige, bei der jede Ziffer ihren eigenen Ausschnitt bekommt.",
+        "tip2Title": "Fotos aus diesem Jahr, nicht aus dem Archiv",
+        "tip2Body": "Das Trikot markiert ein bestimmtes Jahr. Nimm drei Fotos aus den letzten zwölf Monaten statt einer Best-of-Auswahl: Das datiert das Geschenk und gibt ihm in zehn Jahren seinen Wert.",
+        "tip3Title": "Zwei Wochen vorher bestellen",
+        "tip3Body": "Die Vorschau kommt sofort, Beflockung und Versand brauchen einige Tage. Zwei Wochen Vorlauf heißt: das Ergebnis in Ruhe freigeben, statt am Vorabend hektisch zu bestellen.",
+        "faq1Q": "Geht auch eine zweistellige Zahl?",
+        "faq1A": "Ja, bis 99. Jede Ziffer wird einzeln ausgeschnitten und bekommt ihren Anteil der Fotos: Das Ergebnis bleibt lesbar, jedes Bild deckt nur eine kleinere Fläche ab.",
+        "faq2Q": "Wie lange vor dem Termin bestellen?",
+        "faq2A": "Rechne mit rund zehn Tagen von der Bestellung bis zur Lieferung, Versand inklusive. Wir bestätigen jede Bestellung von Hand: Ist der Termin knapp, gib das beim Abschluss an."
+      },
+      "couple": {
+        "name": "Geschenk für ein Paar",
+        "metaTitle": "Paar-Geschenk: zwei passende Trikots mit euren Fotos",
+        "metaDescription": "Zwei Trikots, dieselben Fotos, zwei Zahlen, die sich antworten. Eine Geschenkidee für Paare — zum Jahrestag oder zum Valentinstag.",
+        "h1": "Zwei Trikots, die dieselbe Geschichte erzählen",
+        "intro": "Ein personalisiertes Trikot wirkt allein schon gut; als Paar wird es zur Ansage. Beide tragen dieselben Fotos in der Nummer, aber jedes seine eigene: Tag und Monat eures Kennenlernens — zwei Zahlen, die sonst niemandem etwas sagen.",
+        "tip1Title": "Zwei Zahlen, die sich antworten",
+        "tip1Body": "Der Tag auf dem einen, der Monat auf dem anderen. Oder eure beiden Alter, oder 0 und 1. Es funktioniert, weil keines der Trikots für sich allein Sinn ergibt: nebeneinander ergeben sie ein Datum.",
+        "tip2Title": "Dieselben Fotos auf beiden",
+        "tip2Body": "Nimm für beide Bestellungen exakt dieselbe Auswahl. Da die Fotos in jeder Ziffer gleich beschnitten werden, antworten sich die beiden Rücken, statt zusammengewürfelt zu wirken.",
+        "tip3Title": "Zwei verschiedene Trikots sind erlaubt",
+        "tip3Body": "Es muss nicht dasselbe Trikot sein. Ein Heim- und das zugehörige Auswärtstrikot — gleiches Team, zwei Farbwelten — ergeben ein stimmiges Paar, ohne Uniform zu sein. Auf Fotos wirkt das meist besser.",
+        "faq1Q": "Muss ich zweimal bestellen?",
+        "faq1A": "Ja, einmal pro Trikot: Jede Bestellung trägt ihre eigene Größe, ihren Namen und ihre Nummer. Sonst nichts zu beachten — einfach in Schritt 4 dieselbe Fotoauswahl verwenden.",
+        "faq2Q": "Passen zwei Vornamen auf ein Trikot?",
+        "faq2A": "Der beflockte Name fasst bis zu 15 Zeichen inklusive Leerzeichen, „ANNA & LUC“ passt also. Darüber hinaus werden die Buchstaben horizontal gestaucht wie bei echter Beflockung: weiterhin lesbar, nur enger."
+      },
+      "team": {
+        "name": "Mannschaft oder Verein",
+        "metaTitle": "Individuelle Trikots für Amateurmannschaft oder Verein",
+        "metaDescription": "Ein Satz Trikots im gleichen Kit, jedes mit eigenem Namen, eigener Nummer und eigenen Fotos. Für Amateurteams, Firmenturniere oder den Saisonabschluss.",
+        "h1": "Ein Trikotsatz für die ganze Mannschaft",
+        "intro": "Amateurteams bestellen sonst identische Trikots, in Eile beflockt. Hier behalten alle dasselbe Kit — also denselben Auftritt auf dem Platz —, aber der Rücken gehört jedem selbst: sein Name, seine Nummer, seine Fotos in der Ziffer. Das Saisonabschluss-Geschenk, das nicht unten in der Sporttasche endet.",
+        "tip1Title": "Ein Kit, eine Ausführung",
+        "tip1Body": "Legt Trikot und Ausführung fest, bevor jemand bestellt, und sagt es der Gruppe. Gemischte Ausführungen fallen auf: Die Beflockungsgrößen unterscheiden sich je Stufe.",
+        "tip2Title": "Eine Bestellung pro Spieler",
+        "tip2Body": "Jeder bestellt selbst, mit eigener Größe, Namen, Nummer und Fotos. Das ist einfacher als eine Sammelliste — und niemand rät die Größe eines anderen.",
+        "tip3Title": "Nummern vorher klären",
+        "tip3Body": "Nichts hindert zwei Spieler daran, die 10 zu wählen. Gebt die Liste der vergebenen Nummern herum, bevor die Gruppe bestellt: Das ist das Einzige, was sich hinterher nicht mehr richten lässt.",
+        "faq1Q": "Gibt es einen Gruppenpreis?",
+        "faq1A": "Die angegebenen Preise gelten unabhängig von der Stückzahl. Bei einer großen Bestellung schreibt uns vorher: Wir bestätigen jede Bestellung von Hand und können das dann besprechen.",
+        "faq2Q": "Können alle dasselbe Motiv nutzen?",
+        "faq2A": "Ja. Nutzt die Gruppe dieselben Fotos — etwa die der Saison —, ändern sich nur Name und Nummer von Trikot zu Trikot. Von hinten wirkt der Satz dadurch sehr geschlossen."
+      },
+      "family": {
+        "name": "Familienfoto",
+        "metaTitle": "Familien-Trikots mit euren eigenen Fotos",
+        "metaDescription": "Dieselben Familienfotos in der Nummer von allen, von XS bis XXL. Für das Familientreffen, das erste Stadionspiel oder das Weihnachtsfoto.",
+        "h1": "Dieselben Fotos, für jeden ein Trikot",
+        "intro": "Ein Familienfoto landet im Rahmen; ein Trikot wird getragen. Wenn ihr für jede Bestellung dieselbe Fotoauswahl nehmt, trägt die ganze Familie dasselbe Motiv auf dem Rücken — jeder mit eigenem Vornamen und eigener Nummer. XS für die Kleinste, XXL für den Onkel, der jedes Spiel kommentiert.",
+        "tip1Title": "Gesichter, groß und scharf",
+        "tip1Body": "Die Ziffer zerlegt Fotos in senkrechte Streifen, eine Totale geht darin verloren. Nimm lieber Porträts oder enge Ausschnitte bei Tageslicht. Das ist das einzige Kriterium, das das Ergebnis wirklich verändert.",
+        "tip2Title": "Dasselbe Foto-Trio für alle",
+        "tip2Body": "Behalte die Auswahl von Bestellung zu Bestellung bei: Das macht die Serie aus. Da die Fotos in jeder Ziffer gleich beschnitten werden, gleichen sich die Rücken auch bei unterschiedlichen Nummern.",
+        "tip3Title": "Nummern, die zusammen gelesen werden",
+        "tip3Body": "Das Alter aller, die Geburtsjahre der Kinder, oder schlicht 1, 2, 3 und 4 in der Reihenfolge des Erscheinens. Auf einem Gruppenfoto nebeneinander ergeben sie eine Bildunterschrift, die niemand erklären muss.",
+        "faq1Q": "Welche Größen für Kinder?",
+        "faq1A": "Der Katalog reicht von XS bis XXL in Erwachsenenschnitten. XS passt Jugendlichen; einem jüngeren Kind bleibt es weit — viele Familien nehmen das in Kauf, ein etwas größeres Trikot hält jahrelang.",
+        "faq2Q": "Dürfen in der Familie mehrere Teams gemischt werden?",
+        "faq2A": "Nichts spricht dagegen, jede Bestellung steht für sich. Auf einem Gruppenfoto wirkt ein gemeinsames Kit stärker; verschiedene Kits erzählen etwas anderes — oft ist genau das der Punkt."
+      }
+    }
   }
 }

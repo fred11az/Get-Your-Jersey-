@@ -173,6 +173,7 @@ for (const width of WIDTHS) {
       [`accueil ${locale}`, `/${locale}`],
       [`maillot ${locale}`, `/${locale}/maillot/real-madrid-away`],
       [`confirmation ${locale}`, `/${locale}/checkout/confirmation`],
+      [`idée ${locale}`, `/${locale}/idee/anniversaire`],
     ]) {
       await page.goto(BASE + url, { waitUntil: 'networkidle' });
       await measure(page, `${label} @${width}`);

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { locales } from '@/i18n/routing';
+import { OCCASIONS } from '@/lib/seo';
 import { KIT_SLUGS } from '@/lib/types';
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://getyourjersey.com';
@@ -41,9 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     add((l) => `/${l}/maillot/${kit}`, 0.8, 'weekly');
   }
 
-  // Les pages « occasion » (lib/seo.ts OCCASIONS) sont le prochain lot. Elles
-  // ne sont PAS déclarées ici avant d'exister : un sitemap qui pointe vers des
-  // 404 fait perdre du budget d'exploration et abîme la confiance du crawler.
+  // Pages « occasion » : app/[locale]/idee/[occasion]/page.tsx. Elles n'étaient
+  // pas déclarées tant qu'elles n'existaient pas — un sitemap qui pointe vers
+  // des 404 gaspille du budget d'exploration et abîme la confiance du crawler.
+  for (const occasion of OCCASIONS) {
+    add((l) => `/${l}/idee/${occasion.slug}`, 0.7, 'monthly');
+  }
 
   return entries;
 }

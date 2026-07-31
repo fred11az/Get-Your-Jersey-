@@ -194,5 +194,103 @@
     "faq3Q": "¿Cuánto tarda y cómo se paga?",
     "faq3A": "El pedido queda registrado al instante con su vista previa. El pago es por transferencia o se cierra por WhatsApp: confirmamos cada pedido a mano antes de producir.",
     "otherKits": "Otras camisetas para personalizar"
+  },
+  "idea": {
+    "page": {
+      "breadcrumb": "Ideas de regalo",
+      "tipsTitle": "Cómo hacerlo",
+      "featuredTitle": "Camisetas sugeridas",
+      "faqTitle": "Preguntas frecuentes",
+      "cta": "Crear esta camiseta",
+      "otherIdeas": "Otras ideas",
+      "priceFrom": "desde {price}"
+    },
+    "occasions": {
+      "gift": {
+        "name": "Regalo para un aficionado",
+        "metaTitle": "Regalo para un aficionado al fútbol: la camiseta con sus fotos",
+        "metaDescription": "Ya tiene todas las camisetas de su club. Esta no: su nombre, su número y vuestras fotos dentro de la cifra. Envío a Europa y Estados Unidos.",
+        "h1": "Un regalo para el aficionado que ya lo tiene todo",
+        "intro": "El problema del aficionado es que ya tiene la primera equipación, la segunda y a menudo la tercera. Regalarle otra es llenar un estante. Esta es distinta: el número estampado en la espalda está recortado sobre vuestras fotos, las del estadio, las del sofá, las de las noches de final.",
+        "tip1Title": "Parte de su club, no del tuyo",
+        "tip1Body": "Un aficionado reconoce una camiseta de un vistazo y detecta enseguida un color aproximado. Elige su selección o su club en el catálogo: son fotos reales de producto, el tono es el correcto.",
+        "tip2Title": "Con tres fotos basta",
+        "tip2Body": "Las fotos se apilan verticalmente dentro de la cifra. Tres dan el mejor resultado: siguen siendo legibles y cuentan algo. Elige imágenes con las caras grandes: un plano general se pierde dentro del trazo del número.",
+        "tip3Title": "Que el número diga algo",
+        "tip3Body": "Su número fetiche, el de su jugador, el año de su primer partido en el estadio. El nombre de arriba puede ser un apodo en lugar del apellido: es lo que arranca una sonrisa al abrir el paquete.",
+        "faq1Q": "¿Y si me equivoco de talla?",
+        "faq1A": "Las tallas van de la XS a la XXL y siguen los patrones clásicos de camiseta de fútbol. En caso de duda, elige una talla más: una camiseta estampada se lleva bien algo holgada.",
+        "faq2Q": "¿Puedo pedirla sin que se entere?",
+        "faq2A": "Sí, es lo más habitual. Tú eliges la camiseta, el nombre, el número y las fotos; nosotros nunca le escribimos. Cada pedido se confirma a mano antes de entrar en producción, lo que deja tiempo para corregir un detalle."
+      },
+      "birthday": {
+        "name": "Regalo de cumpleaños",
+        "metaTitle": "Regalo de cumpleaños original: la camiseta con el número de su edad",
+        "metaDescription": "El número de la espalda es su edad. Dentro, vuestras fotos del año. Un regalo de cumpleaños que no se parece a ningún otro.",
+        "h1": "La camiseta cuyo número es su edad",
+        "intro": "Treinta años, número 30. La idea cabe en una línea y por eso funciona: la cifra se lee desde lejos y, de cerca, se descubre que está llena de fotos. Las del año que termina, del viaje, de la cuadrilla. El regalo se mira dos veces.",
+        "tip1Title": "El número es la edad",
+        "tip1Body": "Del 1 al 99, cualquier número vale. Una sola cifra —7, 9— deja más sitio a las fotos que un número de dos cifras, donde cada cifra recibe su propio recorte.",
+        "tip2Title": "Fotos del año, no del archivo",
+        "tip2Body": "La camiseta marca un año concreto. Elige tres fotos de los últimos doce meses en lugar de un recopilatorio: eso es lo que fecha el regalo y le dará valor dentro de diez años.",
+        "tip3Title": "Pide con dos semanas de margen",
+        "tip3Body": "La vista previa es inmediata, pero el estampado y el envío tardan unos días. Dos semanas de margen permiten validar el resultado con calma, sin pedirlo con prisas la víspera.",
+        "faq1Q": "¿Se puede poner un número de dos cifras?",
+        "faq1A": "Sí, hasta el 99. Cada cifra se recorta por separado y recibe su parte de las fotos: el resultado sigue siendo legible, solo que cada imagen ocupa menos superficie.",
+        "faq2Q": "¿Con cuánta antelación hay que pedirla?",
+        "faq2A": "Cuenta unos diez días entre el pedido y la recepción, envío incluido. Confirmamos cada pedido a mano: si la fecha va justa, indícalo al validar."
+      },
+      "couple": {
+        "name": "Regalo de pareja",
+        "metaTitle": "Regalo de pareja: dos camisetas a juego con vuestras fotos",
+        "metaDescription": "Dos camisetas, las mismas fotos, dos números que se responden. Una idea de regalo de pareja para un aniversario o San Valentín.",
+        "h1": "Dos camisetas que cuentan la misma historia",
+        "intro": "Una camiseta personalizada funciona bien sola; en pareja se convierte en una declaración. Las dos llevan las mismas fotos dentro del número, pero cada una el suyo: el día y el mes en que os conocisteis, dos cifras que solo tienen sentido para vosotros.",
+        "tip1Title": "Dos números que se responden",
+        "tip1Body": "El día en una, el mes en la otra. O vuestras dos edades, o el 0 y el 1. Funciona porque ninguna de las dos se entiende sola: juntas forman una fecha.",
+        "tip2Title": "Las mismas fotos en ambas",
+        "tip2Body": "Usa exactamente la misma selección en los dos pedidos. Como las fotos se recortan igual dentro de cada cifra, las dos espaldas se responden en lugar de parecer desparejadas.",
+        "tip3Title": "Dos equipaciones distintas también vale",
+        "tip3Body": "Nada obliga a elegir la misma camiseta. Una primera equipación y su segunda —mismo equipo, dos tonos— forman una pareja coherente sin ser un uniforme. Suele quedar mejor en foto.",
+        "faq1Q": "¿Hay que hacer dos pedidos?",
+        "faq1A": "Sí, uno por camiseta: cada pedido lleva su talla, su nombre y su número. No hay que avisar de nada especial, basta con repetir la misma selección de fotos en el paso 4.",
+        "faq2Q": "¿Se pueden poner dos nombres en una camiseta?",
+        "faq2A": "El nombre estampado admite hasta 15 caracteres con espacios: «ANA & LUC» cabe. Más allá, las letras se condensan horizontalmente como en un estampado real: sigue siendo legible, solo que más apretado."
+      },
+      "team": {
+        "name": "Equipo o club",
+        "metaTitle": "Camisetas personalizadas para un equipo o club amateur",
+        "metaDescription": "Un juego de camisetas con la misma equipación, cada una con su nombre, su número y sus fotos. Para un equipo amateur, un torneo de empresa o un fin de temporada.",
+        "h1": "Un juego de camisetas para todo el equipo",
+        "intro": "Un equipo amateur suele pedir camisetas idénticas, estampadas a toda prisa. Aquí cada jugador conserva la misma equipación, y por tanto el mismo aspecto en el campo, pero la espalda es suya: su nombre, su número y sus fotos dentro de la cifra. Es el regalo de fin de temporada que no acaba en el fondo de una bolsa.",
+        "tip1Title": "Una sola equipación, un solo acabado",
+        "tip1Body": "Fija la camiseta y el nivel de acabado antes de lanzar los pedidos, y comunícalos al grupo. Los acabados mezclados se notan: los tamaños de estampado cambian de un nivel a otro.",
+        "tip2Title": "Un pedido por jugador",
+        "tip2Body": "Cada uno hace el suyo con su talla, su nombre, su número y sus fotos. Es más simple que rellenar una tabla, y nadie se equivoca de talla por otro.",
+        "tip3Title": "Acordad los números antes",
+        "tip3Body": "Nada impide que dos jugadores elijan el 10. Haz circular la lista de números ocupados antes de que el grupo pida: es lo único que no tiene arreglo después.",
+        "faq1Q": "¿Hay tarifa de grupo?",
+        "faq1A": "Los precios son los mismos sea cual sea la cantidad. Para un pedido grande, escríbenos antes de lanzarlo: confirmamos cada pedido a mano y podemos hablarlo entonces.",
+        "faq2Q": "¿Se puede usar el mismo diseño para todos?",
+        "faq2A": "Sí. Si el grupo usa las mismas fotos —las de la temporada, por ejemplo— solo cambian el nombre y el número de una camiseta a otra. Vista por detrás, la serie queda muy coherente."
+      },
+      "family": {
+        "name": "Foto de familia",
+        "metaTitle": "Camisetas de familia personalizadas con vuestras fotos",
+        "metaDescription": "Las mismas fotos de familia dentro del número de cada uno, de la XS a la XXL. Para una reunión familiar, un primer partido o la foto de Navidad.",
+        "h1": "Las mismas fotos, una camiseta para cada uno",
+        "intro": "Una foto de familia acaba en un marco; una camiseta se lleva puesta. Repitiendo la misma selección de fotos en cada pedido, toda la familia comparte el mismo diseño en la espalda, y cada uno lleva su nombre y su número. De la XS para el más pequeño a la XXL para el tío que comenta los partidos.",
+        "tip1Title": "Caras grandes y nítidas",
+        "tip1Body": "La cifra recorta las fotos en franjas verticales: un plano general se pierde. Es mejor usar retratos o encuadres cerrados, con luz de día. Es el único criterio que cambia de verdad el resultado.",
+        "tip2Title": "El mismo trío de fotos para todos",
+        "tip2Body": "Mantén la misma selección de un pedido a otro: eso es lo que crea la serie. Como las fotos se recortan igual dentro de cada cifra, las espaldas se parecen aunque los números cambien.",
+        "tip3Title": "Números que se leen juntos",
+        "tip3Body": "Las edades de cada uno, los años de nacimiento de los niños, o simplemente 1, 2, 3 y 4 por orden de llegada. Alineados en una foto de grupo, forman un pie de foto que nadie necesita explicar.",
+        "faq1Q": "¿Qué tallas para los niños?",
+        "faq1A": "El catálogo va de la XS a la XXL en corte adulto. La XS sirve para un adolescente; a un niño más pequeño le quedará ancha, algo que muchas familias asumen: una camiseta un poco grande dura años.",
+        "faq2Q": "¿Se pueden mezclar varios equipos en la familia?",
+        "faq2A": "Nada lo impide, cada pedido es independiente. En una foto de grupo, una equipación común queda más fuerte; equipaciones distintas cuentan otra cosa, y a menudo es justo lo que se quiere enseñar."
+      }
+    }
   }
 }
