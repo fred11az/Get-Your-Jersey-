@@ -219,3 +219,37 @@ La spec liste `app/api/render/preview.ts`. L'App Router impose
 - **Displacement map :** Sharp ne sait pas appliquer de displacement. L'effet « tissu »
   n'est pas implémenté ; il demanderait un remap pixel par pixel en `raw()` ou un rendu
   WebGL côté client.
+
+---
+
+## 11. Remplacement de tissu sur mannequin — actif
+
+Le mannequin est photographié dans UN maillot, mais le client en choisit un autre. La
+matière est donc remplacée dans la zone du vêtement, en réutilisant l'éclairage de la
+photo (`lib/garment.ts`, masques par `scripts/build-garment-masks.ts`). Actif sur les
+deux scènes via `"garmentMask"` dans leur `metadata.json`.
+
+Trois obstacles ont été levés, tous tranchés par la mesure et non à l'œil :
+
+1. **La segmentation du vêtement.** Aucun seuil de clarté ne peut isoler le fond : les
+   bandes blanches d'un maillot se mesurent entre 233 et 255, le fond de studio entre
+   246 et 253, les deux intervalles se chevauchent. Ce qui les sépare n'est pas la
+   couleur mais la **connexité** — le fond touche le bord de l'image, une bande blanche
+   non. Le masque part donc d'un remplissage depuis les bords, borné à l'ourlet : sans
+   cette borne, le fond remonte la bande blanche par le short blanc et coupe le maillot
+   en deux.
+2. **Le masque ne découpait rien.** Il était composé en `dest-in`, qui multiplie les
+   canaux ALPHA — or un PNG en niveaux de gris n'en a pas, le sien vaut 1 partout. Le
+   tissu recouvrait donc la photo entière, décor et peau compris. Le masque est
+   maintenant JOINT comme canal alpha (`joinChannel`).
+3. **La couleur du maillot photographié teintait le maillot choisi.** Multiplier par la
+   luminance brute donnait un Brésil olive sur un mannequin en maillot sombre. La carte
+   d'éclairage est désormais RELATIVE à la luminance moyenne mesurée sous le masque, et
+   son contraste est comprimé (`RELIEF = 0,45`) pour que l'imprimé d'origine — les
+   vagues du maillot USA — ne transparaisse plus sous les couleurs du kit choisi.
+
+Limites qui subsistent : le col et les bas de manches gardent leur teinte d'origine (le
+masque s'arrête au col, ce qui vaut mieux qu'un débordement sur la peau et se lit comme
+une finition contrastée) ; et le relief du tissu d'origine reste très légèrement
+perceptible. Pour un rendu exact, il faut photographier le mannequin dans chaque
+maillot (docs/ASSETS.md §2).

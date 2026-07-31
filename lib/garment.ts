@@ -73,13 +73,58 @@ export async function swapGarmentFabric({
   width,
   height,
 }: SwapFabricInput): Promise<Buffer> {
-  // Carte d'éclairage : la luminance de la photo d'origine. `normalise` étale
-  // l'histogramme pour récupérer du contraste sur un maillot sombre, sans quoi
-  // les plis disparaîtraient sous la nouvelle couleur.
-  const shading = await sharp(photo)
+  // Carte d'éclairage : la luminance de la photo d'origine, RELATIVE à la
+  // luminance moyenne du vêtement porté.
+  //
+  // Multiplier par la luminance brute donnerait la couleur du maillot choisi
+  // teintée par celle du maillot photographié : le jaune Brésil vire à l'olive
+  // sur un mannequin en maillot bleu marine, et le blanc Real Madrid au gris.
+  // On divise donc par la moyenne mesurée SOUS LE MASQUE : un pli plus sombre
+  // que la moyenne assombrit, un reflet éclaircit, et un vêtement uniformément
+  // sombre ne change plus rien.
+  //
+  // Le facteur `RELIEF` comprime ensuite cet écart. À 1 on garderait tout le
+  // contraste de l'image d'origine, y compris l'imprimé du maillot photographié
+  // — les vagues du maillot USA resteraient lisibles sous les couleurs du kit
+  // choisi. À 0,45 les plis et les ombres du corps subsistent, l'imprimé
+  // s'efface.
+  const RELIEF = 0.45;
+  const luminance = await sharp(photo)
     .greyscale()
-    .normalise()
-    .linear(0.85, 38) // remonte les noirs : évite un tissu neuf presque éteint
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const maskGrey = await sharp(mask)
+    .resize(width, height, { fit: 'fill' })
+    .greyscale()
+    .raw()
+    .toBuffer();
+
+  let sum = 0;
+  let weight = 0;
+  for (let i = 0; i < maskGrey.length; i++) {
+    const w = (maskGrey[i] ?? 0) / 255;
+    if (w < 0.5) continue;
+    sum += (luminance.data[i] ?? 0) * w;
+    weight += w;
+  }
+  // Sans masque exploitable, on retombe sur une carte neutre plutôt que sur une
+  // division par zéro.
+  const mean = weight > 0 ? sum / weight : 128;
+
+  const relit = Buffer.alloc(luminance.data.length);
+  for (let i = 0; i < relit.length; i++) {
+    // 255 = tissu inchangé, en dessous = assombri. Le `multiply` de sharp ne
+    // sait pas éclaircir ; les reflets au-delà de la moyenne sont donc écrêtés,
+    // ce qui est sans conséquence visible sur un tissu mat.
+    const ratio = (luminance.data[i] ?? 0) / (mean || 1);
+    const value = 255 * (1 + RELIEF * (ratio - 1));
+    relit[i] = Math.max(0, Math.min(255, Math.round(value)));
+  }
+
+  const shading = await sharp(relit, {
+    raw: { width: luminance.info.width, height: luminance.info.height, channels: 1 },
+  })
     .png()
     .toBuffer();
 
@@ -93,12 +138,21 @@ export async function swapGarmentFabric({
   // Couleur × lumière : le nouveau tissu épouse les plis du corps.
   const lit = await sharp(stretched)
     .composite([{ input: shading, blend: 'multiply' }])
+    .removeAlpha()
     .png()
     .toBuffer();
 
-  // Découpe à la zone du vêtement, puis pose sur la photo.
+  // Découpe à la zone du vêtement.
+  //
+  // Le masque devient le canal ALPHA du tissu ; il n'est pas composé en
+  // `dest-in`. La nuance décide de tout : `dest-in` multiplie les alphas, or un
+  // PNG en niveaux de gris n'a pas de canal alpha — le sien vaut 1 partout. La
+  // découpe était donc silencieusement sans effet, et le tissu recouvrait la
+  // photo entière, décor, peau et cheveux compris. Les niveaux intermédiaires du
+  // masque (bord adouci) deviennent ici une transparence partielle, ce qui fond
+  // la frontière au lieu de la découper en escalier.
   const patch = await sharp(lit)
-    .composite([{ input: mask, blend: 'dest-in' }])
+    .joinChannel(maskGrey, { raw: { width, height, channels: 1 } })
     .png()
     .toBuffer();
 

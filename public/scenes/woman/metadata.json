@@ -25,5 +25,6 @@
     }
   ],
   "kitSlug": null,
-  "blendOpacity": 0.95
+  "blendOpacity": 0.95,
+  "garmentMask": "garment-mask.png"
 }
