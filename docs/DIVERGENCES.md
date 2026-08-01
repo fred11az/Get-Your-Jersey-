@@ -253,3 +253,41 @@ masque s'arrête au col, ce qui vaut mieux qu'un débordement sur la peau et se 
 une finition contrastée) ; et le relief du tissu d'origine reste très légèrement
 perceptible. Pour un rendu exact, il faut photographier le mannequin dans chaque
 maillot (docs/ASSETS.md §2).
+
+---
+
+## 12. Recadrage des photos sur le visage
+
+Le visuel découpe les photos par la silhouette du chiffre. Un « 1 » ne laisse
+voir qu'une hampe étroite, un nombre à deux chiffres en laisse voir deux, plus
+étroites encore. Avec un recadrage centré, ce qui apparaissait dans le chiffre
+était le plafond, le mur ou une épaule — le visage tombait systématiquement à
+côté. `position: 'attention'` de Sharp n'y changeait rien : son heuristique
+(entropie, saturation) désigne volontiers une fenêtre lumineuse ou un meuble
+contrasté plutôt qu'un visage.
+
+Trois corrections, dans l'ordre où elles comptent :
+
+1. **Les bandes se calent sur la boîte du CHIFFRE, pas sur celle de la plaque.**
+   Un « 11 » est étroit : ajusté à sa boîte, il laisse de larges marges
+   verticales. Empiler les photos sur la boîte entière revenait à ne montrer
+   qu'une tranche décalée de chaque photo. C'est le défaut qui pesait le plus.
+2. **Une cellule par chiffre.** Chaque chiffre reçoit sa propre copie de la
+   photo, recadrée pour lui : sur un nombre à deux chiffres, les deux portent un
+   visage au lieu d'un seul. Le rapport d'une cellule se rapproche en outre de
+   celui d'une photo de téléphone, donc on rogne moins.
+3. **Le recadrage vise le visage** (`lib/face.ts`), zoomé à 1,9 fois sa hauteur
+   pour qu'il occupe la cellule comme sur le visuel de référence, puis décalé
+   horizontalement pour tomber sur le plein du chiffre et non dans un vide.
+
+`lib/face.ts` n'est pas de la reconnaissance faciale : aucun modèle n'est
+chargé, rien n'identifie personne, aucune donnée ne sort. C'est la plus grande
+zone de peau de l'image, par une règle RVB de teinte. Le seuil classique
+`r > 95` en a été retiré : il écarte une peau foncée en lumière d'intérieur,
+mesurée autour de 90 sur les photos qui ont motivé ce code. C'est la TEINTE qui
+fait le tri — la peau est toujours plus rouge que verte, et plus verte que
+bleue.
+
+Sans visage détecté (paysage, écusson, photo d'objet), le recadrage retombe sur
+le `cover` centré d'origine. Coût mesuré : environ 350 ms de plus par aperçu,
+soit 450 à 700 ms au total selon le nombre de photos.

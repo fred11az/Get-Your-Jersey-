@@ -5,13 +5,15 @@ import { fitTransform, textToPath, type BoundedPath } from './glyphs';
 import { kitDir, loadKit } from './kits';
 import { getScene, quadPlacement, sceneDir } from './scenes';
 import { kitFabricBand, swapGarmentFabric } from './garment';
+import { detectFace, type FaceBox } from './face';
 import type { KitSlug, PrintZone, Tier } from './types';
 
 /**
  * Pipeline de rendu, calqué sur le maillot de référence fourni par le client
  * (docs/reference/target-result.jpg) :
  *
- *   1. les photos sont empilées VERTICALEMENT, chacune recadrée en `cover` ;
+ *   1. les photos sont empilées VERTICALEMENT, recadrées sur le visage détecté
+ *      et calées sur la boîte réelle du chiffre, avec une cellule par chiffre ;
  *   2. la pile est découpée par la silhouette du numéro ;
  *   3. le numéro reçoit une bordure blanche épaisse, puis un trait rouge fin,
  *      concentriques vers l'extérieur ;
@@ -108,36 +110,214 @@ export class RenderError extends Error {
 }
 
 /**
- * Empile les photos verticalement pour remplir la zone. Chaque photo occupe une
- * bande de hauteur égale et est recadrée en `cover` : elle remplit toute la
- * largeur sans déformation, comme sur la référence.
+ * Fenêtre de recadrage d'une photo, centrée sur le visage.
+ *
+ * `alignX` dit où le visage doit tomber dans la cellule, en fraction de sa
+ * largeur : c'est ce qui permet de le poser sur le plein du chiffre plutôt que
+ * dans un vide.
  */
-async function stackPhotos(photos: Buffer[], width: number, height: number): Promise<Buffer> {
+function faceCrop(
+  source: { width: number; height: number },
+  face: FaceBox,
+  target: { width: number; height: number },
+  alignX: number,
+): { left: number; top: number; width: number; height: number } {
+  // 1,9 fois la hauteur du visage : il occupe alors un peu plus de la moitié de
+  // la cellule, comme sur le visuel de référence, où les visages sont grands.
+  // Recadrer moins serré revient à imprimer un mur.
+  const ZOOM = 1.9;
+  const faceHeight = Math.max(1, face.height * source.height);
+  const ratio = target.width / target.height;
+
+  let height = Math.min(source.height, faceHeight * ZOOM);
+  let width = height * ratio;
+  if (width > source.width) {
+    width = source.width;
+    height = width / ratio;
+  }
+
+  const clamp = (value: number, max: number) => Math.max(0, Math.min(max, value));
+  return {
+    // Le visage est posé légèrement au-dessus du centre : c'est le cadrage
+    // naturel d'un portrait, et cela laisse le buste plutôt que du plafond.
+    left: Math.round(clamp(face.cx * source.width - width * alignX, source.width - width)),
+    top: Math.round(clamp(face.cy * source.height - height * 0.45, source.height - height)),
+    width: Math.round(width),
+    height: Math.round(height),
+  };
+}
+
+/**
+ * Où poser le visage dans une cellule pour qu'il tombe sur le plein du chiffre.
+ *
+ * Un « 1 » n'occupe qu'une hampe étroite ; centrer le visage dans la cellule le
+ * placerait à côté. On fait donc glisser une fenêtre de la largeur du visage sur
+ * le profil de remplissage du masque et on retient la position la plus couverte.
+ */
+function bestAlignX(
+  coverage: Int32Array,
+  cellLeft: number,
+  cellWidth: number,
+  faceWidth: number,
+): number {
+  const window = Math.max(1, Math.min(cellWidth, Math.round(faceWidth)));
+  let total = 0;
+  for (let x = 0; x < cellWidth; x++) total += coverage[cellLeft + x] ?? 0;
+  if (total === 0) return 0.5;
+
+  let sum = 0;
+  for (let x = 0; x < window; x++) sum += coverage[cellLeft + x] ?? 0;
+
+  let best = sum;
+  let bestStart = 0;
+  for (let start = 1; start + window <= cellWidth; start++) {
+    sum += (coverage[cellLeft + start + window - 1] ?? 0) - (coverage[cellLeft + start - 1] ?? 0);
+    if (sum > best) {
+      best = sum;
+      bestStart = start;
+    }
+  }
+  return (bestStart + window / 2) / cellWidth;
+}
+
+/**
+ * Empile les photos verticalement pour remplir la zone, une CELLULE par chiffre.
+ *
+ * Deux choses distinguent ce découpage d'un simple `cover` centré :
+ *
+ *   - chaque chiffre reçoit sa propre copie de la photo, recadrée pour lui. Sur
+ *     un « 11 », une bande unique étalée sur les deux chiffres ne montrait le
+ *     visage dans aucun des deux : la hampe gauche tombait sur une épaule, la
+ *     droite sur le mur. Avec une cellule par chiffre, le rapport d'une cellule
+ *     (portrait) épouse celui d'une photo de téléphone, et chaque chiffre porte
+ *     un visage ;
+ *   - le recadrage vise le visage détecté et non le centre géométrique, puis se
+ *     décale pour tomber sur le plein du chiffre.
+ *
+ * Sans visage détecté (photo de paysage, d'écusson), on retombe sur le
+ * comportement d'origine.
+ */
+async function stackPhotos(
+  photos: Buffer[],
+  width: number,
+  height: number,
+  cells = 1,
+  glyphMask?: Buffer,
+): Promise<Buffer> {
   const count = Math.min(photos.length, MAX_PHOTOS);
   if (count === 0) {
     throw new RenderError('Au moins une photo est requise.', 'NO_PHOTO');
   }
 
   const bandHeight = Math.floor(height / count);
-  const bands = await Promise.all(
-    photos.slice(0, count).map(async (photo, index) => {
-      // La dernière bande absorbe l'arrondi pour éviter une ligne vide en bas.
-      const h = index === count - 1 ? height - bandHeight * (count - 1) : bandHeight;
-      const resized = await sharp(photo)
-        .rotate() // applique l'orientation EXIF avant tout recadrage
-        .resize(width, h, { fit: 'cover', position: 'attention' })
-        .png()
-        .toBuffer();
-      return { input: resized, left: 0, top: index * bandHeight };
-    }),
-  );
+  const cellWidth = Math.floor(width / cells);
+
+  // Profil de remplissage du chiffre, colonne par colonne et bande par bande.
+  const coverage = glyphMask ? await columnCoverage(glyphMask, width, height) : null;
+
+  const tiles: OverlayOptions[] = [];
+
+  for (const [index, photo] of photos.slice(0, count).entries()) {
+    // La dernière bande absorbe l'arrondi pour éviter une ligne vide en bas.
+    const h = index === count - 1 ? height - bandHeight * (count - 1) : bandHeight;
+    const top = index * bandHeight;
+
+    const upright = await sharp(photo).rotate().png().toBuffer(); // orientation EXIF d'abord
+    const meta = await sharp(upright).metadata();
+    const face = await detectFace(upright);
+
+    const rows = coverage
+      ? sumRows(coverage, width, top, top + h)
+      : null;
+
+    for (let cell = 0; cell < cells; cell++) {
+      const w = cell === cells - 1 ? width - cellWidth * (cells - 1) : cellWidth;
+      const left = cell * cellWidth;
+
+      let resized: Buffer;
+      if (face && meta.width && meta.height) {
+        const source = { width: meta.width, height: meta.height };
+        const faceWidth = (face.height * source.height * 0.9 * w) /
+          Math.max(1, faceCrop(source, face, { width: w, height: h }, 0.5).width);
+        const alignX = rows ? bestAlignX(rows, left, w, faceWidth) : 0.5;
+        const crop = faceCrop(source, face, { width: w, height: h }, alignX);
+        resized = await sharp(upright)
+          .extract(crop)
+          .resize(w, h, { fit: 'fill' })
+          .png()
+          .toBuffer();
+      } else {
+        resized = await sharp(upright)
+          .resize(w, h, { fit: 'cover', position: 'attention' })
+          .png()
+          .toBuffer();
+      }
+
+      tiles.push({ input: resized, left, top });
+    }
+  }
 
   return sharp({
     create: { width, height, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
   })
-    .composite(bands)
+    .composite(tiles)
     .png()
     .toBuffer();
+}
+
+/** Opacité du masque, pixel par pixel, pour mesurer le plein du chiffre. */
+async function columnCoverage(mask: Buffer, width: number, height: number): Promise<Buffer> {
+  const { data } = await sharp(mask)
+    .resize(width, height, { fit: 'fill' })
+    .ensureAlpha()
+    .extractChannel('alpha')
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  return data;
+}
+
+/**
+ * Boîte réellement occupée par le glyphe dans sa plaque.
+ *
+ * Un « 11 » est étroit et haut : ajusté à la boîte, il laisse de larges marges
+ * verticales. Empiler les photos sur la boîte ENTIÈRE revient alors à ne montrer
+ * dans le chiffre qu'une tranche décalée de chaque photo — le menton au lieu du
+ * visage. Les bandes doivent se caler sur le chiffre, pas sur son cadre.
+ */
+async function maskBounds(
+  mask: Buffer,
+  width: number,
+  height: number,
+): Promise<{ left: number; top: number; width: number; height: number }> {
+  const alpha = await columnCoverage(mask, width, height);
+  let left = width;
+  let right = -1;
+  let top = height;
+  let bottom = -1;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if ((alpha[y * width + x] ?? 0) <= 127) continue;
+      if (x < left) left = x;
+      if (x > right) right = x;
+      if (y < top) top = y;
+      if (y > bottom) bottom = y;
+    }
+  }
+
+  if (right < 0 || bottom < 0) return { left: 0, top: 0, width, height };
+  return { left, top, width: right - left + 1, height: bottom - top + 1 };
+}
+
+/** Somme du remplissage par colonne, sur les lignes d'une bande. */
+function sumRows(alpha: Buffer, width: number, from: number, to: number): Int32Array {
+  const columns = new Int32Array(width);
+  for (let y = from; y < to; y++) {
+    for (let x = 0; x < width; x++) {
+      if ((alpha[y * width + x] ?? 0) > 127) columns[x] = (columns[x] ?? 0) + 1;
+    }
+  }
+  return columns;
 }
 
 /**
@@ -245,7 +425,31 @@ async function renderNumberArtwork(
   const glyph = await textToPath(jerseyNumber);
   const { outline, mask } = await buildPlate(glyph, box, style, 'border-outside');
 
-  const stacked = await stackPhotos(photos, box.width, box.height);
+  // Les photos se calent sur la boîte du CHIFFRE, pas sur celle de la plaque, et
+  // reçoivent une cellule par chiffre : chaque chiffre porte alors son visage.
+  const bounds = await maskBounds(mask, box.width, box.height);
+  const cropped = await sharp(mask).extract(bounds).png().toBuffer();
+
+  const collage = await stackPhotos(
+    photos,
+    bounds.width,
+    bounds.height,
+    Math.max(1, jerseyNumber.length),
+    cropped,
+  );
+
+  const stacked = await sharp({
+    create: {
+      width: box.width,
+      height: box.height,
+      channels: 4,
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    },
+  })
+    .composite([{ input: collage, left: bounds.left, top: bounds.top }])
+    .png()
+    .toBuffer();
+
   const textured = await applyHalftone(stacked, box.width, box.height, style.halftone);
 
   // Le collage est découpé par la silhouette, puis posé sur les bandes.
